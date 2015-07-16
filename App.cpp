@@ -60,7 +60,7 @@ void App::init()
     assert(startGL());
     InitImGui(windowWidth, windowHeight);
     scene.init();
-    scene.import("./meshes/Su-35_SuperFlanker/su-35.dae");
+    //scene.import("./meshes/Su-35_SuperFlanker/su-35.dae");
     screen.init(windowWidth, windowHeight, "./shaders/screen_vs.glsl", "./shaders/screen_fs.glsl");
     //scene.addFluidSys("fluid_1");
     //Points* fluidSys = dynamic_cast<Points*>(scene.getObject("fluid_1"));

@@ -136,7 +136,7 @@ void Screen::renderScreen(const int &x,const int &y, Camera *c ,GLuint fbo)
             0,
             GL_READ_WRITE,
             GL_RGBA32F);
-    //glDispatchCompute(2048, 2048, 1);
+    glDispatchCompute(2048, 2048, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     // Use our shader
