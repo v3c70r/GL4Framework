@@ -119,7 +119,6 @@ void Screen::renderScreen(const int &x,const int &y, Camera *c ,GLuint fbo)
     glm::vec3 ray11 = glm::vec3(glm::vec4(1.0, 1.0, 0.0, 1.0) * invViewProjMat) - eyePos;
     float blendFac = -1.0;
     float time = glfwGetTime();
-    std::cout<<time<<std::endl;
     glUniform3fv(csIDs[0], 1, &eyePos[0]);
     glUniform3fv(csIDs[1], 1, &ray00[0]);
     glUniform3fv(csIDs[2], 1, &ray10[0]);
@@ -136,7 +135,7 @@ void Screen::renderScreen(const int &x,const int &y, Camera *c ,GLuint fbo)
             0,
             GL_READ_WRITE,
             GL_RGBA32F);
-    glDispatchCompute(2048, 2048, 1);
+    //glDispatchCompute(2048, 2048, 1);
     glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
     // Use our shader

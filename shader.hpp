@@ -43,17 +43,23 @@ namespace UNIFORM_BLOCKS{
     {
         MATERIAL=0,
         DIR_LIGHTS,
+        BONES_TRANS,
+        BONES_WEIGHTS,
         count
     };
     const std::string names[] =
     {
         "Material",
-        "DirLights"
+        "DirLights",
+        "BoneTrans",
+        "BoneWeights"
     };
     const GLint binding[]=
     {
         0,
-        1
+        1,
+        2,
+        3
     };
 }
 class Shader
@@ -90,6 +96,8 @@ public:
     bool setTexture(const GLint &tex);
     bool bindMaterial(const GLuint &buffer);
     bool bindDirLights(const GLuint &buffer);
+    bool bindBoneTrans(const GLuint &buffer);
+    bool bindBoneWeights(const GLuint &buffer);
     ~Shader()
     {
         glDeleteProgram(programme);

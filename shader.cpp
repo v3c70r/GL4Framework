@@ -266,6 +266,17 @@ bool Shader::bindDirLights(const GLuint &buffer)
     glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::DIR_LIGHTS], buffer);
     return true;
 }
+bool Shader::bindBoneTrans(const GLuint &buffer)
+{
+    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::BONES_TRANS], buffer);
+    return true;
+}
+bool Shader::bindBoneWeights(const GLuint &buffer)
+{
+    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::BONES_WEIGHTS], buffer);
+    return true;
+}
+
 
 
 

@@ -1,12 +1,12 @@
 
 #include "meshNode.hpp"
 
-void MeshNode::init(GLuint nFaces, GLuint nVertices){
+void MeshNode::init(GLuint nFaces, GLuint nVertices, GLuint numBones){
     numOfFaces = nFaces;
     numOfVertices = nVertices;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
-    glGenBuffers(5, VBO);
+    glGenBuffers(MESH_ATTR::COUNT, VBO);
     GLfloat *emptyFloat=new GLfloat[3*numOfVertices];
     GLuint *emptyUint=new GLuint[3*numOfFaces];
     /*
@@ -33,22 +33,38 @@ void MeshNode::init(GLuint nFaces, GLuint nVertices){
     glEnableVertexAttribArray(MESH_ATTR::TEXCOORDS);
     glVertexAttribPointer(MESH_ATTR::TEXCOORDS, 2, GL_FLOAT, 0, 0, 0);
 
+
     //indices
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBO[MESH_ATTR::INDICES]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)*3*numOfFaces, emptyUint, GL_STATIC_DRAW);
 
+    //Bones Transformations
+    glBindBuffer(GL_UNIFORM_BUFFER, VBO[MESH_ATTR::BONES_TRANS]);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof (GLfloat) * numBones, 0, GL_DYNAMIC_DRAW);
+
+    //Bones Weights
+    glBindBuffer(GL_UNIFORM_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(GLfloat)*numBones*numOfVertices, 0, GL_STATIC_DRAW);
 
     //clean up
     glBindVertexArray(0);
     //Uniform buffer
     glBindBuffer(GL_UNIFORM_BUFFER, VBO[MESH_ATTR::MATERIAL]);
     glBufferData(GL_UNIFORM_BUFFER, sizeof(GLfloat)*16, 0, GL_STATIC_DRAW);
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
     delete []emptyFloat;
     delete []emptyUint;
+}
+void MeshNode::setWeights(const GLfloat* weights)
+{
+    glBindBuffer(GL_UNIFORM_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
+    glBufferData(GL_UNIFORM_BUFFER, numOfVertices*MAX_NUM_BONES*sizeof(GLfloat), 0,GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 }
 void MeshNode::setVertices(const GLfloat *vertices)
 {
@@ -173,7 +189,7 @@ void MeshNode::loadSimpleOBJ(std::string objFile)
             normals[i+2] /= distance;
         }
     }
-    init(nF, nV);
+    init(nF, nV, 0);
 
     GLfloat *emptyCoord = new GLfloat[2*nV];
     setVertices(&vertices[0]);
@@ -340,6 +356,8 @@ void MeshNode::setShader(Shader *s)
 {
     shader = s;
     shader->bindMaterial(VBO[MESH_ATTR::MATERIAL]);
+    shader->bindBoneTrans(VBO[MESH_ATTR::BONES_TRANS]);
+    shader->bindBoneWeights(VBO[MESH_ATTR::WEIGHTS]);
 }
 
 

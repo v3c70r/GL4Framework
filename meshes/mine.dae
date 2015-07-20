@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 2.75.0 commit date:2015-07-07, commit time:14:56, hash:c27589e</authoring_tool>
+    </contributor>
+    <created>2015-07-20T11:38:06</created>
+    <modified>2015-07-20T11:38:06</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_cameras>
+    <camera id="Camera-camera" name="Camera">
+      <optics>
+        <technique_common>
+          <perspective>
+            <xfov sid="xfov">49.13434</xfov>
+            <aspect_ratio>1.777778</aspect_ratio>
+            <znear sid="znear">0.1</znear>
+            <zfar sid="zfar">100</zfar>
+          </perspective>
+        </technique_common>
+      </optics>
+      <extra>
+        <technique profile="blender">
+          <YF_dofdist>0</YF_dofdist>
+          <shiftx>0</shiftx>
+          <shifty>0</shifty>
+        </technique>
+      </extra>
+    </camera>
+  </library_cameras>
+  <library_lights>
+    <light id="Lamp-light" name="Lamp">
+      <technique_common>
+        <point>
+          <color sid="color">1 1 1</color>
+          <constant_attenuation>1</constant_attenuation>
+          <linear_attenuation>0</linear_attenuation>
+          <quadratic_attenuation>0.00111109</quadratic_attenuation>
+        </point>
+      </technique_common>
+      <extra>
+        <technique profile="blender">
+          <adapt_thresh>0.000999987</adapt_thresh>
+          <area_shape>0</area_shape>
+          <area_size>1</area_size>
+          <area_sizey>1</area_sizey>
+          <area_sizez>1</area_sizez>
+          <atm_distance_factor>1</atm_distance_factor>
+          <atm_extinction_factor>1</atm_extinction_factor>
+          <atm_turbidity>2</atm_turbidity>
+          <att1>0</att1>
+          <att2>1</att2>
+          <backscattered_light>1</backscattered_light>
+          <bias>1</bias>
+          <blue>1</blue>
+          <buffers>1</buffers>
+          <bufflag>0</bufflag>
+          <bufsize>2880</bufsize>
+          <buftype>2</buftype>
+          <clipend>30.002</clipend>
+          <clipsta>1.000799</clipsta>
+          <compressthresh>0.04999995</compressthresh>
+          <dist sid="blender_dist">29.99998</dist>
+          <energy sid="blender_energy">1</energy>
+          <falloff_type>2</falloff_type>
+          <filtertype>0</filtertype>
+          <flag>0</flag>
+          <gamma sid="blender_gamma">1</gamma>
+          <green>1</green>
+          <halo_intensity sid="blnder_halo_intensity">1</halo_intensity>
+          <horizon_brightness>1</horizon_brightness>
+          <mode>8192</mode>
+          <ray_samp>1</ray_samp>
+          <ray_samp_method>1</ray_samp_method>
+          <ray_samp_type>0</ray_samp_type>
+          <ray_sampy>1</ray_sampy>
+          <ray_sampz>1</ray_sampz>
+          <red>1</red>
+          <samp>3</samp>
+          <shadhalostep>0</shadhalostep>
+          <shadow_b sid="blender_shadow_b">0</shadow_b>
+          <shadow_g sid="blender_shadow_g">0</shadow_g>
+          <shadow_r sid="blender_shadow_r">0</shadow_r>
+          <sky_colorspace>0</sky_colorspace>
+          <sky_exposure>1</sky_exposure>
+          <skyblendfac>1</skyblendfac>
+          <skyblendtype>1</skyblendtype>
+          <soft>3</soft>
+          <spotblend>0.15</spotblend>
+          <spotsize>75</spotsize>
+          <spread>1</spread>
+          <sun_brightness>1</sun_brightness>
+          <sun_effect_type>0</sun_effect_type>
+          <sun_intensity>1</sun_intensity>
+          <sun_size>1</sun_size>
+          <type>0</type>
+        </technique>
+      </extra>
+    </light>
+    <light id="Lamp_001-light" name="Lamp.001">
+      <technique_common>
+        <point>
+          <color sid="color">1 1 1</color>
+          <constant_attenuation>1</constant_attenuation>
+          <linear_attenuation>0</linear_attenuation>
+          <quadratic_attenuation>0.00111109</quadratic_attenuation>
+        </point>
+      </technique_common>
+      <extra>
+        <technique profile="blender">
+          <adapt_thresh>0.000999987</adapt_thresh>
+          <area_shape>0</area_shape>
+          <area_size>1</area_size>
+          <area_sizey>1</area_sizey>
+          <area_sizez>1</area_sizez>
+          <atm_distance_factor>1</atm_distance_factor>
+          <atm_extinction_factor>1</atm_extinction_factor>
+          <atm_turbidity>2</atm_turbidity>
+          <att1>0</att1>
+          <att2>1</att2>
+          <backscattered_light>1</backscattered_light>
+          <bias>1</bias>
+          <blue>1</blue>
+          <buffers>1</buffers>
+          <bufflag>0</bufflag>
+          <bufsize>2880</bufsize>
+          <buftype>2</buftype>
+          <clipend>30.002</clipend>
+          <clipsta>1.000799</clipsta>
+          <compressthresh>0.04999995</compressthresh>
+          <dist sid="blender_dist">29.99998</dist>
+          <energy sid="blender_energy">1</energy>
+          <falloff_type>2</falloff_type>
+          <filtertype>0</filtertype>
+          <flag>0</flag>
+          <gamma sid="blender_gamma">1</gamma>
+          <green>1</green>
+          <halo_intensity sid="blnder_halo_intensity">1</halo_intensity>
+          <horizon_brightness>1</horizon_brightness>
+          <mode>8192</mode>
+          <ray_samp>1</ray_samp>
+          <ray_samp_method>1</ray_samp_method>
+          <ray_samp_type>0</ray_samp_type>
+          <ray_sampy>1</ray_sampy>
+          <ray_sampz>1</ray_sampz>
+          <red>1</red>
+          <samp>3</samp>
+          <shadhalostep>0</shadhalostep>
+          <shadow_b sid="blender_shadow_b">0</shadow_b>
+          <shadow_g sid="blender_shadow_g">0</shadow_g>
+          <shadow_r sid="blender_shadow_r">0</shadow_r>
+          <sky_colorspace>0</sky_colorspace>
+          <sky_exposure>1</sky_exposure>
+          <skyblendfac>1</skyblendfac>
+          <skyblendtype>1</skyblendtype>
+          <soft>3</soft>
+          <spotblend>0.15</spotblend>
+          <spotsize>75</spotsize>
+          <spread>1</spread>
+          <sun_brightness>1</sun_brightness>
+          <sun_effect_type>0</sun_effect_type>
+          <sun_intensity>1</sun_intensity>
+          <sun_size>1</sun_size>
+          <type>0</type>
+        </technique>
+      </extra>
+    </light>
+    <light id="Lamp_002-light" name="Lamp.002">
+      <technique_common>
+        <point>
+          <color sid="color">1 1 1</color>
+          <constant_attenuation>1</constant_attenuation>
+          <linear_attenuation>0</linear_attenuation>
+          <quadratic_attenuation>0.00111109</quadratic_attenuation>
+        </point>
+      </technique_common>
+      <extra>
+        <technique profile="blender">
+          <adapt_thresh>0.000999987</adapt_thresh>
+          <area_shape>0</area_shape>
+          <area_size>1</area_size>
+          <area_sizey>1</area_sizey>
+          <area_sizez>1</area_sizez>
+          <atm_distance_factor>1</atm_distance_factor>
+          <atm_extinction_factor>1</atm_extinction_factor>
+          <atm_turbidity>2</atm_turbidity>
+          <att1>0</att1>
+          <att2>1</att2>
+          <backscattered_light>1</backscattered_light>
+          <bias>1</bias>
+          <blue>1</blue>
+          <buffers>1</buffers>
+          <bufflag>0</bufflag>
+          <bufsize>2880</bufsize>
+          <buftype>2</buftype>
+          <clipend>30.002</clipend>
+          <clipsta>1.000799</clipsta>
+          <compressthresh>0.04999995</compressthresh>
+          <dist sid="blender_dist">29.99998</dist>
+          <energy sid="blender_energy">1</energy>
+          <falloff_type>2</falloff_type>
+          <filtertype>0</filtertype>
+          <flag>0</flag>
+          <gamma sid="blender_gamma">1</gamma>
+          <green>1</green>
+          <halo_intensity sid="blnder_halo_intensity">1</halo_intensity>
+          <horizon_brightness>1</horizon_brightness>
+          <mode>8192</mode>
+          <ray_samp>1</ray_samp>
+          <ray_samp_method>1</ray_samp_method>
+          <ray_samp_type>0</ray_samp_type>
+          <ray_sampy>1</ray_sampy>
+          <ray_sampz>1</ray_sampz>
+          <red>1</red>
+          <samp>3</samp>
+          <shadhalostep>0</shadhalostep>
+          <shadow_b sid="blender_shadow_b">0</shadow_b>
+          <shadow_g sid="blender_shadow_g">0</shadow_g>
+          <shadow_r sid="blender_shadow_r">0</shadow_r>
+          <sky_colorspace>0</sky_colorspace>
+          <sky_exposure>1</sky_exposure>
+          <skyblendfac>1</skyblendfac>
+          <skyblendtype>1</skyblendtype>
+          <soft>3</soft>
+          <spotblend>0.15</spotblend>
+          <spotsize>75</spotsize>
+          <spread>1</spread>
+          <sun_brightness>1</sun_brightness>
+          <sun_effect_type>0</sun_effect_type>
+          <sun_intensity>1</sun_intensity>
+          <sun_size>1</sun_size>
+          <type>0</type>
+        </technique>
+      </extra>
+    </light>
+    <light id="Lamp_003-light" name="Lamp.003">
+      <technique_common>
+        <point>
+          <color sid="color">1 1 1</color>
+          <constant_attenuation>1</constant_attenuation>
+          <linear_attenuation>0</linear_attenuation>
+          <quadratic_attenuation>0.00111109</quadratic_attenuation>
+        </point>
+      </technique_common>
+      <extra>
+        <technique profile="blender">
+          <adapt_thresh>0.000999987</adapt_thresh>
+          <area_shape>0</area_shape>
+          <area_size>1</area_size>
+          <area_sizey>1</area_sizey>
+          <area_sizez>1</area_sizez>
+          <atm_distance_factor>1</atm_distance_factor>
+          <atm_extinction_factor>1</atm_extinction_factor>
+          <atm_turbidity>2</atm_turbidity>
+          <att1>0</att1>
+          <att2>1</att2>
+          <backscattered_light>1</backscattered_light>
+          <bias>1</bias>
+          <blue>1</blue>
+          <buffers>1</buffers>
+          <bufflag>0</bufflag>
+          <bufsize>2880</bufsize>
+          <buftype>2</buftype>
+          <clipend>30.002</clipend>
+          <clipsta>1.000799</clipsta>
+          <compressthresh>0.04999995</compressthresh>
+          <dist sid="blender_dist">29.99998</dist>
+          <energy sid="blender_energy">1</energy>
+          <falloff_type>2</falloff_type>
+          <filtertype>0</filtertype>
+          <flag>0</flag>
+          <gamma sid="blender_gamma">1</gamma>
+          <green>1</green>
+          <halo_intensity sid="blnder_halo_intensity">1</halo_intensity>
+          <horizon_brightness>1</horizon_brightness>
+          <mode>8192</mode>
+          <ray_samp>1</ray_samp>
+          <ray_samp_method>1</ray_samp_method>
+          <ray_samp_type>0</ray_samp_type>
+          <ray_sampy>1</ray_sampy>
+          <ray_sampz>1</ray_sampz>
+          <red>1</red>
+          <samp>3</samp>
+          <shadhalostep>0</shadhalostep>
+          <shadow_b sid="blender_shadow_b">0</shadow_b>
+          <shadow_g sid="blender_shadow_g">0</shadow_g>
+          <shadow_r sid="blender_shadow_r">0</shadow_r>
+          <sky_colorspace>0</sky_colorspace>
+          <sky_exposure>1</sky_exposure>
+          <skyblendfac>1</skyblendfac>
+          <skyblendtype>1</skyblendtype>
+          <soft>3</soft>
+          <spotblend>0.15</spotblend>
+          <spotsize>75</spotsize>
+          <spread>1</spread>
+          <sun_brightness>1</sun_brightness>
+          <sun_effect_type>0</sun_effect_type>
+          <sun_intensity>1</sun_intensity>
+          <sun_size>1</sun_size>
+          <type>0</type>
+        </technique>
+      </extra>
+    </light>
+    <light id="Lamp_004-light" name="Lamp.004">
+      <technique_common>
+        <point>
+          <color sid="color">1 1 1</color>
+          <constant_attenuation>1</constant_attenuation>
+          <linear_attenuation>0</linear_attenuation>
+          <quadratic_attenuation>0.00111109</quadratic_attenuation>
+        </point>
+      </technique_common>
+      <extra>
+        <technique profile="blender">
+          <adapt_thresh>0.000999987</adapt_thresh>
+          <area_shape>0</area_shape>
+          <area_size>1</area_size>
+          <area_sizey>1</area_sizey>
+          <area_sizez>1</area_sizez>
+          <atm_distance_factor>1</atm_distance_factor>
+          <atm_extinction_factor>1</atm_extinction_factor>
+          <atm_turbidity>2</atm_turbidity>
+          <att1>0</att1>
+          <att2>1</att2>
+          <backscattered_light>1</backscattered_light>
+          <bias>1</bias>
+          <blue>1</blue>
+          <buffers>1</buffers>
+          <bufflag>0</bufflag>
+          <bufsize>2880</bufsize>
+          <buftype>2</buftype>
+          <clipend>30.002</clipend>
+          <clipsta>1.000799</clipsta>
+          <compressthresh>0.04999995</compressthresh>
+          <dist sid="blender_dist">29.99998</dist>
+          <energy sid="blender_energy">1</energy>
+          <falloff_type>2</falloff_type>
+          <filtertype>0</filtertype>
+          <flag>0</flag>
+          <gamma sid="blender_gamma">1</gamma>
+          <green>1</green>
+          <halo_intensity sid="blnder_halo_intensity">1</halo_intensity>
+          <horizon_brightness>1</horizon_brightness>
+          <mode>8192</mode>
+          <ray_samp>1</ray_samp>
+          <ray_samp_method>1</ray_samp_method>
+          <ray_samp_type>0</ray_samp_type>
+          <ray_sampy>1</ray_sampy>
+          <ray_sampz>1</ray_sampz>
+          <red>1</red>
+          <samp>3</samp>
+          <shadhalostep>0</shadhalostep>
+          <shadow_b sid="blender_shadow_b">0</shadow_b>
+          <shadow_g sid="blender_shadow_g">0</shadow_g>
+          <shadow_r sid="blender_shadow_r">0</shadow_r>
+          <sky_colorspace>0</sky_colorspace>
+          <sky_exposure>1</sky_exposure>
+          <skyblendfac>1</skyblendfac>
+          <skyblendtype>1</skyblendtype>
+          <soft>3</soft>
+          <spotblend>0.15</spotblend>
+          <spotsize>75</spotsize>
+          <spread>1</spread>
+          <sun_brightness>1</sun_brightness>
+          <sun_effect_type>0</sun_effect_type>
+          <sun_intensity>1</sun_intensity>
+          <sun_size>1</sun_size>
+          <type>0</type>
+        </technique>
+      </extra>
+    </light>
+  </library_lights>
+  <library_images/>
+  <library_effects>
+    <effect id="Material-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.64 0.64 0.64 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="Material-material" name="Material">
+      <instance_effect url="#Material-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="Steve-mesh" name="Steve">
+      <mesh>
+        <source id="Steve-mesh-positions">
+          <float_array id="Steve-mesh-positions-array" count="168">-1 1 -1 -1 -0.9999997 -1 -1 -0.9999998 -1 -0.9999997 1 -1 -0.9999997 1 -3 -1 -0.9999998 -3 -1 -0.9999997 1 -1 1 1 0.9999997 1 -1 1 -0.9999998 -1 1 1 1 1 -0.9999997 1 -5.36442e-7 -1 -1 2.38419e-7 0.9999998 -1 0 -0.9999999 -3 1.78814e-7 1 -3 -1 -1 1 -0.9999998 0.9999998 1 -1 -0.9999999 -1 -0.9999998 1 -1 1 -1.8 2.285714 1 1.8 2.285714 1 -1.8 1 0.9999997 1.800001 1 -2 1 1 -2 -0.9999997 1 -2 1 -1 -2 -0.9999998 -1 -1 1.8 2.285714 -1 -1.8 2.285714 -0.9999997 1.800001 1 -1 -1.8 1 1 1 -1 1 -0.9999997 -1 0.9999997 1 -3 1 -0.9999998 -3 5.36442e-7 -1 -1 -2.38419e-7 0.9999998 -1 0 -0.9999999 -3 -1.78814e-7 1 -3 1 -1 1 0.9999998 0.9999998 1 1 -0.9999999 -1 0.9999998 1 -1 2 1 1 2 -0.9999997 1 2 1 -1 2 -0.9999998 -1 2.68221e-7 -1 -2 -2.08616e-7 1 -2 1 -0.9999998 -2 0.9999998 1 -2 -2.68221e-7 -1 -2 2.08616e-7 1 -2 -1 -0.9999998 -2 -0.9999998 1 -2</float_array>
+          <technique_common>
+            <accessor source="#Steve-mesh-positions-array" count="56" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Steve-mesh-normals">
+          <float_array id="Steve-mesh-normals-array" count="216">0 0 -1 0 0 1 -1 1.19209e-7 -1.19209e-7 0 -1 0 -1 2.38419e-7 -1.19209e-7 0 1 1.49012e-7 -4.76837e-7 -1 0 -1.19209e-7 0 1 1 2.38419e-7 -1.49012e-7 2.38419e-7 1 0 2.38419e-7 1 1.78814e-7 1 -1.19209e-7 0 -4.76837e-7 -1 0 1 0 0 -1 2.38419e-7 -2.38419e-7 1.19209e-7 0 1 0 -1 3.33786e-7 -1 1.54531e-7 -1.85437e-7 0 1 7.88106e-7 1 1.54531e-7 -2.31796e-7 1 2.38419e-7 -1.78814e-7 4.76837e-7 -1 1.19209e-7 1.19209e-7 0 1 -2.98023e-7 1 0 0 0 -1 -2.38419e-7 1 1.19209e-7 -1 -1.19209e-7 0 4.76837e-7 -1 1.19209e-7 -1 0 0 1 2.38419e-7 -1.78814e-7 -1.19209e-7 0 1 -2.38419e-7 0 -1 1 2.38419e-7 -1.19209e-7 2.38419e-7 -1 0 -2.38419e-7 1 1.19209e-7 -1 -2.38419e-7 0 2.98023e-7 1 2.38419e-7 -2.38419e-7 -1 0 1 -2.38419e-7 0 -1 2.38419e-7 -1.19209e-7 -1 2.38419e-7 -1.78814e-7 0 -1 0 -1 2.38419e-7 -1.49012e-7 0 1 2.38419e-7 -2.38419e-7 -1 0 1 2.38419e-7 -1.19209e-7 2.98023e-7 1 0 2.38419e-7 1 1.19209e-7 1 -3.57628e-7 2.38419e-7 0 -1 -1.19209e-7 1 -2.38419e-7 2.68221e-7 -1 2.38419e-7 -1.78814e-7 0 -1 1.85437e-7 -1 1.54531e-7 -2.31796e-7 0 1 3.70873e-7 1 1.54531e-7 -1.85437e-7 1 1.19209e-7 -1.19209e-7 2.38419e-7 -1 0 -2.38419e-7 1 0 -2.38419e-7 1 1.19209e-7 -1 -3.57628e-7 2.38419e-7 0 -1 -1.19209e-7 -1 -2.38419e-7 2.68221e-7 1 2.38419e-7 -2.38419e-7 1 2.98023e-7 0 0 -1 0 -2.98023e-7 1 2.38419e-7 -1 -3.8743e-7 2.68221e-7 2.38419e-7 1 0 0 -1 0 1 -3.8743e-7 2.68221e-7 -1 2.98023e-7 0</float_array>
+          <technique_common>
+            <accessor source="#Steve-mesh-normals-array" count="72" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Steve-mesh-map-0">
+          <float_array id="Steve-mesh-map-0-array" count="528">0 0 0 0 0 0 0.4383434 0.5000036 0.4383434 0.3766693 0.5616657 0.3766693 0.186659 0.1866636 0.186659 0.37334 0.1266781 0.37334 0.4383365 0.3766818 0.3116662 0.3766818 0.3116662 1.25174e-5 0 0 0 0 0 0 0.5000057 5.75371e-6 0.6249995 5.75371e-6 0.6249995 0.3766763 0.1250016 0.3733412 0.06334406 0.3733412 0.06334406 0.1866685 0 0 0 0 0 0 0.1883311 0.5000104 0.1250051 0.5000104 0.1250051 0.3766568 0.4400007 -1.32388e-6 0.5033358 -1.32388e-6 0.5033358 0.3733557 0.1866729 0.1883411 0.1866729 1.00508e-5 0.2499985 1.00508e-5 0.8116722 0.5000053 0.7500075 0.5000053 0.7500075 0.3766598 0.8116739 0.3766774 0.8116739 -1.0111e-5 0.8750075 -1.0111e-5 0.3133295 1.59517e-5 0.2500027 1.59517e-5 0.2500027 0.37334 0.7499984 0.3766669 0.6866762 0.3766669 0.6866762 -8.47748e-6 0.06166696 2.06827e-5 3.10195e-6 2.06827e-5 3.10195e-6 0.1866801 0.8116705 -9.96338e-6 0.8116705 0.3766651 0.7500051 0.3766651 0.6866647 0.500015 0.6866646 0.3766556 0.7500005 0.3766556 0.3750047 1.000003 0.250007 1.000003 0.250007 0.7499929 0.1250087 0.9999975 0.1250086 0.7500197 0.2500009 0.7500197 0.2499955 0.7500075 0.1250106 0.7500075 0.1250106 0.5000005 0.2499911 0.5000334 0.2499911 0.7500144 0.3750129 0.7500144 0.3750124 0.5000075 0.4999971 0.5000075 0.4999972 0.7500144 0.2500057 0.5000182 0.3749983 0.5000182 0.3749983 0.7500036 0.1250095 0.1866768 0.1866807 0.1866768 0.1866807 0.3733689 0.1250011 0.1866724 0.1250011 0.3733528 0.06334394 0.3733528 0 0 0 0 0 0 0.2500082 0.1883382 0.1866629 0.1883382 0.1866629 1.05891e-5 0.8116732 0.3767071 0.8116732 0.5000123 0.7500126 0.5000123 0.8750005 0.3766868 0.8116772 0.3766868 0.8116772 -1.42948e-6 0 0 0 0 0 0 0.7516728 7.45943e-6 0.7516728 0.3766906 0.6866732 0.3766906 0.06166362 0.1866716 0.06166362 -4.21531e-6 -1.54506e-6 -4.21531e-6 0.7500048 -1.01345e-5 0.8116697 -1.01345e-5 0.8116697 0.3766777 0.6883335 0.376678 0.7500027 0.376678 0.7500027 0.500007 0.06166362 -4.21531e-6 0.1866629 1.05891e-5 0.1250095 -1.53851e-5 0.1866807 -1.53851e-5 0.1866807 0.1866768 0.1250095 0.1866768 0.1250011 -7.90156e-6 0.1250011 0.1866724 0.06334388 0.1866724 0.2500082 0.3766658 0.1866629 0.3766658 0.1866629 0.1883382 0.06166362 0.3733475 0.06166362 0.1866716 -1.55997e-6 0.1866716 0.1866729 0.3766722 0.1866729 0.1883411 0.2499985 0.1883411 0.1250016 0.1866685 0.06334406 0.1866685 0.06334406 -4.11225e-6 0.06166696 0.1866801 3.10195e-6 0.1866801 3.10195e-6 0.3733396 0.186659 0.1866636 0.1266781 0.1866636 0.1266781 -1.27642e-5 0 0 0 0 0 0 0.5616657 0.5000036 0.4383434 0.5000036 0.5616657 0.3766693 0.1266781 0.1866636 0.186659 0.1866636 0.1266781 0.37334 0.4383365 1.25174e-5 0.4383365 0.3766818 0.3116662 1.25174e-5 0 0 0 0 0 0 0.5000057 0.3766763 0.5000057 5.75371e-6 0.6249995 0.3766763 0.1250016 0.1866685 0.1250016 0.3733412 0.06334406 0.1866685 0 0 0 0 0 0 0.1883311 0.3766569 0.1883311 0.5000104 0.1250051 0.3766568 0.4400007 0.3733557 0.4400007 -1.32388e-6 0.5033358 0.3733557 0.2499985 0.1883411 0.1866729 0.1883411 0.2499985 1.00508e-5 0.8116722 0.3766598 0.8116722 0.5000053 0.7500075 0.3766598 0.8750075 0.3766774 0.8116739 0.3766774 0.8750075 -1.0111e-5 0.3133295 0.37334 0.3133295 1.59517e-5 0.2500027 0.37334 0.7499984 -8.47748e-6 0.7499984 0.3766669 0.6866762 -8.47748e-6 0.06166696 0.1866801 0.06166696 2.06827e-5 3.10195e-6 0.1866801 0.7500051 -9.96338e-6 0.8116705 -9.96338e-6 0.7500051 0.3766651 0.7500005 0.500015 0.6866647 0.500015 0.7500005 0.3766556 0.3750047 0.7499929 0.3750047 1.000003 0.250007 0.7499929 0.2500009 0.9999975 0.1250087 0.9999975 0.2500009 0.7500197 0.2499955 0.5000005 0.2499955 0.7500075 0.1250106 0.5000005 0.3750129 0.5000334 0.2499911 0.5000334 0.3750129 0.7500144 0.3750124 0.7500144 0.3750124 0.5000075 0.4999972 0.7500144 0.2500057 0.7500036 0.2500057 0.5000182 0.3749983 0.7500036 0.1250095 0.3733689 0.1250095 0.1866768 0.1866807 0.3733689 0.06334388 0.1866724 0.1250011 0.1866724 0.06334394 0.3733528 0 0 0 0 0 0 0.2500082 1.05891e-5 0.2500082 0.1883382 0.1866629 1.05891e-5 0.7500126 0.3767071 0.8116732 0.3767071 0.7500126 0.5000123 0.8750005 -1.42948e-6 0.8750005 0.3766868 0.8116772 -1.42948e-6 0 0 0 0 0 0 0.6866732 7.45943e-6 0.7516728 7.45943e-6 0.6866732 0.3766906 -1.55997e-6 0.1866716 0.06166362 0.1866716 -1.54506e-6 -4.21531e-6 0.7500048 0.3766777 0.7500048 -1.01345e-5 0.8116697 0.3766777 0.6883334 0.500007 0.6883335 0.376678 0.7500027 0.500007 0 0 0.06166362 -4.21531e-6 0.1250095 -1.53851e-5 0.1250095 -1.53851e-5 0.1866807 -1.53851e-5 0.1250095 0.1866768 0.06334388 -7.90156e-6 0.1250011 -7.90156e-6 0.06334388 0.1866724 0.2500082 0.1883382 0.2500082 0.3766658 0.1866629 0.1883382 -1.57487e-6 0.3733475 0.06166362 0.3733475 -1.55997e-6 0.1866716 0.2499986 0.3766722 0.1866729 0.3766722 0.2499985 0.1883411 0.1250016 -4.11225e-6 0.1250016 0.1866685 0.06334406 -4.11225e-6 0.06166696 0.3733396 0.06166696 0.1866801 3.10195e-6 0.3733396 0.186659 -1.27642e-5 0.186659 0.1866636 0.1266781 -1.27642e-5</float_array>
+          <technique_common>
+            <accessor source="#Steve-mesh-map-0-array" count="264" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Steve-mesh-vertices">
+          <input semantic="POSITION" source="#Steve-mesh-positions"/>
+        </vertices>
+        <polylist material="Material-material" count="88">
+          <input semantic="VERTEX" source="#Steve-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Steve-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#Steve-mesh-map-0" offset="2" set="0"/>
+          <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
+          <p>9 0 0 2 0 1 3 0 2 7 1 3 6 1 4 11 1 5 54 2 6 1 2 7 0 2 8 11 3 9 6 3 10 2 3 11 2 4 12 6 4 13 7 4 14 8 5 15 3 5 16 7 5 17 12 6 18 1 6 19 54 6 20 0 7 21 1 7 22 12 7 23 14 0 24 5 0 25 4 0 26 9 8 27 8 8 28 10 8 29 53 9 30 15 9 31 4 9 32 18 0 33 27 0 34 26 0 35 17 10 36 19 10 37 26 10 38 18 11 39 19 11 40 17 11 41 16 12 42 25 12 43 27 12 44 14 13 45 15 13 46 53 13 47 27 14 48 25 14 49 24 14 50 24 15 51 25 15 52 16 15 53 22 0 54 31 0 55 30 0 56 28 1 57 29 1 58 20 1 59 20 16 60 29 16 61 31 16 62 31 17 63 29 17 64 28 17 65 23 18 66 30 18 67 28 18 68 22 19 69 23 19 70 21 19 71 50 20 72 51 20 73 32 20 74 50 21 75 33 21 76 36 21 77 36 22 78 33 22 79 32 22 80 49 23 81 51 23 82 34 23 83 46 24 84 47 24 85 42 24 86 41 25 87 44 25 88 46 25 89 41 26 90 43 26 91 42 26 92 47 27 93 45 27 94 40 27 95 49 28 96 39 28 97 38 28 98 47 29 99 46 29 100 44 29 101 40 30 102 45 30 103 44 30 104 38 31 105 39 31 106 34 31 107 34 32 108 51 32 109 50 32 110 35 33 111 50 33 112 48 33 113 37 34 114 32 34 115 51 34 116 37 35 117 49 35 118 48 35 119 13 36 120 53 36 121 55 36 122 52 37 123 54 37 124 5 37 125 52 38 126 53 38 127 13 38 128 54 39 129 55 39 130 4 39 131 8 0 132 9 0 133 3 0 134 10 1 135 7 1 136 11 1 137 55 40 138 54 40 139 0 40 140 9 41 141 11 41 142 2 41 143 3 42 144 2 42 145 7 42 146 10 43 147 8 43 148 7 43 149 52 44 150 12 44 151 54 44 152 13 1 153 0 1 154 12 1 155 15 0 156 14 0 157 4 0 158 11 45 159 9 45 160 10 45 161 55 46 162 53 46 163 4 46 164 19 0 165 18 0 166 26 0 167 24 47 168 17 47 169 26 47 170 16 48 171 18 48 172 17 48 173 18 49 174 16 49 175 27 49 176 52 50 177 14 50 178 53 50 179 26 51 180 27 51 181 24 51 182 17 1 183 24 1 184 16 1 185 23 0 186 22 0 187 30 0 188 21 1 189 28 1 190 20 1 191 22 52 192 20 52 193 31 52 194 30 53 195 31 53 196 28 53 197 21 54 198 23 54 199 28 54 200 20 55 201 22 55 202 21 55 203 33 56 204 50 56 205 32 56 206 48 57 207 50 57 208 36 57 209 37 1 210 36 1 211 32 1 212 39 58 213 49 58 214 34 58 215 43 0 216 46 0 217 42 0 218 43 59 219 41 59 220 46 59 221 40 60 222 41 60 223 42 60 224 42 61 225 47 61 226 40 61 227 48 62 228 49 62 229 38 62 230 45 63 231 47 63 232 44 63 233 41 1 234 40 1 235 44 1 236 35 0 237 38 0 238 34 0 239 35 64 240 34 64 241 50 64 242 38 65 243 35 65 244 48 65 245 49 66 246 37 66 247 51 66 248 36 67 249 37 67 250 48 67 251 0 68 252 13 68 253 55 68 254 14 69 255 52 69 256 5 69 257 12 70 258 52 70 259 13 70 260 5 71 261 54 71 262 4 71 263</p>
+        </polylist>
+      </mesh>
+      <extra><technique profile="MAYA"><double_sided>1</double_sided></technique></extra>
+    </geometry>
+  </library_geometries>
+  <library_animations>
+    <animation id="Armature_Body_pose_matrix">
+      <source id="Armature_Body_pose_matrix-input">
+        <float_array id="Armature_Body_pose_matrix-input-array" count="11">0.0333333 1 2 3 3.933333 4 5 5.333333 6 7 7.333333</float_array>
+        <technique_common>
+          <accessor source="#Armature_Body_pose_matrix-input-array" count="11" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Body_pose_matrix-output">
+        <float_array id="Armature_Body_pose_matrix-output-array" count="176">1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1 1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1 1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1 1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1 1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1 1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1 1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1 1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1 1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1 1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1 1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1</float_array>
+        <technique_common>
+          <accessor source="#Armature_Body_pose_matrix-output-array" count="11" stride="16">
+            <param name="TRANSFORM" type="float4x4"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Body_pose_matrix-interpolation">
+        <Name_array id="Armature_Body_pose_matrix-interpolation-array" count="11">LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR</Name_array>
+        <technique_common>
+          <accessor source="#Armature_Body_pose_matrix-interpolation-array" count="11" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="Armature_Body_pose_matrix-sampler">
+        <input semantic="INPUT" source="#Armature_Body_pose_matrix-input"/>
+        <input semantic="OUTPUT" source="#Armature_Body_pose_matrix-output"/>
+        <input semantic="INTERPOLATION" source="#Armature_Body_pose_matrix-interpolation"/>
+      </sampler>
+      <channel source="#Armature_Body_pose_matrix-sampler" target="Body/transform"/>
+    </animation>
+    <animation id="Armature_Leg__R_pose_matrix">
+      <source id="Armature_Leg__R_pose_matrix-input">
+        <float_array id="Armature_Leg__R_pose_matrix-input-array" count="11">0.0333333 1 2 3 3.933333 4 5 5.333333 6 7 7.333333</float_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__R_pose_matrix-input-array" count="11" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Leg__R_pose_matrix-output">
+        <float_array id="Armature_Leg__R_pose_matrix-output-array" count="176">-1 -3.82806e-15 -5.07043e-8 -0.2569766 3.82806e-15 -1 -7.10543e-15 -0.2159375 -5.07043e-8 -7.10543e-15 1 -2.98578e-7 0 0 0 1 -1 2.66381e-8 -4.71973e-8 -0.2569766 -1.35148e-8 -0.9659258 -0.2588191 -0.2159375 -5.24835e-8 -0.2588191 0.9659258 -2.98578e-7 0 0 0 1 -1 -3.82806e-15 -5.07043e-8 -0.2569766 3.82806e-15 -1 -7.10543e-15 -0.2159375 -5.07043e-8 -7.10543e-15 1 -2.98578e-7 0 0 0 1 -1 -2.66381e-8 -4.71973e-8 -0.2569766 1.35148e-8 -0.9659258 0.2588191 -0.2159375 -5.24835e-8 0.2588191 0.9659258 -2.98578e-7 0 0 0 1 -1 -1.37626e-8 -5.06866e-8 -0.2569766 1.36326e-8 -0.9999967 0.002563479 -0.2159375 -5.07217e-8 0.002563479 0.9999967 -2.98578e-7 0 0 0 1 -1 -3.82806e-15 -5.07043e-8 -0.2569766 3.82806e-15 -1 -7.10543e-15 -0.2159375 -5.07043e-8 -7.10543e-15 1 -2.98578e-7 0 0 0 1 -1 -3.82806e-15 -5.07043e-8 -0.2569766 3.82806e-15 -1 -7.10543e-15 -0.2159375 -5.07043e-8 -7.10543e-15 1 -2.98578e-7 0 0 0 1 -1 -3.82806e-15 -5.07043e-8 -0.2569766 3.82806e-15 -1 -7.10543e-15 -0.2159375 -5.07043e-8 -7.10543e-15 1 -2.98578e-7 0 0 0 1 -1 -3.82806e-15 -5.07043e-8 -0.2569766 3.82806e-15 -1 -7.10543e-15 -0.2159375 -5.07043e-8 -7.10543e-15 1 -2.98578e-7 0 0 0 1 -1 -3.82806e-15 -5.07043e-8 -0.2569766 3.82806e-15 -1 -7.10543e-15 -0.2159375 -5.07043e-8 -7.10543e-15 1 -2.98578e-7 0 0 0 1 -1 -3.82806e-15 -5.07043e-8 -0.2569766 3.82806e-15 -1 -7.10543e-15 -0.2159375 -5.07043e-8 -7.10543e-15 1 -2.98578e-7 0 0 0 1</float_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__R_pose_matrix-output-array" count="11" stride="16">
+            <param name="TRANSFORM" type="float4x4"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Leg__R_pose_matrix-interpolation">
+        <Name_array id="Armature_Leg__R_pose_matrix-interpolation-array" count="11">LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR</Name_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__R_pose_matrix-interpolation-array" count="11" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="Armature_Leg__R_pose_matrix-sampler">
+        <input semantic="INPUT" source="#Armature_Leg__R_pose_matrix-input"/>
+        <input semantic="OUTPUT" source="#Armature_Leg__R_pose_matrix-output"/>
+        <input semantic="INTERPOLATION" source="#Armature_Leg__R_pose_matrix-interpolation"/>
+      </sampler>
+      <channel source="#Armature_Leg__R_pose_matrix-sampler" target="Leg__R/transform"/>
+    </animation>
+    <animation id="Armature_Leg__R_Bottom_pose_matrix">
+      <source id="Armature_Leg__R_Bottom_pose_matrix-input">
+        <float_array id="Armature_Leg__R_Bottom_pose_matrix-input-array" count="11">0.0333333 1 2 3 3.933333 4 5 5.333333 6 7 7.333333</float_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__R_Bottom_pose_matrix-input-array" count="11" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Leg__R_Bottom_pose_matrix-output">
+        <float_array id="Armature_Leg__R_Bottom_pose_matrix-output-array" count="176">1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1 1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1 1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1 1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1 1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1 1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1 1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1 1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1 1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1 1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1 1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1</float_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__R_Bottom_pose_matrix-output-array" count="11" stride="16">
+            <param name="TRANSFORM" type="float4x4"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Leg__R_Bottom_pose_matrix-interpolation">
+        <Name_array id="Armature_Leg__R_Bottom_pose_matrix-interpolation-array" count="11">LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR</Name_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__R_Bottom_pose_matrix-interpolation-array" count="11" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="Armature_Leg__R_Bottom_pose_matrix-sampler">
+        <input semantic="INPUT" source="#Armature_Leg__R_Bottom_pose_matrix-input"/>
+        <input semantic="OUTPUT" source="#Armature_Leg__R_Bottom_pose_matrix-output"/>
+        <input semantic="INTERPOLATION" source="#Armature_Leg__R_Bottom_pose_matrix-interpolation"/>
+      </sampler>
+      <channel source="#Armature_Leg__R_Bottom_pose_matrix-sampler" target="Leg__R_Bottom/transform"/>
+    </animation>
+    <animation id="Armature_Arm__R_pose_matrix">
+      <source id="Armature_Arm__R_pose_matrix-input">
+        <float_array id="Armature_Arm__R_pose_matrix-input-array" count="11">0.0333333 1 2 3 3.933333 4 5 5.333333 6 7 7.333333</float_array>
+        <technique_common>
+          <accessor source="#Armature_Arm__R_pose_matrix-input-array" count="11" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Arm__R_pose_matrix-output">
+        <float_array id="Armature_Arm__R_pose_matrix-output-array" count="176">-1 3.9423e-15 5.22173e-8 -0.739591 -3.9423e-15 -1 7.10543e-15 1.206835 5.22173e-8 7.10543e-15 1 0 0 0 0 1 -1 3.55271e-15 5.22173e-8 -0.739591 1.35148e-8 -0.9659258 0.2588191 1.206835 5.04381e-8 0.2588191 0.9659258 0 0 0 0 1 -1 3.9423e-15 5.22173e-8 -0.739591 -3.9423e-15 -1 7.10543e-15 1.206835 5.22173e-8 7.10543e-15 1 0 0 0 0 1 -1 3.55271e-15 5.22173e-8 -0.739591 -1.35148e-8 -0.9659258 -0.2588191 1.206835 5.04381e-8 -0.2588191 0.9659258 0 0 0 0 1 -1 1.34987e-8 5.22346e-8 -0.739591 -1.36326e-8 -0.9999967 -0.002563479 1.206835 5.21998e-8 -0.002563479 0.9999967 0 0 0 0 1 -1 3.9423e-15 5.22173e-8 -0.739591 -3.9423e-15 -1 7.10543e-15 1.206835 5.22173e-8 7.10543e-15 1 0 0 0 0 1 -1 3.9423e-15 5.22173e-8 -0.739591 -3.9423e-15 -1 7.10543e-15 1.206835 5.22173e-8 7.10543e-15 1 0 0 0 0 1 -1 3.9423e-15 5.22173e-8 -0.739591 -3.9423e-15 -1 7.10543e-15 1.206835 5.22173e-8 7.10543e-15 1 0 0 0 0 1 -1 3.9423e-15 5.22173e-8 -0.739591 -3.9423e-15 -1 7.10543e-15 1.206835 5.22173e-8 7.10543e-15 1 0 0 0 0 1 -1 3.9423e-15 5.22173e-8 -0.739591 -3.9423e-15 -1 7.10543e-15 1.206835 5.22173e-8 7.10543e-15 1 0 0 0 0 1 -1 3.9423e-15 5.22173e-8 -0.739591 -3.9423e-15 -1 7.10543e-15 1.206835 5.22173e-8 7.10543e-15 1 0 0 0 0 1</float_array>
+        <technique_common>
+          <accessor source="#Armature_Arm__R_pose_matrix-output-array" count="11" stride="16">
+            <param name="TRANSFORM" type="float4x4"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Arm__R_pose_matrix-interpolation">
+        <Name_array id="Armature_Arm__R_pose_matrix-interpolation-array" count="11">LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR</Name_array>
+        <technique_common>
+          <accessor source="#Armature_Arm__R_pose_matrix-interpolation-array" count="11" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="Armature_Arm__R_pose_matrix-sampler">
+        <input semantic="INPUT" source="#Armature_Arm__R_pose_matrix-input"/>
+        <input semantic="OUTPUT" source="#Armature_Arm__R_pose_matrix-output"/>
+        <input semantic="INTERPOLATION" source="#Armature_Arm__R_pose_matrix-interpolation"/>
+      </sampler>
+      <channel source="#Armature_Arm__R_pose_matrix-sampler" target="Arm__R/transform"/>
+    </animation>
+    <animation id="Armature_Head_pose_matrix">
+      <source id="Armature_Head_pose_matrix-input">
+        <float_array id="Armature_Head_pose_matrix-input-array" count="11">0.0333333 1 2 3 3.933333 4 5 5.333333 6 7 7.333333</float_array>
+        <technique_common>
+          <accessor source="#Armature_Head_pose_matrix-input-array" count="11" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Head_pose_matrix-output">
+        <float_array id="Armature_Head_pose_matrix-output-array" count="176">1 0 0 0 0 1 0 1.403969 0 0 1 1.48832e-8 0 0 0 1 1 0 0 0 0 1 0 1.403969 0 0 1 1.48832e-8 0 0 0 1 1 0 0 0 0 1 0 1.403969 0 0 1 1.48832e-8 0 0 0 1 1 0 0 0 0 1 0 1.403969 0 0 1 1.48832e-8 0 0 0 1 1 0 0 0 0 1 0 1.403969 0 0 1 1.48832e-8 0 0 0 1 1 0 0 0 0 1 0 1.403969 0 0 1 1.48832e-8 0 0 0 1 1 0 0 0 0 1 0 1.403969 0 0 1 1.48832e-8 0 0 0 1 1 0 0 0 0 1 0 1.403969 0 0 1 1.48832e-8 0 0 0 1 1 0 0 0 0 1 0 1.403969 0 0 1 1.48832e-8 0 0 0 1 1 0 0 0 0 0.9063078 -0.4226182 1.403969 0 0.4226182 0.9063078 1.48832e-8 0 0 0 1 1 0 0 0 0 0.9063078 -0.4226182 1.403969 0 0.4226182 0.9063078 1.48832e-8 0 0 0 1</float_array>
+        <technique_common>
+          <accessor source="#Armature_Head_pose_matrix-output-array" count="11" stride="16">
+            <param name="TRANSFORM" type="float4x4"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Head_pose_matrix-interpolation">
+        <Name_array id="Armature_Head_pose_matrix-interpolation-array" count="11">LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR</Name_array>
+        <technique_common>
+          <accessor source="#Armature_Head_pose_matrix-interpolation-array" count="11" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="Armature_Head_pose_matrix-sampler">
+        <input semantic="INPUT" source="#Armature_Head_pose_matrix-input"/>
+        <input semantic="OUTPUT" source="#Armature_Head_pose_matrix-output"/>
+        <input semantic="INTERPOLATION" source="#Armature_Head_pose_matrix-interpolation"/>
+      </sampler>
+      <channel source="#Armature_Head_pose_matrix-sampler" target="Head/transform"/>
+    </animation>
+    <animation id="Armature_Arm__L_pose_matrix">
+      <source id="Armature_Arm__L_pose_matrix-input">
+        <float_array id="Armature_Arm__L_pose_matrix-input-array" count="11">0.0333333 1 2 3 3.933333 4 5 5.333333 6 7 7.333333</float_array>
+        <technique_common>
+          <accessor source="#Armature_Arm__L_pose_matrix-input-array" count="11" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Arm__L_pose_matrix-output">
+        <float_array id="Armature_Arm__L_pose_matrix-output-array" count="176">-1 1.40578e-14 1.86201e-7 0.739591 -1.40578e-14 -1 -2.13163e-14 1.206835 1.86201e-7 -2.13163e-14 1 0 0 0 0 1 -1 1.77636e-14 1.86201e-7 0.739591 -4.81925e-8 -0.9659258 -0.2588191 1.206835 1.79857e-7 -0.2588191 0.9659258 0 0 0 0 1 -1 1.40578e-14 1.86201e-7 0.739591 -1.40578e-14 -1 -2.13163e-14 1.206835 1.86201e-7 -2.13163e-14 1 0 0 0 0 1 -1 1.77636e-14 1.86201e-7 0.739591 4.81924e-8 -0.9659258 0.2588191 1.206835 1.79857e-7 0.2588191 0.9659258 0 0 0 0 1 -1 -4.8135e-8 1.86263e-7 0.739591 4.86123e-8 -0.9999967 0.002563479 1.206835 1.86139e-7 0.002563479 0.9999967 0 0 0 0 1 -1 1.40578e-14 1.86201e-7 0.739591 -1.40578e-14 -1 -2.13163e-14 1.206835 1.86201e-7 -2.13163e-14 1 0 0 0 0 1 -1 1.40578e-14 1.86201e-7 0.739591 -1.40578e-14 -1 -2.13163e-14 1.206835 1.86201e-7 -2.13163e-14 1 0 0 0 0 1 -1 1.40578e-14 1.86201e-7 0.739591 -1.40578e-14 -1 -2.13163e-14 1.206835 1.86201e-7 -2.13163e-14 1 0 0 0 0 1 -1 1.40578e-14 1.86201e-7 0.739591 -1.40578e-14 -1 -2.13163e-14 1.206835 1.86201e-7 -2.13163e-14 1 0 0 0 0 1 -1 1.40578e-14 1.86201e-7 0.739591 -1.40578e-14 -1 -2.13163e-14 1.206835 1.86201e-7 -2.13163e-14 1 0 0 0 0 1 -1 1.40578e-14 1.86201e-7 0.739591 -1.40578e-14 -1 -2.13163e-14 1.206835 1.86201e-7 -2.13163e-14 1 0 0 0 0 1</float_array>
+        <technique_common>
+          <accessor source="#Armature_Arm__L_pose_matrix-output-array" count="11" stride="16">
+            <param name="TRANSFORM" type="float4x4"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Arm__L_pose_matrix-interpolation">
+        <Name_array id="Armature_Arm__L_pose_matrix-interpolation-array" count="11">LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR</Name_array>
+        <technique_common>
+          <accessor source="#Armature_Arm__L_pose_matrix-interpolation-array" count="11" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="Armature_Arm__L_pose_matrix-sampler">
+        <input semantic="INPUT" source="#Armature_Arm__L_pose_matrix-input"/>
+        <input semantic="OUTPUT" source="#Armature_Arm__L_pose_matrix-output"/>
+        <input semantic="INTERPOLATION" source="#Armature_Arm__L_pose_matrix-interpolation"/>
+      </sampler>
+      <channel source="#Armature_Arm__L_pose_matrix-sampler" target="Arm__L/transform"/>
+    </animation>
+    <animation id="Armature_Leg__L_pose_matrix">
+      <source id="Armature_Leg__L_pose_matrix-input">
+        <float_array id="Armature_Leg__L_pose_matrix-input-array" count="11">0.0333333 1 2 3 3.933333 4 5 5.333333 6 7 7.333333</float_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__L_pose_matrix-input-array" count="11" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Leg__L_pose_matrix-output">
+        <float_array id="Armature_Leg__L_pose_matrix-output-array" count="176">-1 8.01842e-15 1.06207e-7 0.2569766 -8.01842e-15 -1 -2.13163e-14 -0.2159375 1.06207e-7 -2.13163e-14 1 -2.98578e-7 0 0 0 1 -1 -2.0704e-8 1.08933e-7 0.2569766 4.81924e-8 -0.9659258 0.2588191 -0.2159375 9.98625e-8 0.2588191 0.9659258 -2.98578e-7 0 0 0 1 -1 8.01842e-15 1.06207e-7 0.2569766 -8.01842e-15 -1 -2.13163e-14 -0.2159375 1.06207e-7 -2.13163e-14 1 -2.98578e-7 0 0 0 1 -1 2.0704e-8 1.08933e-7 0.2569766 -4.81924e-8 -0.9659258 -0.2588191 -0.2159375 9.98625e-8 -0.2588191 0.9659258 -2.98578e-7 0 0 0 1 -1 4.834e-8 1.06269e-7 0.2569766 -4.86123e-8 -0.9999967 -0.002563479 -0.2159375 1.06145e-7 -0.002563479 0.9999967 -2.98578e-7 0 0 0 1 -1 8.01842e-15 1.06207e-7 0.2569766 -8.01842e-15 -1 -2.13163e-14 -0.2159375 1.06207e-7 -2.13163e-14 1 -2.98578e-7 0 0 0 1 -1 8.01842e-15 1.06207e-7 0.2569766 -8.01842e-15 -1 -2.13163e-14 -0.2159375 1.06207e-7 -2.13163e-14 1 -2.98578e-7 0 0 0 1 -1 8.01842e-15 1.06207e-7 0.2569766 -8.01842e-15 -1 -2.13163e-14 -0.2159375 1.06207e-7 -2.13163e-14 1 -2.98578e-7 0 0 0 1 -1 8.01842e-15 1.06207e-7 0.2569766 -8.01842e-15 -1 -2.13163e-14 -0.2159375 1.06207e-7 -2.13163e-14 1 -2.98578e-7 0 0 0 1 -1 8.01842e-15 1.06207e-7 0.2569766 -8.01842e-15 -1 -2.13163e-14 -0.2159375 1.06207e-7 -2.13163e-14 1 -2.98578e-7 0 0 0 1 -1 8.01842e-15 1.06207e-7 0.2569766 -8.01842e-15 -1 -2.13163e-14 -0.2159375 1.06207e-7 -2.13163e-14 1 -2.98578e-7 0 0 0 1</float_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__L_pose_matrix-output-array" count="11" stride="16">
+            <param name="TRANSFORM" type="float4x4"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Leg__L_pose_matrix-interpolation">
+        <Name_array id="Armature_Leg__L_pose_matrix-interpolation-array" count="11">LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR</Name_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__L_pose_matrix-interpolation-array" count="11" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="Armature_Leg__L_pose_matrix-sampler">
+        <input semantic="INPUT" source="#Armature_Leg__L_pose_matrix-input"/>
+        <input semantic="OUTPUT" source="#Armature_Leg__L_pose_matrix-output"/>
+        <input semantic="INTERPOLATION" source="#Armature_Leg__L_pose_matrix-interpolation"/>
+      </sampler>
+      <channel source="#Armature_Leg__L_pose_matrix-sampler" target="Leg__L/transform"/>
+    </animation>
+    <animation id="Armature_Leg__L_Bottom_pose_matrix">
+      <source id="Armature_Leg__L_Bottom_pose_matrix-input">
+        <float_array id="Armature_Leg__L_Bottom_pose_matrix-input-array" count="11">0.0333333 1 2 3 3.933333 4 5 5.333333 6 7 7.333333</float_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__L_Bottom_pose_matrix-input-array" count="11" stride="1">
+            <param name="TIME" type="float"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Leg__L_Bottom_pose_matrix-output">
+        <float_array id="Armature_Leg__L_Bottom_pose_matrix-output-array" count="176">1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1 1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1 1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1 1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1 1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1 1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1 1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1 1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1 1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1 1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1 1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1</float_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__L_Bottom_pose_matrix-output-array" count="11" stride="16">
+            <param name="TRANSFORM" type="float4x4"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <source id="Armature_Leg__L_Bottom_pose_matrix-interpolation">
+        <Name_array id="Armature_Leg__L_Bottom_pose_matrix-interpolation-array" count="11">LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR LINEAR</Name_array>
+        <technique_common>
+          <accessor source="#Armature_Leg__L_Bottom_pose_matrix-interpolation-array" count="11" stride="1">
+            <param name="INTERPOLATION" type="name"/>
+          </accessor>
+        </technique_common>
+      </source>
+      <sampler id="Armature_Leg__L_Bottom_pose_matrix-sampler">
+        <input semantic="INPUT" source="#Armature_Leg__L_Bottom_pose_matrix-input"/>
+        <input semantic="OUTPUT" source="#Armature_Leg__L_Bottom_pose_matrix-output"/>
+        <input semantic="INTERPOLATION" source="#Armature_Leg__L_Bottom_pose_matrix-interpolation"/>
+      </sampler>
+      <channel source="#Armature_Leg__L_Bottom_pose_matrix-sampler" target="Leg__L_Bottom/transform"/>
+    </animation>
+  </library_animations>
+  <library_controllers>
+    <controller id="Armature_Steve-skin" name="Armature">
+      <skin source="#Steve-mesh">
+        <bind_shape_matrix>0.5 0 0 0 0 0.25 0 0 0 0 0.7 0 0 0 0 1</bind_shape_matrix>
+        <source id="Armature_Steve-skin-joints">
+          <Name_array id="Armature_Steve-skin-joints-array" count="8">Body Arm__R Leg__R Head Arm__L Leg__L Leg__L_Bottom Leg__R_Bottom</Name_array>
+          <technique_common>
+            <accessor source="#Armature_Steve-skin-joints-array" count="8" stride="1">
+              <param name="JOINT" type="name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Armature_Steve-skin-bind_poses">
+          <float_array id="Armature_Steve-skin-bind_poses-array" count="128">1 0 0 0 0 0 1 0.5891656 0 -1 0 0 0 0 0 1 -1 0 0 -0.739591 0 0 -1 0.6176691 0 -1 0 0 0 0 0 1 -1 0 0 -0.2569766 0 0 -1 -0.8051031 0 -1 0 3.30029e-7 0 0 0 1 1 0 0 0 0 0 1 -0.8148037 0 -1 0 0 0 0 0 1 -1 -1.86201e-7 0 0.739591 0 0 -1 0.6176691 1.86201e-7 -1 0 0 0 0 0 1 -1 0 0 0.2569766 0 0 -1 -0.8051031 0 -1 0 3.15766e-7 0 0 0 1 -1 0 0 0.2569766 0 0 -1 -1.420758 0 -1 0 3.65525e-7 0 0 0 1 -1 0 0 -0.2569766 0 0 -1 -1.396126 0 -1 0 3.20594e-7 0 0 0 1</float_array>
+          <technique_common>
+            <accessor source="#Armature_Steve-skin-bind_poses-array" count="8" stride="16">
+              <param name="TRANSFORM" type="float4x4"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Armature_Steve-skin-weights">
+          <float_array id="Armature_Steve-skin-weights-array" count="72">1 1 1 1 0.5 0.5 0.5 0.5 1 1 1 1 1 1 1 1 0.5 0.5 0.5 0.5 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0.5 0.5 0.5 0.5 1 1 0.5 0.5 0.5 0.5 1 1 1 1 1 1 1 1 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</float_array>
+          <technique_common>
+            <accessor source="#Armature_Steve-skin-weights-array" count="72" stride="1">
+              <param name="WEIGHT" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <joints>
+          <input semantic="JOINT" source="#Armature_Steve-skin-joints"/>
+          <input semantic="INV_BIND_MATRIX" source="#Armature_Steve-skin-bind_poses"/>
+        </joints>
+        <vertex_weights count="56">
+          <input semantic="JOINT" source="#Armature_Steve-skin-joints" offset="0"/>
+          <input semantic="WEIGHT" source="#Armature_Steve-skin-weights" offset="1"/>
+          <vcount>1 1 1 1 2 2 1 1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 1 2 2 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 </vcount>
+          <v>2 0 2 1 0 2 0 3 2 4 7 5 2 6 7 7 0 8 0 9 0 10 0 11 0 12 0 13 2 14 2 15 2 16 7 17 2 18 7 19 1 20 1 21 1 22 1 23 3 24 3 25 3 26 3 27 1 28 1 29 1 30 1 31 3 32 3 33 3 34 3 35 5 36 5 37 5 38 6 39 5 40 6 41 5 42 5 43 5 44 6 45 5 46 6 47 4 48 4 49 4 50 4 51 4 52 4 53 4 54 4 55 5 56 6 57 5 58 6 59 5 60 6 61 5 62 6 63 2 64 7 65 2 66 7 67 2 68 7 69 2 70 7 71</v>
+        </vertex_weights>
+      </skin>
+    </controller>
+  </library_controllers>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="Camera" name="Camera" type="NODE">
+        <translate sid="location">7.481132 -6.50764 5.343665</translate>
+        <rotate sid="rotationZ">0 0 1 46.69194</rotate>
+        <rotate sid="rotationY">0 1 0 0.619768</rotate>
+        <rotate sid="rotationX">1 0 0 63.5593</rotate>
+        <scale sid="scale">1 0.9999999 1</scale>
+        <instance_camera url="#Camera-camera"/>
+      </node>
+      <node id="Lamp" name="Lamp" type="NODE">
+        <translate sid="location">-1.121415 -5.810972 4.5211</translate>
+        <rotate sid="rotationZ">0 0 1 106.9363</rotate>
+        <rotate sid="rotationY">0 1 0 3.163707</rotate>
+        <rotate sid="rotationX">1 0 0 37.26105</rotate>
+        <scale sid="scale">1 0.9999999 1</scale>
+        <instance_light url="#Lamp-light"/>
+      </node>
+      <node id="Lamp_001" name="Lamp_001" type="NODE">
+        <translate sid="location">5.678334 -3.039128 4.639946</translate>
+        <rotate sid="rotationZ">0 0 1 106.9363</rotate>
+        <rotate sid="rotationY">0 1 0 3.163707</rotate>
+        <rotate sid="rotationX">1 0 0 37.26105</rotate>
+        <scale sid="scale">1 0.9999999 1</scale>
+        <instance_light url="#Lamp_001-light"/>
+      </node>
+      <node id="Lamp_002" name="Lamp_002" type="NODE">
+        <translate sid="location">0.7215357 2.937306 3.040136</translate>
+        <rotate sid="rotationZ">0 0 1 106.9363</rotate>
+        <rotate sid="rotationY">0 1 0 3.163707</rotate>
+        <rotate sid="rotationX">1 0 0 37.26105</rotate>
+        <scale sid="scale">1 0.9999999 1</scale>
+        <instance_light url="#Lamp_002-light"/>
+      </node>
+      <node id="Lamp_003" name="Lamp_003" type="NODE">
+        <translate sid="location">0.05787832 -0.9652954 -2.871888</translate>
+        <rotate sid="rotationZ">0 0 1 106.9363</rotate>
+        <rotate sid="rotationY">0 1 0 3.163707</rotate>
+        <rotate sid="rotationX">1 0 0 37.26105</rotate>
+        <scale sid="scale">1 0.9999999 1</scale>
+        <instance_light url="#Lamp_003-light"/>
+      </node>
+      <node id="Lamp_004" name="Lamp_004" type="NODE">
+        <translate sid="location">-5.4883 -1.929207 3.910194</translate>
+        <rotate sid="rotationZ">0 0 1 106.9363</rotate>
+        <rotate sid="rotationY">0 1 0 3.163707</rotate>
+        <rotate sid="rotationX">1 0 0 37.26105</rotate>
+        <scale sid="scale">1 0.9999999 1</scale>
+        <instance_light url="#Lamp_004-light"/>
+      </node>
+      <node id="Armature" name="Armature" type="NODE">
+        <translate sid="location">0 0 0</translate>
+        <rotate sid="rotationZ">0 0 1 0</rotate>
+        <rotate sid="rotationY">0 1 0 0</rotate>
+        <rotate sid="rotationX">1 0 0 0</rotate>
+        <scale sid="scale">1 1 1</scale>
+        <node id="Body" name="Body" sid="Body" type="JOINT">
+          <matrix sid="transform">1 0 0 0 0 7.54979e-8 -1 0 0 1 7.54979e-8 -0.5891656 0 0 0 1</matrix>
+          <node id="Leg__R" name="Leg .R" sid="Leg__R" type="JOINT">
+            <matrix sid="transform">-1 -3.82806e-15 -5.07043e-8 -0.2569766 3.82806e-15 -1 -7.10543e-15 -0.2159375 -5.07043e-8 -7.10543e-15 1 -2.98578e-7 0 0 0 1</matrix>
+            <node id="Leg__R_Bottom" name="Leg .R Bottom" sid="Leg__R_Bottom" type="JOINT">
+              <matrix sid="transform">1 2.77217e-15 3.67185e-8 0 -2.77217e-15 1 -7.10543e-15 0.5910227 -3.67185e-8 7.10543e-15 1 -2.84217e-14 0 0 0 1</matrix>
+            </node>
+          </node>
+          <node id="Arm__R" name="Arm .R" sid="Arm__R" type="JOINT">
+            <matrix sid="transform">-1 3.9423e-15 5.22173e-8 -0.739591 -3.9423e-15 -1 7.10543e-15 1.206835 5.22173e-8 7.10543e-15 1 0 0 0 0 1</matrix>
+          </node>
+          <node id="Head" name="Head" sid="Head" type="JOINT">
+            <matrix sid="transform">1 0 0 0 0 1 0 1.403969 0 0 1 1.48832e-8 0 0 0 1</matrix>
+          </node>
+          <node id="Arm__L" name="Arm .L" sid="Arm__L" type="JOINT">
+            <matrix sid="transform">-1 1.40578e-14 1.86201e-7 0.739591 -1.40578e-14 -1 -2.13163e-14 1.206835 1.86201e-7 -2.13163e-14 1 0 0 0 0 1</matrix>
+          </node>
+          <node id="Leg__L" name="Leg .L" sid="Leg__L" type="JOINT">
+            <matrix sid="transform">-1 8.01842e-15 1.06207e-7 0.2569766 -8.01842e-15 -1 -2.13163e-14 -0.2159375 1.06207e-7 -2.13163e-14 1 -2.98578e-7 0 0 0 1</matrix>
+            <node id="Leg__L_Bottom" name="Leg .L Bottom" sid="Leg__L_Bottom" type="JOINT">
+              <matrix sid="transform">1 1.46187e-14 1.9363e-7 0 -1.46187e-14 1 3.55271e-14 0.6156552 -1.9363e-7 -3.55271e-14 1 0 0 0 0 1</matrix>
+            </node>
+          </node>
+        </node>
+      </node>
+      <node id="Steve" name="Steve" type="NODE">
+        <translate sid="location">0 0 0</translate>
+        <rotate sid="rotationZ">0 0 1 0</rotate>
+        <rotate sid="rotationY">0 1 0 0</rotate>
+        <rotate sid="rotationX">1 0 0 0</rotate>
+        <scale sid="scale">1 1 1</scale>
+        <instance_controller url="#Armature_Steve-skin">
+          <skeleton>#Body</skeleton>
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Material-material" target="#Material-material"/>
+            </technique_common>
+          </bind_material>
+        </instance_controller>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

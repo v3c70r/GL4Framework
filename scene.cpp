@@ -8,7 +8,7 @@
 void Scene::init()
 {
     //initialzie default shaders
-    addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl");
+    addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl");
     //initialize lights
     lights = new LightManager();
     lights->addLight(glm::vec4(0.0, 0.0, 1.0, 0.0));
@@ -68,7 +68,26 @@ void Scene::import(std::string fileName, Object* parent)
         MeshNode *meshNode = new MeshNode();
 
         aiMesh *curMesh = aiScn->mMeshes[i];
-        meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices);
+        if (curMesh->HasBones())
+        {
+            meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices, meshNode->MAX_NUM_BONES);
+            vector<float> weights;
+            weights.resize(meshNode->MAX_NUM_BONES * curMesh->mNumVertices, 0.0);
+            for (int j=0; j<curMesh->mNumBones; j++)
+            {
+                for (int k=0; k<curMesh->mBones[j]->mNumWeights; k++)
+                {
+                    aiVertexWeight w = curMesh->mBones[j]->mWeights[k];
+                    weights[w.mVertexId*meshNode->MAX_NUM_BONES+k] =  w.mWeight;
+                }
+            }
+            meshNode->setWeights(&weights[0]);
+        }
+        else
+        {
+            meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices, 0);
+        }
+
 
         meshNode->setVertices((GLfloat*)(curMesh->mVertices));
         vector<float> tempUV;

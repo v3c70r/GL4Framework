@@ -24,20 +24,21 @@ namespace MESH_ATTR{
         TEXCOORDS,
         INDICES,
         MATERIAL,
+        WEIGHTS,
+        BONES_TRANS,
         COUNT
     };
 }
 
 class MeshNode: public Object
 {
-private:
+protected:
     GLuint numOfFaces;
     GLuint numOfVertices;
     GLuint texture;
-    //Store locations for fast access;
-    GLint matBlockIdx;
 public:
-    MeshNode()
+    const int MAX_NUM_BONES;
+    MeshNode(): MAX_NUM_BONES(20)
     {
         VBO = new GLuint[MESH_ATTR::COUNT];
     }
@@ -50,8 +51,9 @@ public:
         glDeleteTextures(1, &texture);
         delete []VBO;
     }
-    void init(GLuint nFaces, GLuint nVertices);
+    void init(GLuint nFaces, GLuint nVertices, GLuint numBones);
     void setVertices(const GLfloat *vertices);
+    void setWeights(const GLfloat* weights);
     void setNormals(const GLfloat *normals);
     void setTexCoord(const GLfloat *texCoord);
     void setIndices(const GLuint *indices);
