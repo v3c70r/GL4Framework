@@ -72,13 +72,18 @@ void Scene::import(std::string fileName, Object* parent)
         {
             meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices, meshNode->MAX_NUM_BONES);
             vector<float> weights;
+            //max check
+            if ( meshNode->MAX_NUM_BONES < curMesh->mNumBones)
+                std::cout<<"[Warning] Too many bones"<<std::endl;
+
             weights.resize(meshNode->MAX_NUM_BONES * curMesh->mNumVertices, 0.0);
+            int asdf = 0;
             for (int j=0; j<curMesh->mNumBones; j++)
             {
                 for (int k=0; k<curMesh->mBones[j]->mNumWeights; k++)
                 {
                     aiVertexWeight w = curMesh->mBones[j]->mWeights[k];
-                    weights[w.mVertexId*meshNode->MAX_NUM_BONES+k] =  w.mWeight;
+                    weights[w.mVertexId*meshNode->BONES_PER_VERTEX+k] =  w.mWeight;
                 }
             }
             meshNode->setWeights(&weights[0]);

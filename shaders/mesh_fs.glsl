@@ -5,6 +5,8 @@ in VertexData{
     vec3 toEye;
     vec4 shadowCoord;
     vec2 texCoord;
+    //debug
+    vec4 weights;
 }VertexIn;
 
 layout( std140) uniform Material
@@ -71,6 +73,8 @@ void main()
     //color = material.specular;
     //color = vec4(dirLights.numDirLights / 5.0);
 
+
+    color = VertexIn.weights;
     color.w = 1.0;
 }
 

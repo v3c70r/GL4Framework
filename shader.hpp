@@ -38,7 +38,7 @@ namespace UNIFORM{
     };
 }
 
-namespace UNIFORM_BLOCKS{
+namespace UNIFORM_BLOCKS{   //or SSBO
     enum UNIFORBLOCK_INDICES
     {
         MATERIAL=0,
@@ -88,6 +88,11 @@ public:
     bool use();
     GLuint getProgramme() const;
 
+    ~Shader()
+    {
+        glDeleteProgram(programme);
+    }
+
     //Functions that set values to shader
     bool setModelViewMat(const glm::mat4 &modelView);
     bool setNormalMat(const glm::mat4 &normalMat);
@@ -98,8 +103,4 @@ public:
     bool bindDirLights(const GLuint &buffer);
     bool bindBoneTrans(const GLuint &buffer);
     bool bindBoneWeights(const GLuint &buffer);
-    ~Shader()
-    {
-        glDeleteProgram(programme);
-    }
 };

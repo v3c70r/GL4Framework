@@ -19,12 +19,14 @@
 namespace MESH_ATTR{
     enum MESH_ATTR
     {
+        //attrb with fixed locations
         VERTICES=0,
         NORMALS,
         TEXCOORDS,
-        INDICES,
-        MATERIAL,
         WEIGHTS,
+        INDICES,
+        //uniform buffers
+        MATERIAL,
         BONES_TRANS,
         COUNT
     };
@@ -38,7 +40,8 @@ protected:
     GLuint texture;
 public:
     const int MAX_NUM_BONES;
-    MeshNode(): MAX_NUM_BONES(20)
+    const int BONES_PER_VERTEX;
+    MeshNode(): MAX_NUM_BONES(20), BONES_PER_VERTEX(4)
     {
         VBO = new GLuint[MESH_ATTR::COUNT];
     }

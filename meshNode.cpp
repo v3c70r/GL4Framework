@@ -1,4 +1,3 @@
-
 #include "meshNode.hpp"
 
 void MeshNode::init(GLuint nFaces, GLuint nVertices, GLuint numBones){
@@ -33,6 +32,9 @@ void MeshNode::init(GLuint nFaces, GLuint nVertices, GLuint numBones){
     glEnableVertexAttribArray(MESH_ATTR::TEXCOORDS);
     glVertexAttribPointer(MESH_ATTR::TEXCOORDS, 2, GL_FLOAT, 0, 0, 0);
 
+    //Bones Weights
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(GLfloat)*numBones*numOfVertices, 0, GL_STATIC_COPY);
 
     //indices
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBO[MESH_ATTR::INDICES]);
@@ -40,11 +42,8 @@ void MeshNode::init(GLuint nFaces, GLuint nVertices, GLuint numBones){
 
     //Bones Transformations
     glBindBuffer(GL_UNIFORM_BUFFER, VBO[MESH_ATTR::BONES_TRANS]);
-    glBufferData(GL_UNIFORM_BUFFER, sizeof (GLfloat) * numBones, 0, GL_DYNAMIC_DRAW);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof (GLfloat) * MAX_NUM_BONES, 0, GL_DYNAMIC_DRAW);
 
-    //Bones Weights
-    glBindBuffer(GL_UNIFORM_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
-    glBufferData(GL_UNIFORM_BUFFER, sizeof(GLfloat)*numBones*numOfVertices, 0, GL_STATIC_DRAW);
 
     //clean up
     glBindVertexArray(0);
@@ -61,10 +60,10 @@ void MeshNode::init(GLuint nFaces, GLuint nVertices, GLuint numBones){
 }
 void MeshNode::setWeights(const GLfloat* weights)
 {
-    glBindBuffer(GL_UNIFORM_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
-    glBufferData(GL_UNIFORM_BUFFER, numOfVertices*MAX_NUM_BONES*sizeof(GLfloat), 0,GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
+    GLvoid *p = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_WRITE_ONLY);
+    memcpy (p, weights, sizeof (GLfloat) * MAX_NUM_BONES * numOfVertices);
+    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 }
 void MeshNode::setVertices(const GLfloat *vertices)
 {

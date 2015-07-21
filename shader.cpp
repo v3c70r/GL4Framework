@@ -273,10 +273,7 @@ bool Shader::bindBoneTrans(const GLuint &buffer)
 }
 bool Shader::bindBoneWeights(const GLuint &buffer)
 {
-    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::BONES_WEIGHTS], buffer);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::BONES_TRANS], buffer);
     return true;
 }
-
-
-
 
