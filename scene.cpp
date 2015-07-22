@@ -62,6 +62,8 @@ void Scene::import(std::string fileName, Object* parent)
         exit(-1);
     }
     
+    std::cout<<aiScn->mNumAnimations<<std::endl;
+    std::cout<<aiScn->mAnimations[0]->mChannels[0]->mNumRotationKeys<<std::endl;
 
     for (auto i=0; i<aiScn->mNumMeshes; i++)
     {

@@ -214,13 +214,14 @@ bool Shader::getIndicesNLocations()
     //Uniform Locations
     for (int i=0; i<UNIFORM::count;i++)
         Ulocations.push_back(glGetUniformLocation(programme, UNIFORM::names[i].c_str()));
-    for (int i=0; i<UNIFORM_BLOCKS::count; i++)
-    {
-        GLint index =glGetUniformBlockIndex(programme, UNIFORM_BLOCKS::names[i].c_str()) ;
-        UBIndices.push_back(index);
-        //set binding point
-        glUniformBlockBinding(programme ,index, UNIFORM_BLOCKS::binding[i]);
-    }
+    //bindings are hard coded in shaders
+    //for (int i=0; i<UNIFORM_BLOCKS::count; i++)
+    //{
+    //    //GLint index =glGetProgramResourceIndex(programme, GL_UNIFORM_BLOCK,UNIFORM_BLOCKS::names[i].c_str()) ;
+    //    //UBIndices.push_back(index);
+    //    //set binding point
+    //    //glUniformBlockBinding(programme ,index, UNIFORM_BLOCKS::binding[i]);
+    //}
     return true;
 }
 
@@ -273,7 +274,7 @@ bool Shader::bindBoneTrans(const GLuint &buffer)
 }
 bool Shader::bindBoneWeights(const GLuint &buffer)
 {
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::BONES_TRANS], buffer);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::BONES_WEIGHTS], buffer);
     return true;
 }
 

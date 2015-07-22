@@ -75,7 +75,7 @@ class Shader
     bool createProgramme (GLuint vert,  GLuint frag, GLuint* programme);
 
     std::vector<GLint> Ulocations;
-    std::vector<GLint> UBIndices;
+    //std::vector<GLint> UBIndices;
     bool getIndicesNLocations();
 public:
     Shader()

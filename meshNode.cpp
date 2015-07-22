@@ -60,10 +60,10 @@ void MeshNode::init(GLuint nFaces, GLuint nVertices, GLuint numBones){
 }
 void MeshNode::setWeights(const GLfloat* weights)
 {
+    std::cout<<"Weights"<<weights[0]<<"\t"<<weights[1]<<std::endl;
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
-    GLvoid *p = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_WRITE_ONLY);
-    memcpy (p, weights, sizeof (GLfloat) * MAX_NUM_BONES * numOfVertices);
-    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, numOfVertices * MAX_NUM_BONES *sizeof(GLfloat), weights, GL_STATIC_DRAW);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 void MeshNode::setVertices(const GLfloat *vertices)
 {
