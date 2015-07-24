@@ -16,6 +16,13 @@
 #include <assimp/scene.h>
 #include <assimp/material.h>
 
+//Each frame is an array of global(to this mesh) transformation for each bones
+typedef std::vector<glm::mat4> Frame;
+struct Animation
+{
+    std::vector<Frame> frames;
+};
+
 namespace MESH_ATTR{
     enum MESH_ATTR
     {

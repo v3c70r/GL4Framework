@@ -5,6 +5,7 @@
  * setting default settings
  * need to be called after OpenGL context intialized
  */
+
 void Scene::init()
 {
     //initialzie default shaders
@@ -63,7 +64,11 @@ void Scene::import(std::string fileName, Object* parent)
     }
     
     std::cout<<aiScn->mNumAnimations<<std::endl;
-    std::cout<<aiScn->mAnimations[0]->mChannels[0]->mNumRotationKeys<<std::endl;
+    for (int i=0; i<aiScn->mAnimations[0]->mNumChannels; i++)
+        std::cout<<aiScn->mAnimations[0]->mChannels[i]->mNodeName.C_Str()<<std::endl;
+
+    std::cout<<"==Parsing down tree==\n";
+    parseDownNodes(aiScn->mRootNode, 1);
 
     for (auto i=0; i<aiScn->mNumMeshes; i++)
     {

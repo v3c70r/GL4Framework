@@ -72,3 +72,14 @@ public:
 };
 
 
+//lil helper functions, recursive inline, hmmm...., hope the compiler is smart enough
+//I don't know why I'm doing this
+inline void parseDownNodes(const aiNode* pNode, const int &level )
+{
+    std::cout<<std::string(level, '-')<<pNode->mName.C_Str()<<std::endl;
+    if (pNode->mNumChildren == 0)
+        return;
+    for (auto i=0; i<pNode->mNumChildren; i++)
+        parseDownNodes(pNode->mChildren[i], level+1);
+}
+
