@@ -31,6 +31,7 @@ namespace BUILD_IN_SHADERS
 }
 class Scene
 {
+    friend class Importer;
 private:
     std::vector<Object*> objectPointers;
     std::vector<Shader*> shaderPointers;

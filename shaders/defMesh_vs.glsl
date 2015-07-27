@@ -30,6 +30,7 @@ layout (std140, binding=2) uniform BoneTrans
 #define MAX_NUM_VERTS 1000
 layout (std430, binding=3) buffer BoneWeights
 {
+    float numBones;
     float weights[MAX_NUM_BONES * MAX_NUM_VERTS];
 };
 
@@ -41,10 +42,14 @@ void main()
     VertexOut.texCoord = TexCoord;
     VertexOut.viewMat = modelViewMat;
 
-    //debug, output first four weights
+    int numBonesI = int(numBones);
+
+    mat4 trans = mat4(0.0);
+    for (int i=0; i<numBonesI; i++)
+        trans = trans + transMat[i] * weights[gl_VertexID * MAX_NUM_BONES + i];
     VertexOut.weights.x = weights[gl_VertexID * MAX_NUM_BONES + 0];
     VertexOut.weights.y = weights[gl_VertexID * MAX_NUM_BONES + 1];
     VertexOut.weights.z = weights[gl_VertexID * MAX_NUM_BONES + 2];
     VertexOut.weights.w = 1.0;
-    gl_Position = projMat * modelViewMat*vec4(position, 1.0);
+    gl_Position = projMat * modelViewMat*trans*vec4(position, 1.0);
 }

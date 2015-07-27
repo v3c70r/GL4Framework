@@ -25,7 +25,7 @@ public:
     {
         near = 1.0f;
         far = 10000.0f;
-        fov = 10.1693706f;
+        fov = 1.1693706f;
         aspect = 1.0f;
     }
     //Rotation and translations

@@ -39,6 +39,7 @@ public:
     virtual void draw()=0;
     void setTransMat(const glm::mat4x4 &m){transMat = m;}
     virtual void setShader(Shader *)=0;
+    virtual void update()=0;       //I assume most objects require updates in each frame
     void setParent(Object *obj){parent = obj;}
     void setModelViewMat(const glm::mat4 &mv)
     {

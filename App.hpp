@@ -12,6 +12,7 @@
 #include "meshNode.hpp"
 #include "scene.h"
 #include "shadowMap.h"
+#include "importer.hpp"
 
 /*-----Consts----*/
 #define WIDTH (800)

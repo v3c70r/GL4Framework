@@ -60,7 +60,8 @@ void App::init()
     assert(startGL());
     InitImGui(windowWidth, windowHeight);
     scene.init();
-    scene.import("./meshes/mine.dae");
+    Importer importer(&scene);
+    importer.import("./meshes/mine.dae");
     screen.init(windowWidth, windowHeight, "./shaders/screen_vs.glsl", "./shaders/screen_fs.glsl");
     //scene.addFluidSys("fluid_1");
     //Points* fluidSys = dynamic_cast<Points*>(scene.getObject("fluid_1"));

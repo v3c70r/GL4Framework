@@ -30,6 +30,7 @@ void Scene::drawScene() const
     glm::mat4 viewMat=camera->getViewMat();
     for (auto i=0; i<objectPointers.size(); i++) 
     {
+        (objectPointers[i])->update();
         (objectPointers[i])->setModelViewMat(camera->getViewMat());
         (objectPointers[i])->draw();
     }
@@ -44,7 +45,6 @@ void Scene::addMeshes(std::string fileName, Object* parent)
 
 void Scene::import(std::string fileName, Object* parent)
 {
-    //whatever
     int flags = aiProcess_Triangulate;
     flags |= aiProcess_JoinIdenticalVertices;
     flags |= aiProcess_GenSmoothNormals;

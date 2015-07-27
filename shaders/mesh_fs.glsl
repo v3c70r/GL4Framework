@@ -71,10 +71,10 @@ void main()
                 );
     }
     //color = material.specular;
-    //color = vec4(dirLights.numDirLights / 5.0);
+       //color = vec4(dirLights.numDirLights / 5.0);
 
 
-    color = VertexIn.weights;
+    //color = VertexIn.weights;
     color.w = 1.0;
 }
 

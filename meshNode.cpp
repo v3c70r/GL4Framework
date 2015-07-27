@@ -34,7 +34,7 @@ void MeshNode::init(GLuint nFaces, GLuint nVertices, GLuint numBones){
 
     //Bones Weights
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(GLfloat)*numBones*numOfVertices, 0, GL_STATIC_COPY);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(GLfloat)*numBones*numOfVertices+sizeof(GLuint), 0, GL_STATIC_COPY);
 
     //indices
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBO[MESH_ATTR::INDICES]);
@@ -42,7 +42,7 @@ void MeshNode::init(GLuint nFaces, GLuint nVertices, GLuint numBones){
 
     //Bones Transformations
     glBindBuffer(GL_UNIFORM_BUFFER, VBO[MESH_ATTR::BONES_TRANS]);
-    glBufferData(GL_UNIFORM_BUFFER, sizeof (GLfloat) * MAX_NUM_BONES, 0, GL_DYNAMIC_DRAW);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof (GLfloat) *16* MAX_NUM_BONES, 0, GL_DYNAMIC_DRAW);
 
 
     //clean up
@@ -357,6 +357,22 @@ void MeshNode::setShader(Shader *s)
     shader->bindMaterial(VBO[MESH_ATTR::MATERIAL]);
     shader->bindBoneTrans(VBO[MESH_ATTR::BONES_TRANS]);
     shader->bindBoneWeights(VBO[MESH_ATTR::WEIGHTS]);
+}
+
+void MeshNode::addAnimation(Animation anim)
+{
+    animations.push_back(anim);
+}
+
+void MeshNode::setBoneTrans(const GLfloat* trans, const GLuint &numBones)
+{
+    glBindBuffer(GL_UNIFORM_BUFFER, VBO[MESH_ATTR::BONES_TRANS]);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(GLfloat)*16* numBones,trans ,GL_DYNAMIC_DRAW);
+}
+void MeshNode::update()
+{
+    setBoneTrans(&((animations[0].frames[0])[0][0][0]), animations[0].numBones);
+    std::cout<<glm::to_string(animations[0].frames[0][0])<<std::endl;;
 }
 
 

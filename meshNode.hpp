@@ -20,6 +20,8 @@
 typedef std::vector<glm::mat4> Frame;
 struct Animation
 {
+    std::string name;
+    GLuint numBones;
     std::vector<Frame> frames;
 };
 
@@ -42,6 +44,7 @@ namespace MESH_ATTR{
 class MeshNode: public Object
 {
 protected:
+    vector<Animation> animations;
     GLuint numOfFaces;
     GLuint numOfVertices;
     GLuint texture;
@@ -62,6 +65,7 @@ public:
         delete []VBO;
     }
     void init(GLuint nFaces, GLuint nVertices, GLuint numBones);
+    void setBoneTrans(const GLfloat* trans, const GLuint &numBones);
     void setVertices(const GLfloat *vertices);
     void setWeights(const GLfloat* weights);
     void setNormals(const GLfloat *normals);
@@ -79,7 +83,9 @@ public:
     {
         glBindVertexArray(0);
     }
+    void update();
     void draw();
+    void addAnimation(Animation anim);
 };
 
 
