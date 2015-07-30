@@ -33,8 +33,16 @@ void MeshNode::init(GLuint nFaces, GLuint nVertices, GLuint numBones){
     glVertexAttribPointer(MESH_ATTR::TEXCOORDS, 2, GL_FLOAT, 0, 0, 0);
 
     //Bones Weights
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(GLfloat)*numBones*numOfVertices+sizeof(GLuint), 0, GL_STATIC_COPY);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
+    glEnableVertexAttribArray(MESH_ATTR::WEIGHTS);
+    glVertexAttribPointer(MESH_ATTR::WEIGHTS, 4, GL_FLOAT, 0, 0, 0);
+
+    //Bone IDs
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::IDS]);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::IDS]);
+    glEnableVertexAttribArray(MESH_ATTR::IDS);
+    glVertexAttribPointer(MESH_ATTR::IDS, 4, GL_FLOAT, 0, 0, 0);
 
     //indices
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBO[MESH_ATTR::INDICES]);
@@ -58,12 +66,13 @@ void MeshNode::init(GLuint nFaces, GLuint nVertices, GLuint numBones){
     delete []emptyFloat;
     delete []emptyUint;
 }
-void MeshNode::setWeights(const GLfloat* weights)
+void MeshNode::setWeights(const GLuint *IDs, const GLfloat* weights)
 {
-    std::cout<<"Weights"<<weights[0]<<"\t"<<weights[1]<<std::endl;
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, numOfVertices * MAX_NUM_BONES *sizeof(GLfloat), weights, GL_STATIC_DRAW);
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::IDS]);
+    glBufferData(GL_ARRAY_BUFFER, numOfVertices * 4 * sizeof(GLuint), IDs, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::WEIGHTS]);
+    glBufferData(GL_ARRAY_BUFFER, numOfVertices * 4 * sizeof(GLfloat), weights, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 void MeshNode::setVertices(const GLfloat *vertices)
 {
@@ -371,8 +380,8 @@ void MeshNode::setBoneTrans(const GLfloat* trans, const GLuint &numBones)
 }
 void MeshNode::update()
 {
-    setBoneTrans(&((animations[0].frames[0])[0][0][0]), animations[0].numBones);
-    std::cout<<glm::to_string(animations[0].frames[0][0])<<std::endl;;
+    //setBoneTrans(&((animations[0].frames[0])[0][0][0]), animations[0].numBones);
+    //std::cout<<glm::to_string(animations[0].frames[0][0])<<std::endl;;
 }
 
 

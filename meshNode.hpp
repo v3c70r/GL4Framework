@@ -25,7 +25,10 @@ struct Animation
     std::vector<Frame> frames;
 };
 
-namespace MESH_ATTR{
+
+class MeshNode: public Object
+{
+private:
     enum MESH_ATTR
     {
         //attrb with fixed locations
@@ -33,16 +36,13 @@ namespace MESH_ATTR{
         NORMALS,
         TEXCOORDS,
         WEIGHTS,
+        IDS,
         INDICES,
         //uniform buffers
         MATERIAL,
         BONES_TRANS,
         COUNT
     };
-}
-
-class MeshNode: public Object
-{
 protected:
     vector<Animation> animations;
     GLuint numOfFaces;
@@ -67,7 +67,7 @@ public:
     void init(GLuint nFaces, GLuint nVertices, GLuint numBones);
     void setBoneTrans(const GLfloat* trans, const GLuint &numBones);
     void setVertices(const GLfloat *vertices);
-    void setWeights(const GLfloat* weights);
+    void setWeights(const GLuint *IDs, const GLfloat* weights);
     void setNormals(const GLfloat *normals);
     void setTexCoord(const GLfloat *texCoord);
     void setIndices(const GLuint *indices);

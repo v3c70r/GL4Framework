@@ -90,29 +90,56 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
     //load meshes
     for (auto i=0; i<pNode->mNumMeshes; i++)
     {
-        std::cout<<pNode->mName.C_Str()<<std::endl;
-        std::cout<<pNode->mNumMeshes<<std::endl;
         MeshNode *meshNode = new MeshNode();
         aiMesh *curMesh =as->mMeshes[pNode->mMeshes[i]];
         //load bones
         if (curMesh->HasBones())
         {
             meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices, meshNode->MAX_NUM_BONES);
-            vector<float> weights;
-            //max check
-            if ( meshNode->MAX_NUM_BONES < curMesh->mNumBones)
-                throw std::runtime_error("Too many bones");
-            weights.resize(meshNode->MAX_NUM_BONES * curMesh->mNumVertices+1, 0.0);
-            weights[0] = (float)curMesh->mNumBones+0.1;
-            for (int j=0; j<curMesh->mNumBones; j++)
+
+            std::vector<VertexBoneData> vetBoneDatas;
+            vetBoneDatas.resize(curMesh->mNumVertices);
+
+            for (auto boneId = 0; boneId < curMesh->mNumBones; boneId++)
             {
-                for (int k=0; k<curMesh->mBones[j]->mNumWeights; k++)
+                uint BoneIndx = 0;
+                aiBone * curBone = curMesh->mBones[boneId];
+                std::string BoneName(curBone->mName.C_Str());
+                if (boneMapping.find(BoneName) == boneMapping.end()) {  //bone is not found
+                    BoneIndx = numBones;
+                    numBones++;
+                    BoneInfo bi;
+                    boneInfos.push_back(bi);
+                }
+                else{
+                    BoneIndx = boneMapping[BoneName];
+                }
+                boneMapping[BoneName] = BoneIndx;
+                //build bone vertex data
+                for (auto weightID = 0; weightID < curBone->mNumWeights; weightID++)
                 {
-                    aiVertexWeight w = curMesh->mBones[j]->mWeights[k];
-                    weights[w.mVertexId*meshNode->BONES_PER_VERTEX+k+1] =  w.mWeight;
+                    aiVertexWeight curWeight = curBone->mWeights[weightID];
+                    vetBoneDatas[curWeight.mVertexId].addBone(BoneIndx, curWeight.mWeight);
                 }
             }
-            meshNode->setWeights(&weights[0]);
+            //validation
+            for (auto i=0; i<vetBoneDatas.size(); i++)
+            {
+                float w = 0.0;
+                for (auto j=0; j<vetBoneDatas[i].numBones; j++)
+                    w+=vetBoneDatas[i].weights[j];
+            }
+            //form array
+            vector<GLfloat> dWeights;
+            dWeights.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices);
+            vector<GLuint> dIDs;
+            dWeights.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices);
+            for (auto vertI=0; vertI<curMesh->mNumVertices; vertI++)
+            {
+                memcpy(&dWeights[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].weights[0], sizeof(GLfloat)*NUM_BONES_PER_VERT);
+                memcpy(&dIDs[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].IDs[0], sizeof(GLuint)*NUM_BONES_PER_VERT);
+            }
+            meshNode->setWeights(&dIDs[0], &dWeights[0]);
         }
         else
         {

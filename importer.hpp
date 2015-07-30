@@ -8,18 +8,62 @@
 #include <string>
 #include <exception>
 #include <iostream>
+#include <map>
 #include <glm/gtc/type_ptr.hpp>
+#define NO_BONE 9999
+
 class Importer
 {
+    //bone related datastructures
+    static const int NUM_BONES_PER_VERT=4;
+    struct VertexBoneData
+    {
+        GLuint numBones;
+        GLuint IDs[NUM_BONES_PER_VERT];
+        GLfloat weights[NUM_BONES_PER_VERT];
+        VertexBoneData()
+        {
+            numBones = 0;
+            for (auto i=0; i<NUM_BONES_PER_VERT; i++)
+            {
+                IDs[i] = NO_BONE;
+                weights[i] = 0.0f;
+            }
+        }
+        void addBone(GLuint ID, float weight)
+        {
+            if (numBones < NUM_BONES_PER_VERT) {
+                IDs[numBones] = ID;
+                weights[numBones] = weight;
+                numBones++;
+            }
+        }
+    };
+    struct BoneInfo
+    {
+        aiMatrix4x4 BoneOffset;
+        aiMatrix4x4 FinalTrans;
+    };
+    struct Bone
+    {
+        vector<BoneInfo> boneInfos;
+    };
+    std::map<std::string, int> boneMapping;
+    std::vector<BoneInfo> boneInfos;
+    int numBones;
+
+
 private:    
     Scene *scene;
     std::string base;
     std::string fileName;
     void importScene(aiNode *pNode,const aiScene* as);
 public:
-    Importer(Scene *s=nullptr):scene(s){}
+    Importer(Scene *s=nullptr):scene(s), numBones(0) {}
     void setScene(Scene *s){scene = s;}
     void import(std::string fileName, std::string parentName);
+
+    /** Import meshes and bones **/
     void import(std::string fileName, Object *parent=nullptr);
 };
 
