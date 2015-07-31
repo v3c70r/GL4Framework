@@ -15,73 +15,13 @@ void Importer::import(std::string fileName, Object *parent)
     {
         throw std::runtime_error(importer.GetErrorString());
     }
-
     importScene(aiScn->mRootNode, aiScn);
+    for (auto animIdx = 0; animIdx < aiScn->mNumAnimations; animIdx++)
+        loadAnimation(aiScn->mAnimations[animIdx]);
 
-    for (auto i=0; i<aiScn->mNumAnimations; i++)
-    {
-        Animation thisAnim;
-        //load animations
-        aiAnimation *anim  = aiScn->mAnimations[i];
-        thisAnim.name = anim->mName.C_Str();
-        thisAnim.numBones = anim->mNumChannels;
-        std::cout<<anim->mDuration<<std::endl;
-        std::cout<<anim->mTicksPerSecond<<std::endl;
-        std::cout<<anim->mNumMeshChannels<<std::endl;
-
-        float framesPerSec = 30.0;
-        std::vector<std::vector<glm::mat4>> animVec;
-        std::vector<aiNode*> nodeMap;
-        std::vector<int> parentIdxMap;
-        animVec.resize(anim->mNumChannels);
-        nodeMap.resize(anim->mNumChannels);
-        parentIdxMap.resize(anim->mNumChannels, -1);
-
-        for (auto chID = 0; chID < anim->mNumChannels; chID++)
-        {
-            aiNodeAnim *ch = anim->mChannels[chID];
-            aiNode *root = aiScn->mRootNode;
-            nodeMap[chID] = root->FindNode(ch->mNodeName);
-            for (auto rID=0; rID<ch->mNumRotationKeys-1; rID++)
-            {
-                const aiQuaternion& startQ = ch->mRotationKeys[rID].mValue;
-                const aiQuaternion& EndQ = ch->mRotationKeys[rID+1].mValue;
-                const aiVector3D startPos = ch->mPositionKeys[rID].mValue;
-                const aiVector3D endPos = ch->mPositionKeys[rID+1].mValue;
-                const aiVector3D startScal = ch->mScalingKeys[rID].mValue;
-                const aiVector3D endScal = ch->mScalingKeys[rID+1].mValue;
-                float DT = ch->mRotationKeys[rID+1].mTime - ch->mRotationKeys[rID].mTime ;
-                float step = 1/(DT*60);
-                for (float factor = 0.000000001; factor < 0.9999999999; factor += step)
-                {
-                    aiQuaternion out;
-                    aiQuaternion::Interpolate(out, startQ, EndQ, factor);
-                    out = out.Normalize();
-                    glm::mat4 rotMat = aiMatToGlmMat(aiMatrix4x4(out.GetMatrix()));
-                    aiVector3D outPos = (startPos + endPos)*step ;
-                    aiVector3D outScal = (startScal + endScal)*step ;
-                    glm::mat4 scalMat = glm::scale(glm::mat4(1.0), glm::vec3(outScal.x, outScal.y, outScal.z));
-                    glm::mat4 posMat = glm::translate(glm::mat4(1.0), glm::vec3(outPos.x, outPos.y,outPos.z));
-                    animVec[chID].push_back(scalMat*rotMat*posMat);
-                }
-            }
-        }
-        //Form parent index
-        for(auto i=0; i<anim->mNumChannels; i++)
-            for(auto j=0; j<anim->mNumChannels; j++)
-                if (nodeMap[i]->mParent == nodeMap[j])
-                    parentIdxMap[i] = j;
-
-        std::cout<<glm::to_string(getGlobalTrans(animVec, parentIdxMap, 3, 0));
-        vector<vector<glm::mat4>> frameAnimation;
-
-
-        frameAnimation.resize(animVec[0].size());
-        for (auto i=0; i<animVec[0].size(); i++)    //for each frame
-            for (auto j=0; j<animVec.size(); j++)   //for each bone
-                frameAnimation[i].push_back(getGlobalTrans(animVec,parentIdxMap, j, i));
-        thisAnim.frames = frameAnimation;
-        ((MeshNode*)scene->objectPointers[0])->addAnimation(thisAnim);
+    //load animations
+    for (auto animIdx=0; animIdx < aiScn->mNumAnimations; animIdx++) {
+        aiAnimation *curAnim = aiScn->mAnimations[animIdx];
     }
 }
 
@@ -109,6 +49,7 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
                     BoneIndx = numBones;
                     numBones++;
                     BoneInfo bi;
+                    bi.BoneOffset = curBone->mOffsetMatrix;
                     boneInfos.push_back(bi);
                 }
                 else{
@@ -136,14 +77,6 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
             dIDs.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices);
             for (auto vertI=0; vertI<curMesh->mNumVertices; vertI++)
             {
-                //for (auto wIdx = 0; wIdx < 4; wIdx++)
-                //{
-                //    std::cout<<dWeights.size()<<"\t"<<vetBoneDatas.size()<<std::endl;
-                //    std::cout<<vertI*NUM_BONES_PER_VERT+wIdx<<std::endl;
-                //    dWeights[vertI*NUM_BONES_PER_VERT+wIdx] = vetBoneDatas[vertI].weights[wIdx];
-                //    dIDs[vertI*NUM_BONES_PER_VERT+wIdx] = vetBoneDatas[vertI].IDs[wIdx];
-                //}
-                //memcpy has alignement exceptions
                 memcpy(&dWeights[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].weights[0], sizeof(GLfloat)*NUM_BONES_PER_VERT);
                 memcpy(&dIDs[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].IDs[0], sizeof(GLuint)*NUM_BONES_PER_VERT);
             }
@@ -212,3 +145,74 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
         importScene(pNode->mChildren[i], as);
 }
 
+void Importer::loadAnimation(aiAnimation *anim)
+{
+    float duration=anim->mDuration;
+    float frameRate = 1.0;
+    float DT = duration/frameRate;
+    vector<aiMatrix4x4> localTrans;
+    localTrans.resize(boneInfos.size());
+    for(auto time = 0; time<duration; time += DT)
+    {
+        for (auto chIdx=0; chIdx < anim->mNumChannels; chIdx++)
+        {
+            aiNodeAnim* curCh = anim->mChannels[chIdx];
+            localTrans[boneMapping[curCh->mNodeName.C_Str()]] = getTransMatByTime(curCh,time);
+            print_aiMatrix(getTransMatByTime(curCh, time));
+        } 
+    }
+}
+aiMatrix4x4 Importer::getTransMatByTime(aiNodeAnim* ch, float time)
+{
+    //rotation
+    aiQuaternion preRot;
+    aiQuaternion afterRot;
+    float factor = 0;
+    for (auto keyIdx = 0; keyIdx<ch->mNumRotationKeys-1; keyIdx++) 
+        if (time+0.000001 >= ch->mRotationKeys[keyIdx].mTime && time < ch->mRotationKeys[keyIdx+1].mTime){
+            preRot = ch->mRotationKeys[keyIdx].mValue;
+            afterRot = ch->mRotationKeys[keyIdx+1].mValue;
+            factor = time / (ch->mRotationKeys[keyIdx+1].mTime - ch->mRotationKeys[keyIdx].mTime);
+            break;
+        }
+    aiQuaternion rotQuat; 
+    aiQuaternion::Interpolate(rotQuat, preRot, afterRot, factor);
+    aiMatrix4x4 rotM = (aiMatrix4x4(rotQuat.GetMatrix()));
+    std::cout<<"ROT MAT\n";
+    print_aiMatrix(rotM);
+    //Scaling
+    aiVector3D preScaling;
+    aiVector3D afterScaling;
+    factor = 0;
+    for (auto keyIdx = 0; keyIdx<ch->mNumScalingKeys-1; keyIdx++)
+        if (time+0.000001 >= ch->mScalingKeys[keyIdx].mTime && time < ch->mScalingKeys[keyIdx+1].mTime){
+            preScaling = ch->mScalingKeys[keyIdx].mValue;
+            afterScaling = ch->mScalingKeys[keyIdx+1].mValue;
+            factor = time / (ch->mScalingKeys[keyIdx+1].mTime - ch->mScalingKeys[keyIdx].mTime);
+            break;
+        }
+    aiVector3D scalingVec=aiLERP(preScaling, afterScaling, factor);
+    aiMatrix4x4 scalingM;
+    //aiMatrix4x4::Scaling(scalingVec, scalingM);
+    std::cout<<"SCAL MAT\n";
+    print_aiMatrix(scalingM);
+    //translation
+    aiVector3D preTrans;
+    aiVector3D afterTrans;
+    factor=0;
+    for (auto keyIdx = 0; keyIdx<ch->mNumPositionKeys-1; keyIdx++)
+        if (time+0.000001 >= ch->mPositionKeys[keyIdx].mTime && time < ch->mPositionKeys[keyIdx+1].mTime){
+            preTrans = ch->mPositionKeys[keyIdx].mValue;
+            afterTrans = ch->mPositionKeys[keyIdx+1].mValue;
+            factor = time / (ch->mPositionKeys[keyIdx+1].mTime - ch->mPositionKeys[keyIdx].mTime);
+            break;
+        }
+    aiVector3D transVec = aiLERP(preTrans, afterTrans, factor);
+    aiMatrix4x4 transM;
+    std::cout<<"TRANS MAT\n";
+    print_aiMatrix(transM);
+
+    aiMatrix4x4::Translation(transVec, transM);
+    aiMatrix4x4 i;
+    return transM * rotM * scalingM * i;
+}

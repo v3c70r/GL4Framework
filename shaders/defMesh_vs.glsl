@@ -2,6 +2,8 @@
 //Die Apple
 //Die OpenGL 4.1
 
+#define NO_BONE 999
+#define NUM_BONES 4
 
 layout(location=0) in vec3 position;
 layout(location=1) in vec3 normal;
@@ -12,6 +14,7 @@ layout(location=4) in ivec4 IDs;
 uniform mat4 modelViewMat;
 uniform mat4 normalMat;
 uniform mat4 projMat;
+uniform mat4 bonesTrans[NUM_BONES];
 
 out VertexData{
     vec3 normal;
@@ -32,9 +35,9 @@ void main()
     VertexOut.texCoord = TexCoord;
     VertexOut.viewMat = modelViewMat;
 
-    VertexOut.weights.x = weights.x;
-    VertexOut.weights.y = weights.y;
-    VertexOut.weights.z = weights.z;
+    VertexOut.weights.x = float(IDs.x);
+    VertexOut.weights.y = float(IDs.y);
+    VertexOut.weights.z = float(IDs.z);
     VertexOut.weights.w = 1.0;
     gl_Position = projMat * modelViewMat*vec4(position, 1.0);
 }

@@ -45,13 +45,25 @@ class Importer
         aiMatrix4x4 BoneOffset;
         aiMatrix4x4 FinalTrans;
     };
-    struct Bone
-    {
-        vector<BoneInfo> boneInfos;
-    };
     std::map<std::string, int> boneMapping;
     std::vector<BoneInfo> boneInfos;
+    void loadAnimation(aiAnimation *anim);
+    aiMatrix4x4 getTransMatByTime(aiNodeAnim* ch, float time);
     int numBones;
+
+    //helper functions
+    inline aiVector3D aiLERP(const aiVector3D &start, const aiVector3D &end, float factor)
+    {
+        return factor*start+(1.0f-factor)*end;
+    }
+    inline void print_aiMatrix(const aiMatrix4x4 &m) const
+    {
+        std::cout<<"====PRINTING MATRIX=====\n";
+        std::cout<<m.a1<<"\t"<<m.a2<<"\t"<<m.a3<<"\t"<<m.a4<<std::endl;
+        std::cout<<m.b1<<"\t"<<m.b2<<"\t"<<m.b3<<"\t"<<m.b4<<std::endl;
+        std::cout<<m.c1<<"\t"<<m.c2<<"\t"<<m.c3<<"\t"<<m.c4<<std::endl;
+        std::cout<<m.d1<<"\t"<<m.d2<<"\t"<<m.d3<<"\t"<<m.d4<<std::endl;
+    }
 
 
 private:    
