@@ -9,6 +9,7 @@
 #include <exception>
 #include <iostream>
 #include <map>
+#include <cstring>
 #include <glm/gtc/type_ptr.hpp>
 #define NO_BONE 9999
 

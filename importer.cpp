@@ -133,9 +133,17 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
             vector<GLfloat> dWeights;
             dWeights.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices);
             vector<GLuint> dIDs;
-            dWeights.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices);
+            dIDs.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices);
             for (auto vertI=0; vertI<curMesh->mNumVertices; vertI++)
             {
+                //for (auto wIdx = 0; wIdx < 4; wIdx++)
+                //{
+                //    std::cout<<dWeights.size()<<"\t"<<vetBoneDatas.size()<<std::endl;
+                //    std::cout<<vertI*NUM_BONES_PER_VERT+wIdx<<std::endl;
+                //    dWeights[vertI*NUM_BONES_PER_VERT+wIdx] = vetBoneDatas[vertI].weights[wIdx];
+                //    dIDs[vertI*NUM_BONES_PER_VERT+wIdx] = vetBoneDatas[vertI].IDs[wIdx];
+                //}
+                //memcpy has alignement exceptions
                 memcpy(&dWeights[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].weights[0], sizeof(GLfloat)*NUM_BONES_PER_VERT);
                 memcpy(&dIDs[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].IDs[0], sizeof(GLuint)*NUM_BONES_PER_VERT);
             }
