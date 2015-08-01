@@ -5,7 +5,6 @@ GLFWwindow* App::pWindow = nullptr;
 int App::windowWidth = 1920;
 int App::windowHeight = 1080;
 Scene App::scene;
-Screen App::screen;
 
 App::App()
 {
@@ -26,10 +25,10 @@ bool App::startGL()
         return false;
     }
     // uncomment these lines if on Apple OS X
-    //glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 4);
-    //glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 0);
-    //glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    //glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     windowWidth=mode->width;
     windowHeight=mode->height;
@@ -62,7 +61,6 @@ void App::init()
     scene.init();
     Importer importer(&scene);
     importer.import("./meshes/mine.dae");
-    screen.init(windowWidth, windowHeight, "./shaders/screen_vs.glsl", "./shaders/screen_fs.glsl");
     //scene.addFluidSys("fluid_1");
     //Points* fluidSys = dynamic_cast<Points*>(scene.getObject("fluid_1"));
     //fluidSys->insertParsFromOBJ("./meshes/bunny.obj", 90.0, 1);
@@ -148,9 +146,7 @@ void App::run()
         ImGui::Text(glm::to_string(scene.getCamera()->getProjectionMat()).c_str());
         ImGui::Text(glm::to_string(glm::perspective(1.1693706f, 1.0f, 1.0f, 1000.0f)).c_str());
 
-        glBindFramebuffer(GL_FRAMEBUFFER, screen.getFBO());
         scene.drawScene();
-        screen.renderScreen(width, height, scene.getCamera());
         //Render GUI
         glDisable(GL_BLEND);
         ImGui::Render();

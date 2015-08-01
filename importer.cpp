@@ -127,7 +127,6 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
         }
         meshNode->setIndices(&tempFaces[0]);
 
-
         meshNode->setParent(nullptr);
         if (std::string(curMesh->mName.C_Str()) != "")
             meshNode->setName(std::string(curMesh->mName.C_Str()));
@@ -158,7 +157,7 @@ void Importer::loadAnimation(aiAnimation *anim)
         {
             aiNodeAnim* curCh = anim->mChannels[chIdx];
             localTrans[boneMapping[curCh->mNodeName.C_Str()]] = getTransMatByTime(curCh,time);
-            print_aiMatrix(getTransMatByTime(curCh, time));
+            //print_aiMatrix(getTransMatByTime(curCh, time));
         } 
     }
 }
@@ -178,8 +177,8 @@ aiMatrix4x4 Importer::getTransMatByTime(aiNodeAnim* ch, float time)
     aiQuaternion rotQuat; 
     aiQuaternion::Interpolate(rotQuat, preRot, afterRot, factor);
     aiMatrix4x4 rotM = (aiMatrix4x4(rotQuat.GetMatrix()));
-    std::cout<<"ROT MAT\n";
-    print_aiMatrix(rotM);
+    //std::cout<<"ROT MAT\n";
+    //print_aiMatrix(rotM);
     //Scaling
     aiVector3D preScaling;
     aiVector3D afterScaling;
@@ -194,8 +193,8 @@ aiMatrix4x4 Importer::getTransMatByTime(aiNodeAnim* ch, float time)
     aiVector3D scalingVec=aiLERP(preScaling, afterScaling, factor);
     aiMatrix4x4 scalingM;
     //aiMatrix4x4::Scaling(scalingVec, scalingM);
-    std::cout<<"SCAL MAT\n";
-    print_aiMatrix(scalingM);
+    //std::cout<<"SCAL MAT\n";
+    //print_aiMatrix(scalingM);
     //translation
     aiVector3D preTrans;
     aiVector3D afterTrans;
@@ -209,10 +208,21 @@ aiMatrix4x4 Importer::getTransMatByTime(aiNodeAnim* ch, float time)
         }
     aiVector3D transVec = aiLERP(preTrans, afterTrans, factor);
     aiMatrix4x4 transM;
-    std::cout<<"TRANS MAT\n";
-    print_aiMatrix(transM);
+    //std::cout<<"TRANS MAT\n";
+    //print_aiMatrix(transM);
 
     aiMatrix4x4::Translation(transVec, transM);
     aiMatrix4x4 i;
     return transM * rotM * scalingM * i;
+}
+
+aiMatrix4x4 Importer::getGlobalTransFromLocalTrans(const std::vector<aiMatrix4x4> &localTrans, aiNode *n)
+{
+    if (boneMapping.find(n->mName.C_Str()) != boneMapping.end()){
+        
+    }
+    else
+    {
+    }
+    
 }

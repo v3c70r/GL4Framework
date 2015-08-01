@@ -7,7 +7,6 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "screen.hpp"
 #include "light.hpp"
 #include "meshNode.hpp"
 #include "scene.h"
@@ -31,8 +30,6 @@ public:
 private:
 
     static Scene scene;
-    static Screen screen;
-    static bool useFBO;
 
     static bool startGL();
     static void setupLight();

@@ -1,4 +1,4 @@
-#version 430
+#version 410
 
 in VertexData{
     vec3 normal;
@@ -9,7 +9,7 @@ in VertexData{
     vec4 weights;
 }VertexIn;
 
-layout( std140, binding=0) uniform Material
+layout( std140) uniform Material
 {
     vec4 diffuse;
     vec4 ambient;
@@ -24,7 +24,7 @@ struct DirLight
 {
     vec4 dir;
 };
-layout(std140, binding=1) uniform DirLights
+layout(std140) uniform DirLights
 {
     DirLight lights[MAX_DIRLIGHTS];
     int numDirLights;

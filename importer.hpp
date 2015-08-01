@@ -64,6 +64,7 @@ class Importer
         std::cout<<m.c1<<"\t"<<m.c2<<"\t"<<m.c3<<"\t"<<m.c4<<std::endl;
         std::cout<<m.d1<<"\t"<<m.d2<<"\t"<<m.d3<<"\t"<<m.d4<<std::endl;
     }
+    aiMatrix4x4 getGlobalTransFromLocalTrans(const std::vector<aiMatrix4x4> &localTrans, aiNode *n);
 
 
 private:    

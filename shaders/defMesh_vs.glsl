@@ -1,4 +1,4 @@
-#version 430
+#version 410
 //Die Apple
 //Die OpenGL 4.1
 
