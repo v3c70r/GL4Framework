@@ -160,6 +160,12 @@ void Importer::loadAnimation(aiAnimation *anim)
             //print_aiMatrix(getTransMatByTime(curCh, time));
         } 
     }
+    for (std::map<std::string,int>::iterator it=boneMapping.begin(); it!=boneMapping.end(); ++it)
+    {
+        aiNode *curNode;
+        curNode = curNode->FindNode(it->first.c_str());
+        print_aiMatrix(getGlobalTransFromLocalTrans(localTrans, curNode));
+    }
 }
 aiMatrix4x4 Importer::getTransMatByTime(aiNodeAnim* ch, float time)
 {
@@ -218,11 +224,21 @@ aiMatrix4x4 Importer::getTransMatByTime(aiNodeAnim* ch, float time)
 
 aiMatrix4x4 Importer::getGlobalTransFromLocalTrans(const std::vector<aiMatrix4x4> &localTrans, aiNode *n)
 {
-    if (boneMapping.find(n->mName.C_Str()) != boneMapping.end()){
-        
+    aiNode* pNode = n->mParent;
+    if (pNode)
+    {
+        if (boneMapping.find(n->mName.C_Str()) != boneMapping.end())    //current node is boneNode
+            return getGlobalTransFromLocalTrans(localTrans, pNode) * localTrans[boneMapping[n->mName.C_Str()]];
+        else
+            return getGlobalTransFromLocalTrans(localTrans, pNode) * n->mTransformation;
     }
     else
     {
+        if (boneMapping.find(n->mName.C_Str()) != boneMapping.end()){
+            return localTrans[boneMapping[n->mName.C_Str()]];
+        }
+        else {
+            return n->mTransformation;
+        }
     }
-    
 }
