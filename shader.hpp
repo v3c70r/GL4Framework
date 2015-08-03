@@ -44,22 +44,19 @@ namespace UNIFORM_BLOCKS{   //or SSBO
         MATERIAL=0,
         DIR_LIGHTS,
         BONES_TRANS,
-        BONES_WEIGHTS,
         count
     };
     const std::string names[] =
     {
         "Material",
         "DirLights",
-        "BoneTrans",
-        "BoneWeights"
+        "BoneTrans"
     };
     const GLint binding[]=
     {
         0,
         1,
-        2,
-        3
+        2
     };
 }
 class Shader
@@ -102,5 +99,4 @@ public:
     bool bindMaterial(const GLuint &buffer);
     bool bindDirLights(const GLuint &buffer);
     bool bindBoneTrans(const GLuint &buffer);
-    bool bindBoneWeights(const GLuint &buffer);
 };

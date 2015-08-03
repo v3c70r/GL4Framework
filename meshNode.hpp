@@ -18,12 +18,8 @@
 
 //Each frame is an array of global(to this mesh) transformation for each bones
 typedef std::vector<glm::mat4> Frame;
-struct Animation
-{
-    std::string name;
-    GLuint numBones;
-    std::vector<Frame> frames;
-};
+typedef std::vector<Frame> Animation;
+static int frameIdx=0;
 
 
 class MeshNode: public Object

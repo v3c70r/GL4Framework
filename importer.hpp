@@ -47,7 +47,7 @@ class Importer
     };
     std::map<std::string, int> boneMapping;
     std::vector<BoneInfo> boneInfos;
-    void loadAnimation(aiAnimation *anim);
+    vector<vector<glm::mat4>> loadAnimation(const aiScene* s, aiAnimation *anim);
     aiMatrix4x4 getTransMatByTime(aiNodeAnim* ch, float time);
     int numBones;
 
@@ -81,6 +81,8 @@ public:
     void import(std::string fileName, Object *parent=nullptr);
 };
 
+/**Convert assimp matrix to glm matrix
+ * Rom major to column major**/
 inline glm::mat4 aiMatToGlmMat(const aiMatrix4x4 &aiM)
 {
     float mat[16];

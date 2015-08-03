@@ -222,7 +222,7 @@ bool Shader::getIndicesNLocations()
         ////set binding point
         GLint index = glGetUniformBlockIndex(programme, UNIFORM_BLOCKS::names[i].c_str());
         std::cout<<"Binding UNIFORM\n"
-            <<index<<"\t"<<UNIFORM_BLOCKS::binding[i]<<"\t"<<
+            <<"Index: "<<index<<"\t"<<"Binding: "<<UNIFORM_BLOCKS::binding[i]<<"\t"<<
             UNIFORM_BLOCKS::names[i]<<std::endl;
         glUniformBlockBinding(programme ,index, UNIFORM_BLOCKS::binding[i]);
     }
@@ -274,11 +274,6 @@ bool Shader::bindDirLights(const GLuint &buffer)
 bool Shader::bindBoneTrans(const GLuint &buffer)
 {
     glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::BONES_TRANS], buffer);
-    return true;
-}
-bool Shader::bindBoneWeights(const GLuint &buffer)
-{
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::BONES_WEIGHTS], buffer);
     return true;
 }
 

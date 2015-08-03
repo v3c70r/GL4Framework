@@ -3,7 +3,6 @@
 //Die OpenGL 4.1
 
 #define NO_BONE 999
-#define NUM_BONES 4
 
 layout(location=0) in vec3 position;
 layout(location=1) in vec3 normal;
@@ -14,7 +13,12 @@ layout(location=4) in ivec4 IDs;
 uniform mat4 modelViewMat;
 uniform mat4 normalMat;
 uniform mat4 projMat;
-uniform mat4 bonesTrans[NUM_BONES];
+
+#define NUM_BONES 20
+layout( std140) uniform BoneTrans
+{
+    mat4 m[NUM_BONES];
+}boneTrans;
 
 out VertexData{
     vec3 normal;
@@ -30,14 +34,21 @@ out VertexData{
 
 void main()
 {
-    VertexOut.normal = (normalMat * vec4(normal,0.0)).xyz;
     VertexOut.toEye = - (modelViewMat * vec4(position, 1.0)).xyz;
     VertexOut.texCoord = TexCoord;
     VertexOut.viewMat = modelViewMat;
 
-    VertexOut.weights.x = float(IDs.x);
+    mat4 trans = mat4(0.0);
+    for (int i=0; i<4; i++)
+    {
+        if (IDs[i] == NO_BONE) continue;
+        else trans += boneTrans.m[IDs[i]] * weights[i];
+    }
+    
+    VertexOut.weights.x = float(boneTrans.m[0]);
     VertexOut.weights.y = float(IDs.y);
     VertexOut.weights.z = float(IDs.z);
     VertexOut.weights.w = 1.0;
-    gl_Position = projMat * modelViewMat*vec4(position, 1.0);
+    VertexOut.normal = (normalMat * trans *vec4(normal,0.0)).xyz;
+    gl_Position = projMat * modelViewMat*trans*vec4(position, 1.0);
 }

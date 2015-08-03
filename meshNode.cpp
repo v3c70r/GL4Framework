@@ -365,7 +365,6 @@ void MeshNode::setShader(Shader *s)
     shader = s;
     shader->bindMaterial(VBO[MESH_ATTR::MATERIAL]);
     shader->bindBoneTrans(VBO[MESH_ATTR::BONES_TRANS]);
-    shader->bindBoneWeights(VBO[MESH_ATTR::WEIGHTS]);
 }
 
 void MeshNode::addAnimation(Animation anim)
@@ -380,6 +379,8 @@ void MeshNode::setBoneTrans(const GLfloat* trans, const GLuint &numBones)
 }
 void MeshNode::update()
 {
+    setBoneTrans( &(animations[0][frameIdx][0][0][0]), 20);
+    frameIdx = (frameIdx + 1 )%430;
     //setBoneTrans(&((animations[0].frames[0])[0][0][0]), animations[0].numBones);
     //std::cout<<glm::to_string(animations[0].frames[0][0])<<std::endl;;
 }
