@@ -56,24 +56,20 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
                     vetBoneDatas[curWeight.mVertexId].addBone(BoneIndx, curWeight.mWeight);
                 }
             }
-            //validation
-            for (auto i=0; i<vetBoneDatas.size(); i++)
-            {
-                float w = 0.0;
-                for (auto j=0; j<vetBoneDatas[i].numBones; j++)
-                    w+=vetBoneDatas[i].weights[j];
-            }
+
             //form array
             vector<GLfloat> dWeights;
-            dWeights.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices);
+            dWeights.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices, 0.0);
             vector<GLuint> dIDs;
-            dIDs.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices);
+            dIDs.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices, NO_BONE);
             for (auto vertI=0; vertI<curMesh->mNumVertices; vertI++)
             {
                 memcpy(&dWeights[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].weights[0], sizeof(GLfloat)*NUM_BONES_PER_VERT);
                 memcpy(&dIDs[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].IDs[0], sizeof(GLuint)*NUM_BONES_PER_VERT);
             }
             meshNode->setWeights(&dIDs[0], &dWeights[0]);
+
+            //===load animations
             for (auto animIdx = 0; animIdx < as->mNumAnimations; animIdx++)
             {
                 meshNode->addAnimation(loadAnimation(as, as->mAnimations[animIdx]));
@@ -148,13 +144,13 @@ vector<vector<glm::mat4>> Importer::loadAnimation(const aiScene *s,aiAnimation *
     float DT = 1.0/frameRate;
     std::cout<<"Duration:"<<duration<<std::endl;
     vector<aiMatrix4x4> localTrans;
-    localTrans.resize(boneInfos.size());
+    localTrans.resize(boneInfos.size(), aiMatrix4x4());
     vector<vector<glm::mat4>> result;
     result.reserve( (int)frameRate * duration);
     for(float time = 0.0; time<duration; time += DT)
     {
         vector<glm::mat4> frame;
-        frame.reserve(anim->mNumChannels);
+        frame.resize(anim->mNumChannels);
         for (auto chIdx=0; chIdx < anim->mNumChannels; chIdx++)
         {
             aiNodeAnim* curCh = anim->mChannels[chIdx];
@@ -164,14 +160,15 @@ vector<vector<glm::mat4>> Importer::loadAnimation(const aiScene *s,aiAnimation *
         {
             aiNode *curNode = s->mRootNode->FindNode(aiString(it->first.c_str()));
             if (curNode)
-                frame.push_back(
-                        aiMatToGlmMat(getGlobalTransFromLocalTrans(localTrans, curNode)));
+                frame[ it->second ] = aiMatToGlmMat(getGlobalTransFromLocalTrans(localTrans, curNode) * boneInfos[it->second].BoneOffset);
+                //frame[ it->second ] = aiMatToGlmMat(localTrans[it->second]);
         }
         result.push_back(frame);
     }
     std::cout<<"Num Frames:"<<result.size()<<std::endl;
     return result;
 }
+
 aiMatrix4x4 Importer::getTransMatByTime(aiNodeAnim* ch, float time)
 {
     //rotation
@@ -182,9 +179,7 @@ aiMatrix4x4 Importer::getTransMatByTime(aiNodeAnim* ch, float time)
         if (time+0.000001 >= ch->mRotationKeys[keyIdx].mTime && time < ch->mRotationKeys[keyIdx+1].mTime){
             preRot = ch->mRotationKeys[keyIdx].mValue;
             afterRot = ch->mRotationKeys[keyIdx+1].mValue;
-            factor = time-ch->mRotationKeys[keyIdx].mTime / (ch->mRotationKeys[keyIdx+1].mTime - ch->mRotationKeys[keyIdx].mTime);
-            if (factor > 1.0)
-                std::cout<<"factor = "<<factor<<std::endl;
+            factor = (time-ch->mRotationKeys[keyIdx].mTime) / (ch->mRotationKeys[keyIdx+1].mTime - ch->mRotationKeys[keyIdx].mTime);
             break;
         }
     aiQuaternion rotQuat; 
@@ -200,12 +195,12 @@ aiMatrix4x4 Importer::getTransMatByTime(aiNodeAnim* ch, float time)
         if (time+0.000001 >= ch->mScalingKeys[keyIdx].mTime && time < ch->mScalingKeys[keyIdx+1].mTime){
             preScaling = ch->mScalingKeys[keyIdx].mValue;
             afterScaling = ch->mScalingKeys[keyIdx+1].mValue;
-            factor = time-ch->mRotationKeys[keyIdx].mTime / (ch->mScalingKeys[keyIdx+1].mTime - ch->mScalingKeys[keyIdx].mTime);
+            factor = (time-ch->mScalingKeys[keyIdx].mTime) / (ch->mScalingKeys[keyIdx+1].mTime - ch->mScalingKeys[keyIdx].mTime);
             break;
         }
     aiVector3D scalingVec=aiLERP(preScaling, afterScaling, factor);
     aiMatrix4x4 scalingM;
-    //aiMatrix4x4::Scaling(scalingVec, scalingM);
+    aiMatrix4x4::Scaling(scalingVec, scalingM);
     //std::cout<<"SCAL MAT\n";
     //print_aiMatrix(scalingM);
     //translation
@@ -216,29 +211,25 @@ aiMatrix4x4 Importer::getTransMatByTime(aiNodeAnim* ch, float time)
         if (time+0.000001 >= ch->mPositionKeys[keyIdx].mTime && time < ch->mPositionKeys[keyIdx+1].mTime){
             preTrans = ch->mPositionKeys[keyIdx].mValue;
             afterTrans = ch->mPositionKeys[keyIdx+1].mValue;
-            factor = time-ch->mRotationKeys[keyIdx].mTime / (ch->mPositionKeys[keyIdx+1].mTime - ch->mPositionKeys[keyIdx].mTime);
+            factor = (time-ch->mPositionKeys[keyIdx].mTime) / (ch->mPositionKeys[keyIdx+1].mTime - ch->mPositionKeys[keyIdx].mTime);
             break;
         }
     aiVector3D transVec = aiLERP(preTrans, afterTrans, factor);
     aiMatrix4x4 transM;
-    //std::cout<<"TRANS MAT\n";
-    //print_aiMatrix(transM);
-
     aiMatrix4x4::Translation(transVec, transM);
+
     return transM * rotM * scalingM;
 }
 
 aiMatrix4x4 Importer::getGlobalTransFromLocalTrans(const std::vector<aiMatrix4x4> &localTrans, aiNode *n)
 {
     aiNode* pNode = n->mParent;
+    aiMatrix4x4 i;
 
-    if (pNode && boneMapping.find(n->mName.C_Str()) != boneMapping.end()){
-        return getGlobalTransFromLocalTrans( localTrans, pNode) * localTrans[ boneMapping[n->mName.C_Str()]] * n->mTransformation ;
-            //*boneInfos[boneMapping[n->mName.C_Str()]].BoneOffset;
+    if ( boneMapping.find(n->mName.C_Str()) != boneMapping.end()){
+        return getGlobalTransFromLocalTrans( localTrans, pNode) * localTrans[ boneMapping[n->mName.C_Str()]] ;
     }
-    else {
-        return n->mTransformation;
-    }
+    else return n->mTransformation;
     //if (pNode)
     //{
     //    if (boneMapping.find(n->mName.C_Str()) != boneMapping.end())    //current node is boneNode

@@ -17,6 +17,7 @@ class Importer
 {
     //bone related datastructures
     static const int NUM_BONES_PER_VERT=4;
+
     struct VertexBoneData
     {
         GLuint numBones;

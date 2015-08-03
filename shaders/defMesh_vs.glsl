@@ -26,8 +26,6 @@ out VertexData{
     vec4 shadowCoord;
     vec2 texCoord;
     mat4 viewMat;
-    //debug
-    vec4 weights;
 }VertexOut;
 
 
@@ -45,10 +43,6 @@ void main()
         else trans += boneTrans.m[IDs[i]] * weights[i];
     }
     
-    VertexOut.weights.x = float(boneTrans.m[0]);
-    VertexOut.weights.y = float(IDs.y);
-    VertexOut.weights.z = float(IDs.z);
-    VertexOut.weights.w = 1.0;
-    VertexOut.normal = (normalMat * trans *vec4(normal,0.0)).xyz;
+    VertexOut.normal = (normalMat *trans* vec4(normal,0.0)).xyz;
     gl_Position = projMat * modelViewMat*trans*vec4(position, 1.0);
 }

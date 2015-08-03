@@ -5,8 +5,6 @@ in VertexData{
     vec3 toEye;
     vec4 shadowCoord;
     vec2 texCoord;
-    //debug
-    vec4 weights;
 }VertexIn;
 
 layout( std140) uniform Material
