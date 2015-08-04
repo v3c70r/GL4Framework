@@ -60,7 +60,8 @@ void App::init()
     InitImGui(windowWidth, windowHeight);
     scene.init();
     Importer importer(&scene);
-    importer.import("./meshes/mine.dae");
+    //importer.import("./meshes/mine.dae");
+    importer.import("/home/tsing/Desktop/BMW27GE.dae");
     //scene.addFluidSys("fluid_1");
     //Points* fluidSys = dynamic_cast<Points*>(scene.getObject("fluid_1"));
     //fluidSys->insertParsFromOBJ("./meshes/bunny.obj", 90.0, 1);

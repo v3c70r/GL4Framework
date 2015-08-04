@@ -11,7 +11,7 @@ void Importer::import(std::string fileName, Object *parent)
     this->fileName = fileName;
     Assimp::Importer importer;
     const aiScene * aiScn = importer.ReadFile(fileName, flags);
-    if( !scene)
+    if( !aiScn)
     {
         throw std::runtime_error(importer.GetErrorString());
     }
