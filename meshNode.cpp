@@ -381,7 +381,7 @@ void MeshNode::update()
 {
     if (animations.size() == 0) return;
     setBoneTrans( &(animations[0][frameIdx][0][0][0]), 20);
-    frameIdx = (frameIdx + 1 )%430;
+    frameIdx = (frameIdx + 1 )%150;
     //setBoneTrans(&((animations[0].frames[0])[0][0][0]), animations[0].numBones);
     //std::cout<<glm::to_string(animations[0].frames[0][0])<<std::endl;;
 }

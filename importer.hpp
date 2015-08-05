@@ -39,6 +39,8 @@ class Importer
                 weights[numBones] = weight;
                 numBones++;
             }
+            else
+                throw std::runtime_error("To many bones for vertex");
         }
     };
     struct BoneInfo
@@ -106,18 +108,15 @@ inline glm::mat4 aiMatToGlmMat(const aiMatrix4x4 &aiM)
     return glm::transpose(glm::make_mat4(mat));
 }
 
-inline void parseToRoot(vector<int> tree, int curPoint)
+inline void printAiTree(aiNode * pNode, int level)
 {
-    std::cout<< curPoint<<std::endl;
-    if (curPoint == -1) return;
-    parseToRoot(tree, tree[curPoint]);
+    if (pNode)
+    {
+        std::string s(level, '-');
+        std::cout<<s<<pNode->mName.C_Str()<<std::endl;
+        for (auto i=0; i<pNode->mNumChildren; i++)
+            printAiTree(pNode->mChildren[i], level+1);
+    }
 }
 
-inline glm::mat4 getGlobalTrans(const vector<vector<glm::mat4>> &anim,const vector<int> &parList, int curPoint, int frameIdx)
-{
-    if (parList[curPoint] == -1)
-        return anim[curPoint][frameIdx];
-    else
-        return getGlobalTrans(anim, parList, parList[curPoint],frameIdx) * anim[curPoint][frameIdx];
-}
 

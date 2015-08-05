@@ -15,6 +15,7 @@ void Importer::import(std::string fileName, Object *parent)
     {
         throw std::runtime_error(importer.GetErrorString());
     }
+    printAiTree(aiScn->mRootNode, 0);
     importScene(aiScn->mRootNode, aiScn);
 }
 
@@ -30,6 +31,7 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
         {
             meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices, meshNode->MAX_NUM_BONES);
 
+            std::cout<<"Num Bones: "<<curMesh->mNumBones<<std::endl;
             std::vector<VertexBoneData> vetBoneDatas;
             vetBoneDatas.resize(curMesh->mNumVertices);
 
@@ -53,9 +55,12 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
                 for (auto weightID = 0; weightID < curBone->mNumWeights; weightID++)
                 {
                     aiVertexWeight curWeight = curBone->mWeights[weightID];
+                    if (abs(curWeight.mWeight - 0.0) < 0.0000001)
+                        continue;
                     vetBoneDatas[curWeight.mVertexId].addBone(BoneIndx, curWeight.mWeight);
                 }
             }
+            //validation number of bones for each vertex;
 
             //form array
             vector<GLfloat> dWeights;
@@ -154,11 +159,24 @@ vector<vector<glm::mat4>> Importer::loadAnimation(const aiScene *s,aiAnimation *
         for (auto chIdx=0; chIdx < anim->mNumChannels; chIdx++)
         {
             aiNodeAnim* curCh = anim->mChannels[chIdx];
-            localTrans[boneMapping[curCh->mNodeName.C_Str()]] = getTransMatByTime(curCh,time);
+            if (boneMapping.find(curCh->mNodeName.C_Str()) != boneMapping.end())        //if this channle exists in the bonemapping
+            {
+                localTrans[boneMapping[curCh->mNodeName.C_Str()]] = getTransMatByTime(curCh,time);
+            }
+            else
+            {
+                boneMapping[curCh->mNodeName.C_Str()] = localTrans.size()-1;
+                localTrans.push_back( getTransMatByTime(curCh, time));
+            }
         } 
         for (std::map<std::string,int>::iterator it=boneMapping.begin(); it!=boneMapping.end(); ++it)
         {
             aiNode *curNode = s->mRootNode->FindNode(aiString(it->first.c_str()));
+            if (it->first == "LowerLegL")
+            {
+                aiMatrix4x4 i;
+                //localTrans[it->second] = i;
+            }
             if (curNode)
                 frame[ it->second ] = aiMatToGlmMat(getGlobalTransFromLocalTrans(localTrans, curNode) * boneInfos[it->second].BoneOffset);
                 //frame[ it->second ] = aiMatToGlmMat(localTrans[it->second]);
@@ -223,13 +241,15 @@ aiMatrix4x4 Importer::getTransMatByTime(aiNodeAnim* ch, float time)
 
 aiMatrix4x4 Importer::getGlobalTransFromLocalTrans(const std::vector<aiMatrix4x4> &localTrans, aiNode *n)
 {
-    aiNode* pNode = n->mParent;
     aiMatrix4x4 i;
+    if (!n)
+        return i;
 
+    aiNode* pNode = n->mParent;
     if ( boneMapping.find(n->mName.C_Str()) != boneMapping.end()){
         return getGlobalTransFromLocalTrans( localTrans, pNode) * localTrans[ boneMapping[n->mName.C_Str()]] ;
     }
-    else return n->mTransformation;
+    else return i;
     //if (pNode)
     //{
     //    if (boneMapping.find(n->mName.C_Str()) != boneMapping.end())    //current node is boneNode
