@@ -165,21 +165,15 @@ vector<vector<glm::mat4>> Importer::loadAnimation(const aiScene *s,aiAnimation *
             }
             else
             {
-                boneMapping[curCh->mNodeName.C_Str()] = localTrans.size()-1;
+                boneMapping[curCh->mNodeName.C_Str()] = localTrans.size();
                 localTrans.push_back( getTransMatByTime(curCh, time));
             }
         } 
         for (std::map<std::string,int>::iterator it=boneMapping.begin(); it!=boneMapping.end(); ++it)
         {
             aiNode *curNode = s->mRootNode->FindNode(aiString(it->first.c_str()));
-            if (it->first == "LowerLegL")
-            {
-                aiMatrix4x4 i;
-                //localTrans[it->second] = i;
-            }
             if (curNode)
                 frame[ it->second ] = aiMatToGlmMat(getGlobalTransFromLocalTrans(localTrans, curNode) * boneInfos[it->second].BoneOffset);
-                //frame[ it->second ] = aiMatToGlmMat(localTrans[it->second]);
         }
         result.push_back(frame);
     }
