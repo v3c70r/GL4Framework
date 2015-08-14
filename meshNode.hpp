@@ -16,10 +16,6 @@
 #include <assimp/scene.h>
 #include <assimp/material.h>
 
-//Each frame is an array of global(to this mesh) transformation for each bones
-typedef std::vector<glm::mat4> Frame;
-typedef std::vector<Frame> Animation;
-static int frameIdx=0;
 
 
 class MeshNode: public Object
@@ -40,16 +36,12 @@ private:
         COUNT
     };
 protected:
-    vector<Animation> animations;
     GLuint numOfFaces;
     GLuint numOfVertices;
     GLuint texture;
 public:
-    const int MAX_NUM_BONES;
-    const int BONES_PER_VERTEX;
-    MeshNode(): MAX_NUM_BONES(20), BONES_PER_VERTEX(4)
+    MeshNode()
     {
-        VBO = new GLuint[MESH_ATTR::COUNT];
     }
 
     ~MeshNode()
@@ -60,17 +52,15 @@ public:
         glDeleteTextures(1, &texture);
         delete []VBO;
     }
-    void init(GLuint nFaces, GLuint nVertices, GLuint numBones);
-    void setBoneTrans(const GLfloat* trans, const GLuint &numBones);
+    virtual void init(GLuint nFaces, GLuint nVertices);
     void setVertices(const GLfloat *vertices);
-    void setWeights(const GLuint *IDs, const GLfloat* weights);
     void setNormals(const GLfloat *normals);
     void setTexCoord(const GLfloat *texCoord);
     void setIndices(const GLuint *indices);
     void loadSimpleOBJ(std::string objFile);
     void loadTexture(const std::string &fileName);
     void setMaterial(const aiMaterial *mat);
-    void setShader(Shader *s);
+    virtual void setShader(Shader *s);
     void bind()
     {
         glBindVertexArray(VAO);
@@ -79,9 +69,8 @@ public:
     {
         glBindVertexArray(0);
     }
-    void update();
-    void draw();
-    void addAnimation(Animation anim);
+    virtual void update();
+    virtual void draw();
 };
 
 

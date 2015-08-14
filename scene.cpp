@@ -10,6 +10,7 @@ void Scene::init()
 {
     //initialzie default shaders
     addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl");
+    addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl");
     //initialize lights
     lights = new LightManager();
     lights->addLight(glm::vec4(0.0, 0.0, 1.0, 0.0));

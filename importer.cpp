@@ -24,12 +24,14 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
     //load meshes
     for (auto i=0; i<pNode->mNumMeshes; i++)
     {
-        MeshNode *meshNode = new MeshNode();
+        MeshNode *meshNode=nullptr;
         aiMesh *curMesh =as->mMeshes[pNode->mMeshes[i]];
         //load bones
         if (curMesh->HasBones())
         {
-            meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices, meshNode->MAX_NUM_BONES);
+            std::cout<<"1=====In if==\n";
+            meshNode = new DefMeshNode; //will it downcast the pointer?
+            meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices);
 
             std::cout<<"Num Bones: "<<curMesh->mNumBones<<std::endl;
             std::vector<VertexBoneData> vetBoneDatas;
@@ -72,17 +74,20 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
                 memcpy(&dWeights[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].weights[0], sizeof(GLfloat)*NUM_BONES_PER_VERT);
                 memcpy(&dIDs[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].IDs[0], sizeof(GLuint)*NUM_BONES_PER_VERT);
             }
-            meshNode->setWeights(&dIDs[0], &dWeights[0]);
+            ((DefMeshNode*)meshNode)->setWeights(&dIDs[0], &dWeights[0]);
 
             //===load animations
             for (auto animIdx = 0; animIdx < as->mNumAnimations; animIdx++)
             {
-                meshNode->addAnimation(loadAnimation(as, as->mAnimations[animIdx]));
+                ((DefMeshNode*)meshNode)->addAnimation(loadAnimation(as, as->mAnimations[animIdx]));
             }
+            meshNode->setShader(scene->shaderPointers[0]);
         }
         else
         {
-            meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices, 0);
+            meshNode = new MeshNode();
+            meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices);
+            meshNode->setShader(scene->shaderPointers[1]);
         }
         meshNode->setVertices((GLfloat*)(curMesh->mVertices));
         vector<float> tempUV;
@@ -133,7 +138,6 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
             int splitIdx = fileName.find_last_of("/");
             meshNode->setName(fileName.substr(splitIdx+1, fileName.size() - splitIdx)+std::string("_")+std::to_string(i));
         }
-        meshNode->setShader(scene->shaderPointers[0]);
         //set default shader
         scene->objectPointers.push_back(meshNode);
     }

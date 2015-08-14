@@ -5,6 +5,7 @@
  */
 #include "scene.h"
 #include "meshNode.hpp"
+#include "defMeshNode.hpp"
 #include <string>
 #include <exception>
 #include <iostream>

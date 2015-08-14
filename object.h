@@ -34,7 +34,13 @@ protected:
 public:
     void setName(std::string n){name = n;}
     std::string getName() const { return name;}
-    Object():transMat(glm::mat4x4(1.0)),  parent(nullptr), name("Sans nom"){}
+    Object():
+        transMat(glm::mat4x4(1.0)),
+        parent(nullptr), 
+        name("Sans nom"),
+        shader(nullptr),
+        VBO(nullptr) 
+    {}
     virtual ~Object(){};
     virtual void draw()=0;
     void setTransMat(const glm::mat4x4 &m){transMat = m;}
