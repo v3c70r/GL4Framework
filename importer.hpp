@@ -49,11 +49,13 @@ class Importer
         aiMatrix4x4 BoneOffset;
         aiMatrix4x4 FinalTrans;
     };
+
+    int numBones;
     std::map<std::string, int> boneMapping;
     std::vector<BoneInfo> boneInfos;
+
     vector<vector<glm::mat4>> loadAnimation(const aiScene* s, aiAnimation *anim);
     aiMatrix4x4 getTransMatByTime(aiNodeAnim* ch, float time);
-    int numBones;
 
     //helper functions
     inline aiVector3D aiLERP(const aiVector3D &start, const aiVector3D &end, float factor)

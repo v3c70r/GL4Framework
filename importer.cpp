@@ -1,6 +1,13 @@
 #include "importer.hpp"
 void Importer::import(std::string fileName, Object *parent)
 {
+    
+    //reset parameters
+    
+    boneMapping.clear();
+    boneInfos.clear();
+    numBones = 0;
+
     int flags = aiProcess_Triangulate;
     flags |= aiProcess_JoinIdenticalVertices;
     flags |= aiProcess_GenSmoothNormals;

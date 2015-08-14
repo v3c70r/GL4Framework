@@ -83,12 +83,19 @@ void DefMeshNode::setBoneTrans(const GLfloat* trans, const GLuint &numBones)
 }
 void DefMeshNode::update()
 {
+    shader->setModelViewMat(modelView);
+    shader->setNormalMat(glm::transpose(glm::inverse(modelView)));
+    shader->setTexture(0);
+    shader->bindMaterial(VBO[MESH_ATTR::MATERIAL]);
+
     if (animations.size() == 0) return;
     setBoneTrans( &(animations[0][frameIdx][0][0][0]), 20);
-    frameIdx = (frameIdx + 1 )%150;
+    frameIdx = ( frameIdx + 1 )%(animations[0].size()-1);
+    shader->bindBoneTrans(VBO[MESH_ATTR::BONES_TRANS]);
 }
 void DefMeshNode::setWeights(const GLuint *IDs, const GLfloat* weights)
 {
+    //Weights are in VAO, so it's safe
     glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::IDS]);
     glBufferData(GL_ARRAY_BUFFER, numOfVertices * 4 * sizeof(GLuint), IDs, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::WEIGHTS]);

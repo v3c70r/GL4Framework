@@ -60,9 +60,9 @@ void App::init()
     InitImGui(windowWidth, windowHeight);
     scene.init();
     Importer importer(&scene);
-    //importer.import("./meshes/mine.dae");
-    importer.import("./meshes/StartFile.dae");
+    //importer.import("./meshes/StartFile.dae");
     importer.import("./meshes/Su-35_SuperFlanker/su-35.dae");
+    importer.import("./meshes/StartFile.dae");
     importer.import("./meshes/mine.dae");
     //scene.addFluidSys("fluid_1");
     //Points* fluidSys = dynamic_cast<Points*>(scene.getObject("fluid_1"));

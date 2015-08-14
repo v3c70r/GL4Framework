@@ -237,11 +237,15 @@ void MeshNode::loadTexture(const std::string &fileName)
     ilDeleteImages(1, &imageID);
 }
 
-void MeshNode::draw()
+void MeshNode::update()
 {
     shader->setModelViewMat(modelView);
     shader->setNormalMat(glm::transpose(glm::inverse(modelView)));
     shader->setTexture(0);
+    shader->bindMaterial(VBO[MESH_ATTR::MATERIAL]);
+}
+void MeshNode::draw()
+{
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -342,8 +346,5 @@ void MeshNode::setShader(Shader *s)
 }
 
 
-void MeshNode::update()
-{
-}
 
 
