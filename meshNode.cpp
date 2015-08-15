@@ -239,6 +239,7 @@ void MeshNode::loadTexture(const std::string &fileName)
 
 void MeshNode::update()
 {
+    //update matrices
     shader->setModelViewMat(modelView);
     shader->setNormalMat(glm::transpose(glm::inverse(modelView)));
     shader->setTexture(0);

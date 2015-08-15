@@ -62,8 +62,8 @@ void App::init()
     Importer importer(&scene);
     //importer.import("./meshes/StartFile.dae");
     importer.import("./meshes/Su-35_SuperFlanker/su-35.dae");
-    importer.import("./meshes/StartFile.dae");
-    importer.import("./meshes/mine.dae");
+    //importer.import("./meshes/StartFile.dae");
+    //importer.import("./meshes/mine.dae");
     //scene.addFluidSys("fluid_1");
     //Points* fluidSys = dynamic_cast<Points*>(scene.getObject("fluid_1"));
     //fluidSys->insertParsFromOBJ("./meshes/bunny.obj", 90.0, 1);
