@@ -42,6 +42,8 @@ void Renderer::init(int texWidth, int texHeight)
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rbo);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
 
+     GLenum DrawBuffers[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3 };
+    glDrawBuffers(4, DrawBuffers);
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
         std::cout<<glCheckFramebufferStatus(GL_FRAMEBUFFER)<<std::endl;
@@ -68,3 +70,25 @@ void Renderer::init(int texWidth, int texHeight)
     glEnableVertexAttribArray (0);      //first attrib, the array
     glBindVertexArray(0);
 }
+
+//void Renderer::render(const GLuint &width, const GLuint &height) const
+//{
+//
+//    //draw quad
+//    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+//    glViewport(0, 0, width, height);
+//
+//
+//    glUseProgram(DRPass->getProgramme());
+//    glActiveTexture(GL_TEXTURE0);
+//    glBindTexture(GL_TEXTURE_2D, textures[ (TEXTURES::COLOR)]);
+//    glUniform1i(uniformLocs[ (UNIFORM_LOCATIONS::COLOR_TEX)], 0);
+//
+//    glActiveTexture(GL_TEXTURE1);
+//    glBindTexture(GL_TEXTURE_2D,textures[ (TEXTURES::DEPTH)] );
+//    glUniform1i(uniformLocs[ (UNIFORM_LOCATIONS::DEPTH_TEX)], 1);
+//
+//    glBindVertexArray(quadVAO);
+//    glDrawArrays(GL_TRIANGLES, 0, 6);
+//    glBindVertexArray(0);
+

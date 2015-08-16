@@ -9,12 +9,11 @@
 void Scene::init()
 {
     //initialzie default shaders
-    addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl");
-    addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl");
+
+    shaders.addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
+    shaders.addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
     //initialize lights
-    lights = new LightManager();
-    lights->addLight(glm::vec4(0.0, 0.0, 1.0, 0.0));
-    lights->bindToShader(shaderPointers[BUILD_IN_SHADERS::MESH]);
+    lights.addLight(glm::vec4(0.0, 0.0, 1.0, 0.0));
 }
 
 void Scene::drawScene() const
@@ -44,32 +43,7 @@ void Scene::addMeshes(std::string fileName, Object* parent)
     objectPointers.push_back(meshNode);
 }
 
-void Scene::import(std::string fileName, Object* parent)
-{
-}
 
-void Scene::addShader(std::string vsFile, std::string gsFile, std::string fsFile)
-{
-    Shader *shdr = new Shader;
-    GLuint dummyVAO;
-    glGenVertexArrays(1, &dummyVAO);
-    glBindVertexArray(dummyVAO);
-    assert(shdr->createProgrammeFromFiles(vsFile.c_str(), gsFile.c_str(), fsFile.c_str()));
-    glBindVertexArray(0);
-    glDeleteVertexArrays(1, &dummyVAO);
-    shaderPointers.push_back(shdr);
-}
-void Scene::addShader(std::string vsFile,  std::string fsFile)
-{
-    Shader *shdr = new Shader;
-    GLuint dummyVAO;
-    glGenVertexArrays(1, &dummyVAO);
-    glBindVertexArray(dummyVAO);
-    assert(shdr->createProgrammeFromFiles(vsFile.c_str(), fsFile.c_str()));
-    glBindVertexArray(0);
-    glDeleteVertexArrays(1, &dummyVAO);
-    shaderPointers.push_back(shdr);
-}
 
 void Scene::setCamera(unsigned int type, glm::vec3 transVec, glm::mat4 rotMat)
 {
@@ -96,7 +70,7 @@ void Scene::updateProjMat(int W, int H)
 
 void Scene::addDirLight(const glm::vec4 &dir)
 {
-    lights->addLight(dir);
+    lights.addLight(dir);
 }
 
 //Not for framework right now

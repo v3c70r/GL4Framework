@@ -10,6 +10,7 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 #include "arcball.h"
+#include "shaderManager.h"
 #include <glm/gtx/transform.hpp>
 //#include "points.cuh"
 
@@ -35,18 +36,15 @@ class Scene
 private:
     std::vector<Object*> objectPointers;
     std::vector<Shader*> shaderPointers;
-    LightManager *lights;
-    Camera *camera;
+    ShaderManager shaders;
+    LightManager lights;
+    Camera *camera; //TODO: Remove pointer
 public:
-    Scene():camera(nullptr), lights(nullptr){
+    Scene():camera(nullptr){
     }
     void init();
     void drawScene() const ;
-    //Adding object to scene
-    void addShader(std::string vsFile, std::string gsFile, std::string fsFile);
-    void addShader(std::string vsFile,  std::string fsFile);
     void addMeshes(std::string fileName, Object* parent=nullptr);
-    void import(std::string fileName, Object *parent=nullptr);
     //void addFluidSys(std::string name, Object* parent=nullptr);
     void addDirLight(const glm::vec4 &dir);
 
@@ -58,10 +56,7 @@ public:
     ~Scene() {
         for (auto i=0; i<objectPointers.size(); i++)
             delete objectPointers[i];
-        for (auto i=0; i<shaderPointers.size(); i++)
-            delete shaderPointers[i];
         delete camera;
-        delete lights;
     }
 
     void setObjShdr(uint objIdx, uint shdrIdx)
