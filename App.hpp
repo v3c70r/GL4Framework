@@ -13,9 +13,7 @@
 #include "shadowMap.h"
 #include "importer.hpp"
 
-/*-----Consts----*/
-#define WIDTH (800)
-#define HEIGHT (600)
+
 extern const unsigned int CAMERA_ARCBALL;
 
 

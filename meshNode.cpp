@@ -343,7 +343,10 @@ void MeshNode::setMaterial(const aiMaterial *mat)
 void MeshNode::setShader(Shader *s)
 {
     shader = s;
-    shader->bindMaterial(VBO[MESH_ATTR::MATERIAL]);
+    if (shader)
+        shader->bindMaterial(VBO[MESH_ATTR::MATERIAL]);
+    else
+        throw std::runtime_error("Setting Empty Shader");
 }
 
 

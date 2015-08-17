@@ -17,12 +17,9 @@ void ShaderManager::addShader(Shader* shdr, const std::string &name)
 {
     //Check for if this shader is duplicated
     for (std::map<std::string, Shader*>::iterator it=shaderMap.begin(); it!=shaderMap.end(); ++it)
-    {
         if (it->first == name || it->second->getProgramme() == shdr->getProgramme())
             throw std::runtime_error("Duplicated shader in ShaderManager");
-        else
-            shaderMap[name] = shdr;
-    }
+    shaderMap[name] = shdr;
 }
 /* Compute shader*/
 void ShaderManager::addShader(const std::string &computeShaderFile, const std::string &name)

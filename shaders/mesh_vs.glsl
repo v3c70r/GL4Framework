@@ -3,6 +3,21 @@ layout(location=0) in vec3 position;
 layout(location=1) in vec3 normal;
 layout(location=2) in vec2 TexCoord;
 
+
+/*
+layout(std140) uniform CameraMats
+{
+    mat4 projMat;
+    mat4 viewMat;
+};
+
+layout(std140) uniform modelMat
+{
+    mat4 modelMat;
+    mat4 normalMat;
+};
+*/
+
 uniform mat4 modelViewMat;
 uniform mat4 normalMat;
 uniform mat4 projMat;

@@ -27,6 +27,7 @@ class LightManager
         GLuint UBO;
         const int MAX_DLIGHT;
     public:
+        void init();
         LightManager();
         bool addLight(const glm::vec4 &dir);
         bool removeLight(int idx);

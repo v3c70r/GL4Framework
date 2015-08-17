@@ -1,6 +1,6 @@
 #include "light.hpp"
 
-LightManager::LightManager(): MAX_DLIGHT(5), numLights(0)
+void LightManager::init()
 {
     glGenBuffers(1, &UBO);
     glBindBuffer(GL_UNIFORM_BUFFER, UBO);
@@ -8,6 +8,10 @@ LightManager::LightManager(): MAX_DLIGHT(5), numLights(0)
     //set number of lights to zero
     glBufferSubData(GL_UNIFORM_BUFFER, MAX_DLIGHT*sizeof(GLfloat)*4, sizeof(GLint), &numLights);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
+}
+
+LightManager::LightManager(): MAX_DLIGHT(5), numLights(0)
+{
 }
 
 bool LightManager::addLight(const glm::vec4 &dir)

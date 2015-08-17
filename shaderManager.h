@@ -2,6 +2,7 @@
 #include "shader.hpp"
 #include <map>
 #include <string>
+#include <iostream>
 
 /*
  * Shader manager
@@ -25,7 +26,7 @@ public:
         for (std::map<std::string, Shader*>::iterator it=shaderMap.begin(); it!=shaderMap.end(); ++it)
             delete it->second;
     }
-    const Shader* getShader(std::string name) const
+    Shader* getShader(std::string name) const
     {
         if (shaderMap.find(name) == shaderMap.end())
             return nullptr;

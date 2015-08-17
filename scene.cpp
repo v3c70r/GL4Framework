@@ -10,10 +10,12 @@ void Scene::init()
 {
     //initialzie default shaders
 
+
     shaders.addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
     shaders.addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
     //initialize lights
-    lights.addLight(glm::vec4(0.0, 0.0, 1.0, 0.0));
+    //lights.init();
+    //lights.addLight(glm::vec4(0.0, 0.0, 1.0, 0.0));
 }
 
 void Scene::drawScene() const
@@ -64,8 +66,9 @@ void Scene::setCamera(unsigned int type, glm::vec3 transVec, glm::mat4 rotMat)
 void Scene::updateProjMat(int W, int H)
 {
     camera->updateProjectionMat(W, H);
-    for (auto i=0; i<shaderPointers.size(); i++)
-        shaderPointers[i]->setProjMat(camera->getProjectionMat());
+    //Lil hack
+    //shaders.getShader("deformMeshShader")->setProjMat(camera->getProjectionMat());
+    shaders.getShader("meshShader")->setProjMat(camera->getProjectionMat());
 }
 
 void Scene::addDirLight(const glm::vec4 &dir)

@@ -88,13 +88,13 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
             {
                 ((DefMeshNode*)meshNode)->addAnimation(loadAnimation(as, as->mAnimations[animIdx]));
             }
-            meshNode->setShader(scene->shaderPointers[0]);
+            meshNode->setShader(scene->shaders.getShader("deformMeshShader"));
         }
         else
         {
             meshNode = new MeshNode();
             meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices);
-            meshNode->setShader(scene->shaderPointers[1]);
+            meshNode->setShader(scene->shaders.getShader("meshShader"));
         }
         meshNode->setVertices((GLfloat*)(curMesh->mVertices));
         vector<float> tempUV;
@@ -145,7 +145,6 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
             int splitIdx = fileName.find_last_of("/");
             meshNode->setName(fileName.substr(splitIdx+1, fileName.size() - splitIdx)+std::string("_")+std::to_string(i));
         }
-        //set default shader
         scene->objectPointers.push_back(meshNode);
     }
     //Go children

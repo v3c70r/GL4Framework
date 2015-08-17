@@ -29,9 +29,16 @@ bool App::startGL()
     glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 0);
     glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
     const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     windowWidth=mode->width;
     windowHeight=mode->height;
+
+    //glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+    //glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+    //glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+    //glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
     pWindow = glfwCreateWindow( windowWidth,  windowHeight, "MySPH", glfwGetPrimaryMonitor(), nullptr);
     //glfwSetWindowSize(pWindow, 2560, 1600);
     //pWindow = glfwCreateWindow( windowWidth,  windowHeight, "MySPH", nullptr, nullptr);
@@ -55,6 +62,7 @@ bool App::startGL()
 }
 void App::init()
 {
+    std::cout<<"Init APP\n";
     assert(restartLog());
     assert(startGL());
     InitImGui(windowWidth, windowHeight);
