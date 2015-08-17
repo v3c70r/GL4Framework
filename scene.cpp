@@ -9,13 +9,22 @@
 void Scene::init()
 {
     //initialzie default shaders
+    lights.init();
+    lights.addLight(glm::vec4(0.0, 0.0, 1.0, 0.0));
+    lights.addLight(glm::vec4(0.0, 0.0, -1.0, 0.0));
+    setCamera(CAMERA_ARCBALL, glm::vec3(0.0, 0.0, -15.0), glm::mat4x4(1.0));
+    camera->init();
 
+    Shader * shdr = nullptr;
+    camera->bindToShader(shdr);
+    shdr = shaders.addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
+    lights.bindToShader(shdr);
 
-    shaders.addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
-    shaders.addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
-    //initialize lights
-    //lights.init();
-    //lights.addLight(glm::vec4(0.0, 0.0, 1.0, 0.0));
+    shdr = shaders.addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
+    lights.bindToShader(shdr);
+
+    camera->bindToShader(shdr);
+
 }
 
 void Scene::drawScene() const
@@ -30,10 +39,10 @@ void Scene::drawScene() const
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glEnable(GL_TEXTURE_2D);
     glm::mat4 viewMat=camera->getViewMat();
+    camera->updateViewMat();
     for (auto i=0; i<objectPointers.size(); i++) 
     {
         (objectPointers[i])->update();
-        (objectPointers[i])->setModelViewMat(camera->getViewMat());
         (objectPointers[i])->draw();
     }
 }
@@ -66,9 +75,6 @@ void Scene::setCamera(unsigned int type, glm::vec3 transVec, glm::mat4 rotMat)
 void Scene::updateProjMat(int W, int H)
 {
     camera->updateProjectionMat(W, H);
-    //Lil hack
-    //shaders.getShader("deformMeshShader")->setProjMat(camera->getProjectionMat());
-    shaders.getShader("meshShader")->setProjMat(camera->getProjectionMat());
 }
 
 void Scene::addDirLight(const glm::vec4 &dir)

@@ -25,10 +25,10 @@ bool App::startGL()
         return false;
     }
     // uncomment these lines if on Apple OS X
-    glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 0);
-    glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    //glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 4);
+    //glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 0);
+    //glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    //glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     windowWidth=mode->width;
@@ -80,7 +80,6 @@ void App::init()
     
     std::cout<<scene.getTreeView();
     glfwGetFramebufferSize(pWindow, &windowWidth, &windowHeight);
-    scene.setCamera(CAMERA_ARCBALL, glm::vec3(0.0, 0.0, -15.0), glm::mat4x4(1.0));
     scene.updateProjMat(windowWidth, windowHeight);
     /*-----------------------------register callbacks-------------------------------*/
     glfwSetWindowSizeCallback (pWindow, _glfw_window_size_callback);
@@ -152,16 +151,24 @@ void App::run()
         glViewport(0, 0, width, height);
 
         ImGui::Text("Frambuffer size %d, %d", width, height);
-        ImGui::Text("test");
-        ImGui::Text(glm::to_string(scene.getCamera()->getViewMat()).c_str());
-        ImGui::Text(glm::to_string(scene.getCamera()->getProjectionMat()).c_str());
-        ImGui::Text(glm::to_string(glm::perspective(1.1693706f, 1.0f, 1.0f, 1000.0f)).c_str());
+
+        // Calculate and show frame rate
+        static float ms_per_frame[120] = { 0 };
+        static int ms_per_frame_idx = 0;
+        static float ms_per_frame_accum = 0.0f;
+        ms_per_frame_accum -= ms_per_frame[ms_per_frame_idx];
+        ms_per_frame[ms_per_frame_idx] = ImGui::GetIO().DeltaTime * 1000.0f;
+        ms_per_frame_accum += ms_per_frame[ms_per_frame_idx];
+        ms_per_frame_idx = (ms_per_frame_idx + 1) % 120;
+        const float ms_per_frame_avg = ms_per_frame_accum / 120;
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", ms_per_frame_avg, 1000.0f / ms_per_frame_avg);
 
         scene.drawScene();
         //Render GUI
         glDisable(GL_BLEND);
         ImGui::Render();
 
+        glfwSwapInterval(0);
         glfwSwapBuffers(pWindow);
         glfwPollEvents();
     }

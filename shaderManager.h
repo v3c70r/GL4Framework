@@ -15,12 +15,13 @@ public:
     //Add a shader to shader manager
     //you need to new the shader outside
     void addShader(Shader* shdr, const std::string &name);
+    /*Create shaders and return the point to the shader just created*/
     /* Compute shader*/
-    void addShader(const std::string &computeShaderFile, const std::string &name);
+    Shader* addShader(const std::string &computeShaderFile, const std::string &name);
     /* Classic VS and FS*/
-    void addShader(const std::string &vsFile, const std::string &fsFile, const std::string &name);
+    Shader* addShader(const std::string &vsFile, const std::string &fsFile, const std::string &name);
     /* Not that classice VS, GS and FS*/
-    void addShader(const std::string &vsFile, const std::string &gsFile, const std::string &fsFile, const std::string &name);
+    Shader* addShader(const std::string &vsFile, const std::string &gsFile, const std::string &fsFile, const std::string &name);
     ~ShaderManager()
     {
         for (std::map<std::string, Shader*>::iterator it=shaderMap.begin(); it!=shaderMap.end(); ++it)

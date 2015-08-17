@@ -6,10 +6,17 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/quaternion.hpp>
+#include "shader.hpp"
 
 class Camera
 {
 protected:
+    GLuint UBO;     //Uniform buffer object to pass buffer to shader
+    const GLuint UBO_SIZE;
+    const GLuint PROJ_MAT_OFFSET;
+    const GLuint VIEW_MAT_OFFSET;
+    const GLuint VIEW_MAT_INV_OFFSET;
+    const GLuint MAT_SIZE;
     glm::mat4 translationMat;
     glm::mat4 rotationMat;
     glm::mat4 viewMat;
@@ -21,13 +28,23 @@ protected:
     float aspect ;
     GLint viewport[4];
 public:
-    Camera():translationMat(glm::mat4(1.0)), rotationMat(glm::mat4(1.0)), viewMat(glm::mat4(1.0))
+    Camera():
+        translationMat(glm::mat4(1.0)), 
+        rotationMat(glm::mat4(1.0)),
+        viewMat(glm::mat4(1.0)),
+        UBO_SIZE(sizeof(GLfloat) * 48),  //Three mat4s
+        PROJ_MAT_OFFSET(0),
+        VIEW_MAT_OFFSET(sizeof(GLfloat) * 16),
+        VIEW_MAT_INV_OFFSET(sizeof(GLfloat)*32),
+        MAT_SIZE(sizeof(GLfloat) * 16)
+
     {
         near = 1.0f;
         far = 10000.0f;
         fov = 1.1693706f;
         aspect = 1.0f;
     }
+    void init();
     //Rotation and translations
     void addRotation(const glm::quat &rot);
     void addRotation(const glm::mat4 &rot);
@@ -36,6 +53,8 @@ public:
     void setTranslationMat(const glm::mat4 &t);
     void setRotationMat(const glm::mat4 &r);
     void updateProjectionMat(int w, int h);
+    void updateViewMat();
+    void bindToShader(Shader *shdr);
     glm::mat4 getViewMat() const;
     glm::mat4 getProjectionMat() const;
 };

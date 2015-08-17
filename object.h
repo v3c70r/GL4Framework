@@ -11,9 +11,8 @@ class Object
 {
 protected:
     glm::mat4 transMat;   //transformation matrix
-    glm::mat4 modelView;
     GLuint VAO;
-    GLuint *VBO;
+    GLuint *BUFFER;
     Object* parent;
     Shader *shader;
     std::string name;
@@ -39,7 +38,7 @@ public:
         parent(nullptr), 
         name("Sans nom"),
         shader(nullptr),
-        VBO(nullptr) 
+        BUFFER(nullptr) 
     {}
     virtual ~Object(){};
     virtual void draw()=0;
@@ -47,9 +46,5 @@ public:
     virtual void setShader(Shader *)=0;
     virtual void update()=0;       //I assume most objects require updates in each frame
     void setParent(Object *obj){parent = obj;}
-    void setModelViewMat(const glm::mat4 &mv)
-    {
-        modelView = mv * getGlobalTransMat();
-    }
     const glm::mat4& getLocalTransMat() const{return transMat;}
 };

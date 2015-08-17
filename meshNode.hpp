@@ -33,6 +33,7 @@ private:
         //uniform buffers
         MATERIAL,
         BONES_TRANS,
+        OBJ_MATS,
         COUNT
     };
 protected:
@@ -47,10 +48,10 @@ public:
     ~MeshNode()
     {
         unbind();
-        glDeleteBuffers(MESH_ATTR::COUNT, VBO);
+        glDeleteBuffers(MESH_ATTR::COUNT, BUFFER);
         glDeleteVertexArrays(1, &VAO);
         glDeleteTextures(1, &texture);
-        delete []VBO;
+        delete []BUFFER;
     }
     virtual void init(GLuint nFaces, GLuint nVertices);
     void setVertices(const GLfloat *vertices);

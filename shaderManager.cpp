@@ -22,7 +22,7 @@ void ShaderManager::addShader(Shader* shdr, const std::string &name)
     shaderMap[name] = shdr;
 }
 /* Compute shader*/
-void ShaderManager::addShader(const std::string &computeShaderFile, const std::string &name)
+Shader* ShaderManager::addShader(const std::string &computeShaderFile, const std::string &name)
 {
     Shader *shdr = new Shader;
     GLuint dummyVAO;
@@ -32,9 +32,10 @@ void ShaderManager::addShader(const std::string &computeShaderFile, const std::s
     glBindVertexArray(0);
     glDeleteVertexArrays(1, &dummyVAO);
     addShader(shdr, name);
+    return shdr;
 }
 /* Classic VS and FS*/
-void ShaderManager::addShader(const std::string &vsFile, const std::string &fsFile, const std::string &name)
+Shader* ShaderManager::addShader(const std::string &vsFile, const std::string &fsFile, const std::string &name)
 {
     Shader *shdr = new Shader;
     GLuint dummyVAO;
@@ -44,9 +45,10 @@ void ShaderManager::addShader(const std::string &vsFile, const std::string &fsFi
     glBindVertexArray(0);
     glDeleteVertexArrays(1, &dummyVAO);
     addShader(shdr, name);
+    return shdr;
 }
 /* Not that classic VS, GS and FS*/
-void ShaderManager::addShader(const std::string &vsFile, const std::string &gsFile, const std::string &fsFile, const std::string &name)
+Shader* ShaderManager::addShader(const std::string &vsFile, const std::string &gsFile, const std::string &fsFile, const std::string &name)
 {
     Shader *shdr = new Shader;
     GLuint dummyVAO;
@@ -56,4 +58,5 @@ void ShaderManager::addShader(const std::string &vsFile, const std::string &gsFi
     glBindVertexArray(0);
     glDeleteVertexArrays(1, &dummyVAO);
     addShader(shdr, name);
+    return shdr;
 }

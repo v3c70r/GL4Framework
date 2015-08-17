@@ -1,44 +1,49 @@
 #include "meshNode.hpp"
 
 void MeshNode::init(GLuint nFaces, GLuint nVertices){
-    VBO = new GLuint[MESH_ATTR::COUNT];
+    BUFFER = new GLuint[MESH_ATTR::COUNT];
     numOfFaces = nFaces;
     numOfVertices = nVertices;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
-    glGenBuffers(MESH_ATTR::COUNT, VBO);
+    glGenBuffers(MESH_ATTR::COUNT, BUFFER);
     GLfloat *emptyFloat=new GLfloat[3*numOfVertices];
     GLuint *emptyUint=new GLuint[3*numOfFaces];
 
     //Vertices
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::VERTICES]);
+    glBindBuffer(GL_ARRAY_BUFFER, BUFFER[MESH_ATTR::VERTICES]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*3*numOfVertices, emptyFloat, GL_STATIC_DRAW);
     glEnableVertexAttribArray(MESH_ATTR::VERTICES);
     glVertexAttribPointer(MESH_ATTR::VERTICES, 3, GL_FLOAT, 0, 0, 0);
 
     //Normals
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::NORMALS]);
+    glBindBuffer(GL_ARRAY_BUFFER, BUFFER[MESH_ATTR::NORMALS]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*3*numOfVertices, emptyFloat, GL_STATIC_DRAW);
     glEnableVertexAttribArray(MESH_ATTR::NORMALS);
     glVertexAttribPointer(MESH_ATTR::NORMALS, 3, GL_FLOAT, 0, 0, 0);
 
     //texCoords
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::TEXCOORDS]);
+    glBindBuffer(GL_ARRAY_BUFFER, BUFFER[MESH_ATTR::TEXCOORDS]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*2*numOfVertices, emptyFloat, GL_STATIC_DRAW);
     glEnableVertexAttribArray(MESH_ATTR::TEXCOORDS);
     glVertexAttribPointer(MESH_ATTR::TEXCOORDS, 2, GL_FLOAT, 0, 0, 0);
 
 
     //indices
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBO[MESH_ATTR::INDICES]);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BUFFER[MESH_ATTR::INDICES]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)*3*numOfFaces, emptyUint, GL_STATIC_DRAW);
+
 
 
     //clean up
     glBindVertexArray(0);
     //Uniform buffer
-    glBindBuffer(GL_UNIFORM_BUFFER, VBO[MESH_ATTR::MATERIAL]);
+    glBindBuffer(GL_UNIFORM_BUFFER, BUFFER[MESH_ATTR::MATERIAL]);
     glBufferData(GL_UNIFORM_BUFFER, sizeof(GLfloat)*16, 0, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_UNIFORM_BUFFER, BUFFER[MESH_ATTR::OBJ_MATS]);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(GLfloat)*32, 0,GL_DYNAMIC_DRAW);
+
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -51,28 +56,28 @@ void MeshNode::init(GLuint nFaces, GLuint nVertices){
 
 void MeshNode::setVertices(const GLfloat *vertices)
 {
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::VERTICES]);
+    glBindBuffer(GL_ARRAY_BUFFER, BUFFER[MESH_ATTR::VERTICES]);
     glBufferSubData(GL_ARRAY_BUFFER, 0, numOfVertices*3*sizeof(GLfloat), vertices);
     //glBufferData(GL_ARRAY_BUFFER, numOfVertices*3*sizeof(GLfloat), vertices, GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 void MeshNode::setNormals(const GLfloat *normals)
 {
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::NORMALS]);
+    glBindBuffer(GL_ARRAY_BUFFER, BUFFER[MESH_ATTR::NORMALS]);
     glBufferSubData(GL_ARRAY_BUFFER, 0, numOfVertices*3*sizeof(GLfloat), normals);
     //glBufferData(GL_ARRAY_BUFFER, numOfVertices*3*sizeof(GLfloat), normals, GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 void MeshNode::setTexCoord(const GLfloat *texCoord)
 {
-    glBindBuffer(GL_ARRAY_BUFFER, VBO[MESH_ATTR::TEXCOORDS]);
+    glBindBuffer(GL_ARRAY_BUFFER, BUFFER[MESH_ATTR::TEXCOORDS]);
     glBufferSubData(GL_ARRAY_BUFFER, 0, numOfVertices*2*sizeof(GLfloat), texCoord);
     //glBufferData(GL_ARRAY_BUFFER, numOfVertices*2*sizeof(GLfloat), texCoord, GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 void MeshNode::setIndices(const GLuint *indices)
 {
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBO[MESH_ATTR::INDICES]);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BUFFER[MESH_ATTR::INDICES]);
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, numOfFaces*3*sizeof(GLuint), indices);
     //glBufferData(GL_ELEMENT_ARRAY_BUFFER, numOfFaces*3*sizeof(GLuint), indices, GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -239,11 +244,15 @@ void MeshNode::loadTexture(const std::string &fileName)
 
 void MeshNode::update()
 {
-    //update matrices
-    shader->setModelViewMat(modelView);
-    shader->setNormalMat(glm::transpose(glm::inverse(modelView)));
+
+    glBindBuffer(GL_UNIFORM_BUFFER, BUFFER[MESH_ATTR::OBJ_MATS]);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(GLfloat)*16, &transMat[0][0]);
+    glBufferSubData(GL_UNIFORM_BUFFER, sizeof(GLfloat)*16, sizeof(GLfloat)*16, &(glm::inverse(transMat))[0][0]);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    shader->bindModelMats(BUFFER[MESH_ATTR::OBJ_MATS]);
+
     shader->setTexture(0);
-    shader->bindMaterial(VBO[MESH_ATTR::MATERIAL]);
+    shader->bindMaterial(BUFFER[MESH_ATTR::MATERIAL]);
 }
 void MeshNode::draw()
 {
@@ -332,7 +341,7 @@ void MeshNode::setMaterial(const aiMaterial *mat)
     //padding
     matBuf.push_back(0.0);
     matBuf.push_back(0.0);
-    glBindBuffer(GL_UNIFORM_BUFFER, VBO[MESH_ATTR::MATERIAL]);
+    glBindBuffer(GL_UNIFORM_BUFFER, BUFFER[MESH_ATTR::MATERIAL]);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(float)*MAT_BUF_SIZE, &matBuf[0]);
 }
 
@@ -344,7 +353,7 @@ void MeshNode::setShader(Shader *s)
 {
     shader = s;
     if (shader)
-        shader->bindMaterial(VBO[MESH_ATTR::MATERIAL]);
+        shader->bindMaterial(BUFFER[MESH_ATTR::MATERIAL]);
     else
         throw std::runtime_error("Setting Empty Shader");
 }

@@ -229,29 +229,6 @@ bool Shader::getIndicesNLocations()
     return true;
 }
 
-bool Shader::setModelViewMat(const glm::mat4 &modelView)
-{
-    glUseProgram(programme);
-    glUniformMatrix4fv(Ulocations[UNIFORM::MODELVIEW_MAT], 1, GL_FALSE,&modelView[0][0]);
-    glUseProgram(0);
-    return true;
-}
-
-bool Shader::setNormalMat(const glm::mat4 &normalMat)
-{
-    glUseProgram(programme);
-    glUniformMatrix4fv (Ulocations[UNIFORM::NORMAL_MAT], 1, GL_FALSE, &normalMat[0][0]);
-    glUseProgram(0);
-    return true;
-}
-
-bool Shader::setProjMat(const glm::mat4 &projMat)
-{
-    glUseProgram(programme);
-    glUniformMatrix4fv (Ulocations[UNIFORM::PROJ_MAT], 1, GL_FALSE, &projMat[0][0]);
-    glUseProgram(0);
-    return true;
-}
 
 bool Shader::setTexture(const GLint &tex)
 {
@@ -277,3 +254,14 @@ bool Shader::bindBoneTrans(const GLuint &buffer)
     return true;
 }
 
+bool Shader::bindCameraMats(const GLuint &buffer)
+{
+    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::CAMERA_MATS], buffer);
+    return true;
+}
+
+bool Shader::bindModelMats(const GLuint &buffer)
+{
+    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::MODEL_MATS], buffer);
+    return true;
+}

@@ -23,6 +23,7 @@ private:
             //uniform buffers
             MATERIAL,
             BONES_TRANS,
+            OBJ_MATS,
             COUNT
         };
     };
@@ -35,11 +36,14 @@ public:
     }
     //@overwriting
     void init(GLuint nFaces, GLuint nVertices);
+
     void setBoneTrans(const GLfloat* trans, const GLuint &numBones);
     void setWeights(const GLuint *IDs, const GLfloat* weights);
     void addAnimation(Animation anim);
+
     //@overwriting
     void setShader(Shader *s);
+    //@overwriting
     void update();
         
 };

@@ -4,39 +4,33 @@ layout(location=1) in vec3 normal;
 layout(location=2) in vec2 TexCoord;
 
 
-/*
 layout(std140) uniform CameraMats
 {
     mat4 projMat;
     mat4 viewMat;
-};
+    mat4 invViewMat;
+}camMats;
 
-layout(std140) uniform modelMat
+layout(std140) uniform ModelMats
 {
     mat4 modelMat;
-    mat4 normalMat;
-};
-*/
+    mat4 invModelMat;
+}modelMats;
 
-uniform mat4 modelViewMat;
-uniform mat4 normalMat;
-uniform mat4 projMat;
-//uniform mat4 shadowMVP;
 
 out VertexData{
     vec3 normal;
     vec3 toEye;
     vec4 shadowCoord;
     vec2 texCoord;
-    mat4 viewMat;
 }VertexOut;
 
 void main()
 {
+    mat4 normalMat = transpose(modelMats.invModelMat * camMats.invViewMat);
     VertexOut.normal = (normalMat * vec4(normal,0.0)).xyz;
-    VertexOut.toEye = - (modelViewMat * vec4(position, 1.0)).xyz;
+    VertexOut.toEye = - (camMats.viewMat * modelMats.modelMat * vec4(position, 1.0)).xyz;
     VertexOut.texCoord = TexCoord;
-    VertexOut.viewMat = modelViewMat;
-    gl_Position = projMat * modelViewMat*vec4(position, 1.0);
+    gl_Position = camMats.projMat * camMats.viewMat * modelMats.modelMat *vec4(position, 1.0);
     //VertexOut.shadowCoord = shadowMVP*vec4(position, 1.0);
 }

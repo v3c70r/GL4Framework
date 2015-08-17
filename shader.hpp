@@ -17,10 +17,7 @@
 namespace UNIFORM{
     enum LOCATIONS
     {
-        MODELVIEW_MAT=0,
-        NORMAL_MAT,
-        PROJ_MAT,
-        TEX,
+        TEX=0,
         count
     };
     /*
@@ -31,9 +28,6 @@ namespace UNIFORM{
     //Keep them in the same order of UNIFORM_LOCATIONS above
     const std::string names[] =
     {
-        "modelViewMat",
-        "normalMat",
-        "projMat",
         "tex"
     };
 }
@@ -44,19 +38,26 @@ namespace UNIFORM_BLOCKS{   //or SSBO
         MATERIAL=0,
         DIR_LIGHTS,
         BONES_TRANS,
+        CAMERA_MATS,
+        MODEL_MATS,
         count
     };
     const std::string names[] =
     {
         "Material",
         "DirLights",
-        "BoneTrans"
+        "BoneTrans",
+        "CameraMats",
+        "ModelMats"
+
     };
     const GLint binding[]=
     {
         0,
         1,
-        2
+        2,
+        3,
+        4
     };
 }
 class Shader
@@ -91,12 +92,11 @@ public:
     }
 
     //Functions that set values to shader
-    bool setModelViewMat(const glm::mat4 &modelView);
-    bool setNormalMat(const glm::mat4 &normalMat);
-    bool setProjMat(const glm::mat4 &projMat);
-    bool setNumDirLights(const int &num);
     bool setTexture(const GLint &tex);
+
     bool bindMaterial(const GLuint &buffer);
     bool bindDirLights(const GLuint &buffer);
     bool bindBoneTrans(const GLuint &buffer);
+    bool bindCameraMats(const GLuint &buffer);
+    bool bindModelMats(const GLuint &buffer);
 };

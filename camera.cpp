@@ -1,5 +1,13 @@
 #include "camera.h"
 
+void Camera::init()
+{
+    glGenBuffers(1, &UBO);
+    glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+    glBufferData(GL_UNIFORM_BUFFER, UBO_SIZE, 0, GL_DYNAMIC_DRAW);
+    //set number of lights to zero
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+}
 void Camera::addRotation(const glm::quat &rot)
 {
     //Gonna implement later
@@ -38,9 +46,25 @@ void Camera::updateProjectionMat(int w, int h)
     glViewport(0.0, 0.0, (float)w*ratio, (float)h*ratio);
     glGetIntegerv(GL_VIEWPORT, viewport);       //update viewport
     projectionMat = glm::perspective(fov, aspect, near, far);
+    glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+    glBufferSubData(GL_UNIFORM_BUFFER, PROJ_MAT_OFFSET, MAT_SIZE, &projectionMat[0][0]);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+}
+
+void Camera::updateViewMat()
+{
+    glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+    glBufferSubData(GL_UNIFORM_BUFFER, VIEW_MAT_OFFSET, MAT_SIZE, &(translationMat*rotationMat)[0][0]);
+    glBufferSubData(GL_UNIFORM_BUFFER, VIEW_MAT_INV_OFFSET, MAT_SIZE, &(glm::inverse(translationMat*rotationMat))[0][0]);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
 glm::mat4 Camera::getProjectionMat() const
 {
     return projectionMat;
+}
+
+void Camera::bindToShader(Shader  * shdr)
+{
+    shdr->bindCameraMats(UBO);
 }

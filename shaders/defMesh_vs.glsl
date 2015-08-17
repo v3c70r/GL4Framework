@@ -10,9 +10,18 @@ layout(location=2) in vec2 TexCoord;
 layout(location=3) in vec4 weights;
 layout(location=4) in ivec4 IDs;
 
-uniform mat4 modelViewMat;
-uniform mat4 normalMat;
-uniform mat4 projMat;
+layout(std140) uniform CameraMats
+{
+    mat4 projMat;
+    mat4 viewMat;
+    mat4 invViewMat;
+}camMats;
+
+layout(std140) uniform ModelMats
+{
+    mat4 modelMat;
+    mat4 invModelMat;
+}modelMats;
 
 #define NUM_BONES 20
 layout( std140) uniform BoneTrans
@@ -25,16 +34,16 @@ out VertexData{
     vec3 toEye;
     vec4 shadowCoord;
     vec2 texCoord;
-    mat4 viewMat;
 }VertexOut;
 
 
 
 void main()
 {
+    mat4 modelViewMat = camMats.viewMat * modelMats.modelMat;
+    mat4 normalMat = transpose(modelMats.invModelMat * camMats.invViewMat);
     VertexOut.toEye = - (modelViewMat * vec4(position, 1.0)).xyz;
     VertexOut.texCoord = TexCoord;
-    VertexOut.viewMat = modelViewMat;
 
     mat4 trans = mat4(0.0);
     for (int i=0; i<4; i++)
@@ -44,5 +53,5 @@ void main()
     }
     
     VertexOut.normal = (normalMat *trans* vec4(normal,0.0)).xyz;
-    gl_Position = projMat * modelViewMat*trans*vec4(position, 1.0);
+    gl_Position = camMats.projMat * modelViewMat*trans*vec4(position, 1.0);
 }

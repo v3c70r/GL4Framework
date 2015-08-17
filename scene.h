@@ -35,10 +35,9 @@ class Scene
     friend class Importer;
 private:
     std::vector<Object*> objectPointers;
-    std::vector<Shader*> shaderPointers;
     ShaderManager shaders;
     LightManager lights;
-    Camera *camera; //TODO: Remove pointer
+    Camera *camera; 
 public:
     Scene():camera(nullptr){
     }
@@ -59,10 +58,6 @@ public:
         delete camera;
     }
 
-    void setObjShdr(uint objIdx, uint shdrIdx)
-    {
-        objectPointers[objIdx]->setShader(shaderPointers[shdrIdx]);
-    }
     void updateProjMat(int W, int H);
     std::string getTreeView() const;
 };
