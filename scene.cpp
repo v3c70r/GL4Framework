@@ -15,15 +15,23 @@ void Scene::init()
     setCamera(CAMERA_ARCBALL, glm::vec3(0.0, 0.0, -15.0), glm::mat4x4(1.0));
     camera->init();
 
+    //default renderer for static meshes
+    ForwardRenderer *fwRendererMesh = new ForwardRenderer;
     Shader * shdr = nullptr;
+    shdr = shaders.addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
     camera->bindToShader(shdr);
-    shdr = shaders.addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
     lights.bindToShader(shdr);
+    fwRendererMesh->setShader(shdr);
+    renderers.addRenderer(fwRendererMesh, "FW_STATIC_MESH_R");
 
-    shdr = shaders.addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
+
+    //default renderer for LBS meshes
+    ForwardRenderer *fwRendererLBS = new ForwardRenderer;
+    shdr = shaders.addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
     lights.bindToShader(shdr);
-
+    fwRendererLBS->setShader(shdr);
     camera->bindToShader(shdr);
+    renderers.addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
 
 }
 
@@ -38,13 +46,8 @@ void Scene::drawScene() const
     glFrontFace(GL_CCW);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glEnable(GL_TEXTURE_2D);
-    glm::mat4 viewMat=camera->getViewMat();
     camera->updateViewMat();
-    for (auto i=0; i<objectPointers.size(); i++) 
-    {
-        (objectPointers[i])->update();
-        (objectPointers[i])->draw();
-    }
+    renderers.renderAll();
 }
 void Scene::addMeshes(std::string fileName, Object* parent)
 {
@@ -81,21 +84,6 @@ void Scene::addDirLight(const glm::vec4 &dir)
 {
     lights.addLight(dir);
 }
-
-//Not for framework right now
-//void Scene::addFluidSys(std::string name, Object* parent)
-//{
-//    Points* pSPH = new Points();
-//    (pSPH)->init();
-//    
-//    Shader *shdr = new Shader;
-//    shdr->createProgrammeFromFiles("./shaders/point_vs.glsl", "./shaders/point_gs.glsl","./shaders/point_fs.glsl");
-//    pSPH->setShader(shdr);
-//    pSPH->setParent(parent);
-//    shaderPointers.push_back(shdr);
-//    objectPointers.push_back(pSPH);
-//    pSPH->setName(name);
-//}
 
 std::string Scene::getTreeView() const
 {

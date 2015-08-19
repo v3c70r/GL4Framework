@@ -14,7 +14,6 @@ protected:
     GLuint VAO;
     GLuint *BUFFER;
     Object* parent;
-    Shader *shader;
     std::string name;
     /*
      * Get global transformation matrix by bottom up parsing the tree
@@ -37,14 +36,24 @@ public:
         transMat(glm::mat4x4(1.0)),
         parent(nullptr), 
         name("Sans nom"),
-        shader(nullptr),
         BUFFER(nullptr) 
     {}
     virtual ~Object(){};
     virtual void draw()=0;
     void setTransMat(const glm::mat4x4 &m){transMat = m;}
-    virtual void setShader(Shader *)=0;
-    virtual void update()=0;       //I assume most objects require updates in each frame
+
+    /*
+     * Bind Object UBOs to shader
+     * Since every object may have different buffer objects,
+     * it's better to implement this function in each derived classes.
+     */
+    virtual void bindShader(Shader *)=0;
+
+    /*
+     * Object need to be update at every frame.
+     * Including positions( model matrix), and physics
+     */
+    virtual void update()=0;       
     void setParent(Object *obj){parent = obj;}
     const glm::mat4& getLocalTransMat() const{return transMat;}
 };

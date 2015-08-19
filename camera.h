@@ -29,20 +29,22 @@ protected:
     GLint viewport[4];
 public:
     Camera():
-        translationMat(glm::mat4(1.0)), 
-        rotationMat(glm::mat4(1.0)),
-        viewMat(glm::mat4(1.0)),
+        UBO(0),
         UBO_SIZE(sizeof(GLfloat) * 48),  //Three mat4s
         PROJ_MAT_OFFSET(0),
         VIEW_MAT_OFFSET(sizeof(GLfloat) * 16),
         VIEW_MAT_INV_OFFSET(sizeof(GLfloat)*32),
-        MAT_SIZE(sizeof(GLfloat) * 16)
+        MAT_SIZE(sizeof(GLfloat) * 16),
+        translationMat(glm::mat4(1.0)), 
+        rotationMat(glm::mat4(1.0)),
+        viewMat(glm::mat4(1.0)),
+        projectionMat(glm::mat4(1.0)),
+        near(1.0),
+        far(10000.0),
+        fov(1.1693706),
+        aspect(1.0)
 
     {
-        near = 1.0f;
-        far = 10000.0f;
-        fov = 1.1693706f;
-        aspect = 1.0f;
     }
     void init();
     //Rotation and translations

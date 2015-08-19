@@ -244,22 +244,16 @@ void MeshNode::loadTexture(const std::string &fileName)
 
 void MeshNode::update()
 {
-
+    //set model matrix
     glBindBuffer(GL_UNIFORM_BUFFER, BUFFER[MESH_ATTR::OBJ_MATS]);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(GLfloat)*16, &transMat[0][0]);
     glBufferSubData(GL_UNIFORM_BUFFER, sizeof(GLfloat)*16, sizeof(GLfloat)*16, &(glm::inverse(transMat))[0][0]);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
-    shader->bindModelMats(BUFFER[MESH_ATTR::OBJ_MATS]);
-
-    shader->setTexture(0);
-    shader->bindMaterial(BUFFER[MESH_ATTR::MATERIAL]);
 }
 void MeshNode::draw()
 {
-
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture);
-    glUseProgram(shader->getProgramme());
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 3*numOfFaces, GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
@@ -345,17 +339,11 @@ void MeshNode::setMaterial(const aiMaterial *mat)
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(float)*MAT_BUF_SIZE, &matBuf[0]);
 }
 
-/*
- * Assign this mesh a shader
- * need to be called after mesh is complete
- */
-void MeshNode::setShader(Shader *s)
+void MeshNode::bindShader(Shader *s)
 {
-    shader = s;
-    if (shader)
-        shader->bindMaterial(BUFFER[MESH_ATTR::MATERIAL]);
-    else
-        throw std::runtime_error("Setting Empty Shader");
+    s->setTexture(0);
+    s->bindMaterial(BUFFER[MESH_ATTR::MATERIAL]);
+    s->bindModelMats(BUFFER[MESH_ATTR::OBJ_MATS]);
 }
 
 

@@ -88,13 +88,13 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
             {
                 ((DefMeshNode*)meshNode)->addAnimation(loadAnimation(as, as->mAnimations[animIdx]));
             }
-            meshNode->setShader(scene->shaders.getShader("deformMeshShader"));
+            scene->renderers.assignObj2Renderer( meshNode, "FW_LBS_MESH_R");
         }
         else
         {
             meshNode = new MeshNode();
             meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices);
-            meshNode->setShader(scene->shaders.getShader("meshShader"));
+            scene->renderers.assignObj2Renderer( meshNode, "FW_STATIC_MESH_R");
         }
         meshNode->setVertices((GLfloat*)(curMesh->mVertices));
         vector<float> tempUV;

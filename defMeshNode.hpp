@@ -30,20 +30,18 @@ private:
     vector<Animation> animations;
     const int MAX_NUM_BONES;
     const int BONES_PER_VERTEX;
+
 public:
     DefMeshNode(): MAX_NUM_BONES(20), BONES_PER_VERTEX(4)
     {
     }
-    //@overwriting
-    void init(GLuint nFaces, GLuint nVertices);
+    void init(GLuint nFaces, GLuint nVertices) override;
 
     void setBoneTrans(const GLfloat* trans, const GLuint &numBones);
     void setWeights(const GLuint *IDs, const GLfloat* weights);
     void addAnimation(Animation anim);
 
-    //@overwriting
-    void setShader(Shader *s);
-    //@overwriting
-    void update();
+    void update() override;
+    void bindShader(Shader *) override;
         
 };

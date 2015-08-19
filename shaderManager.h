@@ -27,19 +27,11 @@ public:
         for (std::map<std::string, Shader*>::iterator it=shaderMap.begin(); it!=shaderMap.end(); ++it)
             delete it->second;
     }
-    Shader* getShader(std::string name) const
+    Shader* getShader(const std::string &name) const
     {
         if (shaderMap.find(name) == shaderMap.end())
             return nullptr;
         else
             return shaderMap.at(name);
-    }
-
-    /*
-     * Set projection matrix for all of the shaders
-     * TODO: move projection matrix to unifrom block
-     */
-    void setProjMats()  
-    {
     }
 };

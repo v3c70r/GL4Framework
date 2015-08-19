@@ -67,13 +67,6 @@ void DefMeshNode::init(GLuint nFaces, GLuint nVertices){
     delete []emptyUint;
 }
 
-//Overwriting to bind bone trans
-void DefMeshNode::setShader(Shader *s)
-{
-    shader = s;
-    shader->bindMaterial(BUFFER[MESH_ATTR::MATERIAL]);
-    shader->bindBoneTrans(BUFFER[MESH_ATTR::BONES_TRANS]);
-}
 void DefMeshNode::addAnimation(Animation anim)
 {
     animations.push_back(anim);
@@ -85,19 +78,15 @@ void DefMeshNode::setBoneTrans(const GLfloat* trans, const GLuint &numBones)
 }
 void DefMeshNode::update()
 {
-    shader->setTexture(0);
-    shader->bindMaterial(BUFFER[MESH_ATTR::MATERIAL]);
 
     glBindBuffer(GL_UNIFORM_BUFFER, BUFFER[MESH_ATTR::OBJ_MATS]);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(GLfloat)*16, &transMat[0][0]);
     glBufferSubData(GL_UNIFORM_BUFFER, sizeof(GLfloat)*16, sizeof(GLfloat)*16, &(glm::inverse(transMat))[0][0]);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
-    shader->bindModelMats(BUFFER[MESH_ATTR::OBJ_MATS]);
 
     if (animations.size() == 0) return;
     setBoneTrans( &(animations[0][frameIdx][0][0][0]), 20);
     frameIdx = ( frameIdx + 1 )%(animations[0].size()-1);
-    shader->bindBoneTrans(BUFFER[MESH_ATTR::BONES_TRANS]);
 }
 void DefMeshNode::setWeights(const GLuint *IDs, const GLfloat* weights)
 {
@@ -107,4 +96,12 @@ void DefMeshNode::setWeights(const GLuint *IDs, const GLfloat* weights)
     glBindBuffer(GL_ARRAY_BUFFER, BUFFER[MESH_ATTR::WEIGHTS]);
     glBufferData(GL_ARRAY_BUFFER, numOfVertices * 4 * sizeof(GLfloat), weights, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void DefMeshNode::bindShader(Shader *s)
+{
+    s->setTexture(0);
+    s->bindMaterial(BUFFER[MESH_ATTR::MATERIAL]);
+    s->bindModelMats(BUFFER[MESH_ATTR::OBJ_MATS]);
+    s->bindBoneTrans(BUFFER[MESH_ATTR::BONES_TRANS]);
 }

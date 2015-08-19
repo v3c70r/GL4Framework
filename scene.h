@@ -12,14 +12,11 @@
 #include "arcball.h"
 #include "shaderManager.h"
 #include <glm/gtx/transform.hpp>
-//#include "points.cuh"
+#include "forwardRenderer.hpp"
+#include "rendererManager.h"
 
 /*
  * A scene is a place where all objects are put in
- * [X] Meshes
- * [X] Shaders
- * [X] Camera
- * [X] Lights
  */
 
 namespace BUILD_IN_SHADERS
@@ -30,21 +27,25 @@ namespace BUILD_IN_SHADERS
         COUNT
     };
 }
+
 class Scene
 {
     friend class Importer;
 private:
     std::vector<Object*> objectPointers;
+    RendererManager renderers;
+
     ShaderManager shaders;
     LightManager lights;
     Camera *camera; 
+
 public:
     Scene():camera(nullptr){
     }
     void init();
     void drawScene() const ;
-    void addMeshes(std::string fileName, Object* parent=nullptr);
-    //void addFluidSys(std::string name, Object* parent=nullptr);
+    void addObject(Object *) ;
+
     void addDirLight(const glm::vec4 &dir);
 
     Object* getObject(std::string name);
@@ -59,7 +60,10 @@ public:
     }
 
     void updateProjMat(int W, int H);
+
+    /*Deprecating*/
     std::string getTreeView() const;
+    void addMeshes(std::string fileName, Object* parent=nullptr);
 };
 
 

@@ -41,9 +41,7 @@ protected:
     GLuint numOfVertices;
     GLuint texture;
 public:
-    MeshNode()
-    {
-    }
+    MeshNode() {}
 
     ~MeshNode()
     {
@@ -61,7 +59,7 @@ public:
     void loadSimpleOBJ(std::string objFile);
     void loadTexture(const std::string &fileName);
     void setMaterial(const aiMaterial *mat);
-    virtual void setShader(Shader *s);
+    virtual void bindShader(Shader *s) override;
     void bind()
     {
         glBindVertexArray(VAO);
@@ -70,8 +68,8 @@ public:
     {
         glBindVertexArray(0);
     }
-    virtual void update();
-    virtual void draw();
+    virtual void update() override;
+    virtual void draw() override;
 };
 
 
