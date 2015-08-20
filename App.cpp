@@ -4,6 +4,7 @@ using namespace LOG;
 GLFWwindow* App::pWindow = nullptr;
 int App::windowWidth = 1920;
 int App::windowHeight = 1080;
+PyConsole App::console;
 Scene App::scene;
 
 App::App()
@@ -67,9 +68,12 @@ void App::init()
     assert(startGL());
     InitImGui(windowWidth, windowHeight);
     scene.init();
-    Importer importer(&scene);
-    importer.import("./meshes/StartFile.dae");
-    importer.import("./meshes/Su-35_SuperFlanker/su-35.dae");
+
+    console.setScene(&scene);
+    console.runConsole();
+    //Importer importer(&scene);
+    //importer.import("./meshes/StartFile.dae");
+    //importer.import("./meshes/Su-35_SuperFlanker/su-35.dae");
     //importer.import("./meshes/StartFile.dae");
     //importer.import("./meshes/mine.dae");
     //scene.addFluidSys("fluid_1");

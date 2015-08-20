@@ -12,6 +12,7 @@
 #include "scene.h"
 #include "shadowMap.h"
 #include "importer.hpp"
+#include "pyConsole.h"
 
 
 extern const unsigned int CAMERA_ARCBALL;
@@ -29,6 +30,7 @@ private:
 
     static Scene scene;
 
+    static PyConsole console;
     static bool startGL();
     static void setupLight();
     static void updateProj();
