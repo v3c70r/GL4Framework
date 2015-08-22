@@ -30,7 +30,6 @@ private:
 
     static Scene scene;
 
-    static PyConsole console;
     static bool startGL();
     static void setupLight();
     static void updateProj();

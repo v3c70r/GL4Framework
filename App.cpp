@@ -4,7 +4,6 @@ using namespace LOG;
 GLFWwindow* App::pWindow = nullptr;
 int App::windowWidth = 1920;
 int App::windowHeight = 1080;
-PyConsole App::console;
 Scene App::scene;
 
 App::App()
@@ -69,8 +68,6 @@ void App::init()
     InitImGui(windowWidth, windowHeight);
     scene.init();
 
-    console.setScene(&scene);
-    console.runConsole();
     //Importer importer(&scene);
     //importer.import("./meshes/StartFile.dae");
     //importer.import("./meshes/Su-35_SuperFlanker/su-35.dae");
@@ -91,6 +88,10 @@ void App::init()
     glfwSetCursorPosCallback(pWindow,mouseMotion);
     glfwSetKeyCallback(pWindow, keyCallBack);
     glfwSetScrollCallback(pWindow, scrollCallback);
+
+    PyConsole &console = PyConsole::getInstance();
+    console.setScene(&scene);
+    console.runConsole();
 }
 void App::_glfw_window_size_callback (GLFWwindow* window, int width, int height)
 {
@@ -149,6 +150,7 @@ void App::run()
     int width, height;
     while (!glfwWindowShouldClose (pWindow))
     {
+        PyConsole::getInstance().callFunctions();
         UpdateImGui(pWindow);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glfwGetFramebufferSize(pWindow, &width, &height);
