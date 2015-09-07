@@ -15,9 +15,9 @@ void Scene::init()
     setCamera(CAMERA_ARCBALL, glm::vec3(0.0, 0.0, -15.0), glm::mat4x4(1.0));
     camera->init();
 
+    Shader * shdr = nullptr;
     //default renderer for static meshes
     ForwardRenderer *fwRendererMesh = new ForwardRenderer;
-    Shader * shdr = nullptr;
     shdr = shaders.addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
     camera->bindToShader(shdr);
     lights.bindToShader(shdr);
@@ -32,6 +32,14 @@ void Scene::init()
     fwRendererLBS->setShader(shdr);
     camera->bindToShader(shdr);
     renderers.addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
+
+    //Deferred Renderer
+    DeferredRenderer* dfRendererMesh = new DeferredRenderer(1920, 1200);
+    shdr = shaders.addShader("./shaders/deferredGeo_vs.glsl", "./shaders/deferredGeo_fs.glsl", "deffered");
+    dfRendererMesh->setGeometryShader(shdr);
+    lights.bindToShader(shdr);
+    renderers.addRenderer(dfRendererMesh, "DF_MESH_R");
+
 
 }
 

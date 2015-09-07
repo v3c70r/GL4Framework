@@ -14,6 +14,7 @@
 #include <glm/gtx/transform.hpp>
 #include "forwardRenderer.hpp"
 #include "rendererManager.h"
+#include "deferredRenderer.hpp"
 
 /*
  * A scene is a place where all objects are put in

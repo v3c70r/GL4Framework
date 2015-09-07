@@ -3,6 +3,7 @@
  */
 #pragma once
 #include "renderer.hpp"
+#include "shader.hpp"
 
 class DeferredRenderer: public Renderer
 {
@@ -25,20 +26,24 @@ private:
         enum ENUM
         {
             GEOMETRY=0,
-            QUAD,
             COUNT
         };
     };
     GLuint textures[TEXTURES::COUNT];
     GLuint FBO;
-    Shaders *shdrs[SHADERS::COUNT];
+    Shader *shdrs[SHADERS::COUNT];
+    void renderGeometryPass() const;
+    void renderLightPass() const;
+    GLint width, height;
 public:
     /**
      * Constructor, need OpenGL context created
      * created
      */
+    DeferredRenderer()  =   delete;
     DeferredRenderer(const int &, const int &);
 
     /** Set geometry shader*/
     void setGeometryShader(Shader *);
+    void render() const override;
 };

@@ -68,6 +68,8 @@ void App::init()
     InitImGui(windowWidth, windowHeight);
     scene.init();
 
+    /*--------------------Scene stuffs--------------------*/
+
     //Importer importer(&scene);
     //importer.import("./meshes/StartFile.dae");
     //importer.import("./meshes/Su-35_SuperFlanker/su-35.dae");
