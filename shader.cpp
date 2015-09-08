@@ -221,9 +221,7 @@ bool Shader::getIndicesNLocations()
         ////UBIndices.push_back(index);
         ////set binding point
         GLint index = glGetUniformBlockIndex(programme, UNIFORM_BLOCKS::names[i].c_str());
-        std::cout<<"Binding UNIFORM\n"
-            <<"Index: "<<index<<"\t"<<"Binding: "<<UNIFORM_BLOCKS::binding[i]<<"\t"<<
-            UNIFORM_BLOCKS::names[i]<<std::endl;
+        std::cout<<"Binding UNIFORM\n" <<"Index: "<<index<<"\t"<<"Binding: "<<UNIFORM_BLOCKS::binding[i]<<"\t"<< UNIFORM_BLOCKS::names[i]<<std::endl;
         glUniformBlockBinding(programme ,index, UNIFORM_BLOCKS::binding[i]);
     }
     return true;

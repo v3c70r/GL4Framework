@@ -53,7 +53,6 @@ void Scene::drawScene() const
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glEnable(GL_TEXTURE_2D);
     camera->updateViewMat();
     renderers.renderAll();
 }

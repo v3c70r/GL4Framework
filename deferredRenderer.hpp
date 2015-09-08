@@ -16,7 +16,6 @@ private:
             DIFFUSE,
             NORMAL,
             TEXCOORD,
-            TEXTURE,
             DEPTH,
             COUNT
         };

@@ -17,20 +17,22 @@ DeferredRenderer::DeferredRenderer(const int &width, const int &height)
     glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
     glGenTextures(TEXTURES::COUNT, textures);
-
     //Init color textures
     for (auto i=0; i<TEXTURES::DEPTH; i++)
     {
         glBindTexture(GL_TEXTURE_2D, textures[i]);
+        //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
+        //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+        //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP );
+        //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP );
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, nullptr);
         glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, textures[i], 0);
     }
     //Depth
     glBindTexture(GL_TEXTURE_2D, textures[TEXTURES::DEPTH]);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
                   nullptr);
     glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, textures[TEXTURES::DEPTH], 0);
-
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rbo);
 
     GLenum drawBuffers[] = { 
@@ -40,7 +42,7 @@ DeferredRenderer::DeferredRenderer(const int &width, const int &height)
         GL_COLOR_ATTACHMENT3 
     }; 
 
-    glDrawBuffers(TEXTURES::TEXTURE, drawBuffers);    //TEXTURES::TEXTURE = number of color texrtures
+    glDrawBuffers(TEXTURES::DEPTH, drawBuffers);    //TEXTURES::DEPTH = number of color texrtures
 
     GLenum Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
