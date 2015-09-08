@@ -17,13 +17,13 @@ uniform sampler2D tex;
 
 void main()
 {
-    //PosOut = VertexIn.toEye;
-    //DiffuseOut = texture(tex, VertexIn.texCoord).xyz;
-    //NormalOut = VertexIn.normal;
-    //TexCoordOut = vec3(VertexIn.texCoord, 0.0);
+    PosOut = VertexIn.pos;
+    DiffuseOut = texture(tex, VertexIn.texCoord).xyz;
+    NormalOut = VertexIn.normal;
+    TexCoordOut = vec3(VertexIn.texCoord, 0.0);
 
-    PosOut = vec3(1.0);
-    DiffuseOut = vec3(1.0);
-    NormalOut = vec3(1.0);
-    TexCoordOut = vec3(1.0);
+    //PosOut = vec3(1.0);
+    //DiffuseOut = vec3(1.0);
+    //NormalOut = vec3(1.0);
+    //TexCoordOut = vec3(1.0);
 }

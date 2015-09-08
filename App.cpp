@@ -66,7 +66,10 @@ void App::init()
     assert(restartLog());
     assert(startGL());
     InitImGui(windowWidth, windowHeight);
-    scene.init();
+
+    int windowWidth, windowHeight;
+    glfwGetFramebufferSize(pWindow, &windowWidth, &windowHeight);
+    scene.init(windowWidth, windowHeight);
 
     /*--------------------Scene stuffs--------------------*/
 

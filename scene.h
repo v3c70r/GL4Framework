@@ -43,7 +43,7 @@ private:
 public:
     Scene():camera(nullptr){
     }
-    void init();
+    void init(const GLint &, const GLint &);
     void drawScene() const ;
     void addObject(Object *) ;
 

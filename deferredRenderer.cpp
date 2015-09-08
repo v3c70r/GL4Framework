@@ -1,12 +1,20 @@
 #include "deferredRenderer.hpp"
 #include <stdexcept>
 #include <GL/glew.h>
+#include <iostream>
 DeferredRenderer::DeferredRenderer(const int &width, const int &height)
 {
     this->width = width;
     this->height = height;
+
+    GLuint rbo;
+    glGenRenderbuffers(1, &rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+    glRenderbufferStorage(GL_RENDERBUFFER,  GL_DEPTH_COMPONENT, width, height);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
     glGenFramebuffers(1, &FBO);
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
     glGenTextures(TEXTURES::COUNT, textures);
 
@@ -23,13 +31,16 @@ DeferredRenderer::DeferredRenderer(const int &width, const int &height)
                   nullptr);
     glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, textures[TEXTURES::DEPTH], 0);
 
-    GLenum DrawBuffers[] = { 
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+    GLenum drawBuffers[] = { 
         GL_COLOR_ATTACHMENT0, 
         GL_COLOR_ATTACHMENT1, 
         GL_COLOR_ATTACHMENT2, 
         GL_COLOR_ATTACHMENT3 
     }; 
-    glDrawBuffers(TEXTURES::DEPTH, DrawBuffers);    //TEXTURES::DEPTH = number of color texrtures
+
+    glDrawBuffers(TEXTURES::TEXTURE, drawBuffers);    //TEXTURES::TEXTURE = number of color texrtures
 
     GLenum Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 

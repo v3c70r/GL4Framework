@@ -6,7 +6,7 @@
  * need to be called after OpenGL context intialized
  */
 
-void Scene::init()
+void Scene::init(const GLint &wWidth, const GLint &wHeight)
 {
     //initialzie default shaders
     lights.init();
@@ -34,7 +34,7 @@ void Scene::init()
     renderers.addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
 
     //Deferred Renderer
-    DeferredRenderer* dfRendererMesh = new DeferredRenderer(1920, 1200);
+    DeferredRenderer* dfRendererMesh = new DeferredRenderer(wWidth, wHeight);
     shdr = shaders.addShader("./shaders/deferredGeo_vs.glsl", "./shaders/deferredGeo_fs.glsl", "deffered");
     dfRendererMesh->setGeometryShader(shdr);
     lights.bindToShader(shdr);
