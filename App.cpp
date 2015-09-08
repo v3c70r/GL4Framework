@@ -48,7 +48,7 @@ bool App::startGL()
         return false;
     }
     glfwMakeContextCurrent (pWindow);
-    glfwWindowHint (GLFW_SAMPLES, 4);
+    //glfwWindowHint (GLFW_SAMPLES, 4);
     // start GLEW extension handler
     glewExperimental = GL_TRUE;
     glewInit ();

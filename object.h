@@ -34,9 +34,10 @@ public:
     std::string getName() const { return name;}
     Object():
         transMat(glm::mat4x4(1.0)),
+        VAO(0),
+        BUFFER(nullptr) ,
         parent(nullptr), 
-        name("Sans nom"),
-        BUFFER(nullptr) 
+        name("Sans nom")
     {}
     virtual ~Object(){};
     virtual void draw()=0;

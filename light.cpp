@@ -10,7 +10,7 @@ void LightManager::init()
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
-LightManager::LightManager(): MAX_DLIGHT(5), numLights(0)
+LightManager::LightManager(): numLights(0), MAX_DLIGHT(5)
 {
 }
 

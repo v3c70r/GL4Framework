@@ -56,6 +56,8 @@ void Scene::drawScene() const
     camera->updateViewMat();
     renderers.renderAll();
 }
+
+//Deprecating
 void Scene::addMeshes(std::string fileName, Object* parent)
 {
     MeshNode *meshNode = new MeshNode();

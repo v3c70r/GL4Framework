@@ -29,10 +29,10 @@ private:
     };
     vector<Animation> animations;
     const int MAX_NUM_BONES;
-    const int BONES_PER_VERTEX;
+    //const int BONES_PER_VERTEX;
 
 public:
-    DefMeshNode(): MAX_NUM_BONES(20), BONES_PER_VERTEX(4)
+    DefMeshNode(): MAX_NUM_BONES(20)/*, BONES_PER_VERTEX(4)*/
     {
     }
     void init(GLuint nFaces, GLuint nVertices) override;

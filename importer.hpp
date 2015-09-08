@@ -79,7 +79,7 @@ private:
     std::string fileName;
     void importScene(aiNode *pNode,const aiScene* as);
 public:
-    Importer(Scene *s=nullptr):scene(s), numBones(0) {}
+    Importer(Scene *s=nullptr):numBones(0),scene(s){}
     void setScene(Scene *s){scene = s;}
     void import(std::string fileName, std::string parentName);
 
