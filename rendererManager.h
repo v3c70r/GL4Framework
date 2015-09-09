@@ -23,7 +23,6 @@ public:
         else
             return rendererMap.at(name);
     }
-
     void renderAll() const
     {
         for (std::map<std::string, Renderer*>::const_iterator it=rendererMap.begin();
@@ -33,4 +32,5 @@ public:
 
     /*assign an object to renderer*/
     void assignObj2Renderer(Object* obj, const std::string &rendererName);
+    std::string queryRenderObjInfo() const;
 };

@@ -5,6 +5,7 @@
 #include "object.h"
 #include <vector>
 #include <string>
+#include <sstream>
 
 class Renderer
 {
@@ -22,6 +23,15 @@ public:
             else 
                 it++;
         }
+    }
+    std::string queryObjs() const
+    {
+        std::stringstream ss;
+        ss<<"{";
+        for (auto i=0; i<objects.size(); i++)
+            ss<<objects[i]->getName()<<" ";
+        ss<<"}";
+        return ss.str();
     }
     virtual ~Renderer(){};
     virtual void render() const=0;

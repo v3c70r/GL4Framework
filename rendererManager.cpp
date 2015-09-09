@@ -16,3 +16,17 @@ void RendererManager::assignObj2Renderer(Object* obj, const std::string &rendere
     else 
         rendererMap[rendererName]->addObject(obj);
 }
+
+std::string RendererManager::queryRenderObjInfo() const
+{
+    std::stringstream ss;
+    ss<<"{";
+    for (std::map<std::string, Renderer*>::iterator it=rendererMap.begin(); it!=rendererMap.end(); it++)
+    {
+        ss<<
+    }
+    ss<<"}";
+    return ss.str();
+
+
+}
