@@ -19,14 +19,13 @@ void RendererManager::assignObj2Renderer(Object* obj, const std::string &rendere
 
 std::string RendererManager::queryRenderObjInfo() const
 {
+    //return a python dictionary of renderer and pointers
     std::stringstream ss;
     ss<<"{";
-    for (std::map<std::string, Renderer*>::iterator it=rendererMap.begin(); it!=rendererMap.end(); it++)
+    for (std::map<std::string, Renderer*>::const_iterator it=rendererMap.begin(); it!=rendererMap.end(); it++)
     {
-        ss<<
+        ss<<"'"<<it->first<<"': "<<it->second->queryObjs()<<", ";
     }
     ss<<"}";
     return ss.str();
-
-
 }

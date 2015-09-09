@@ -137,14 +137,14 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
         }
         meshNode->setIndices(&tempFaces[0]);
 
-        meshNode->setParent(nullptr);
-        if (std::string(curMesh->mName.C_Str()) != "")
-            meshNode->setName(std::string(curMesh->mName.C_Str()));
-        else
-        {
-            int splitIdx = fileName.find_last_of("/");
-            meshNode->setName(fileName.substr(splitIdx+1, fileName.size() - splitIdx)+std::string("_")+std::to_string(i));
-        }
+        //meshNode->setParent(nullptr);
+        //if (std::string(curMesh->mName.C_Str()) != "")
+        //    meshNode->setName(std::string(curMesh->mName.C_Str()));
+        //else
+        //{
+        //    int splitIdx = fileName.find_last_of("/");
+        //    meshNode->setName(fileName.substr(splitIdx+1, fileName.size() - splitIdx)+std::string("_")+std::to_string(i));
+        //}
         scene->objectPointers.push_back(meshNode);
     }
     //Go children

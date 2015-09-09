@@ -45,7 +45,8 @@ void Scene::init(const GLint &wWidth, const GLint &wHeight)
 
 void Scene::drawScene() const
 {
-    std::cout<<renderers.getRenderer("DF_MESH_R")->queryObjs()<<std::endl;
+    //std::cout<<renderers.getRenderer("DF_MESH_R")->queryObjs()<<std::endl;
+    std::cout<<renderers.queryRenderObjInfo()<<std::endl;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);

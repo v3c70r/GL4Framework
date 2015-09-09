@@ -24,13 +24,19 @@ public:
                 it++;
         }
     }
+    /** Return a python list of objects in a renderer*/
     std::string queryObjs() const
     {
+        
+        if (objects.size() == 0)
+            return std::string("[ ]");
+
         std::stringstream ss;
-        ss<<"{";
-        for (auto i=0; i<objects.size(); i++)
-            ss<<objects[i]->getName()<<" ";
-        ss<<"}";
+        ss<<"[";
+        for (auto i=0; i<objects.size()-1; i++)
+            ss<<"'"<<objects[i]->getName()<<"', ";
+        ss<<"'"<<objects[objects.size()-1]->getName()<<"'";
+        ss<<"]";
         return ss.str();
     }
     virtual ~Renderer(){};
