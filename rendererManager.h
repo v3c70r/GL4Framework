@@ -32,5 +32,5 @@ public:
 
     /*assign an object to renderer*/
     void assignObj2Renderer(Object* obj, const std::string &rendererName);
-    std::string queryRenderObjInfo() const;
+    std::string queryRendererObjInfo() const;
 };

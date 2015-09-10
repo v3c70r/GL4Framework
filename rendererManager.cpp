@@ -17,7 +17,7 @@ void RendererManager::assignObj2Renderer(Object* obj, const std::string &rendere
         rendererMap[rendererName]->addObject(obj);
 }
 
-std::string RendererManager::queryRenderObjInfo() const
+std::string RendererManager::queryRendererObjInfo() const
 {
     //return a python dictionary of renderer and pointers
     std::stringstream ss;

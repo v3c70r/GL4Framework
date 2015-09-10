@@ -65,6 +65,10 @@ public:
     /*Deprecating*/
     std::string getTreeView() const;
     void addMeshes(std::string fileName, Object* parent=nullptr);
+    const RendererManager& getRendererManager() const
+    {
+        return renderers;
+    }
 };
 
 

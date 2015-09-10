@@ -22,6 +22,7 @@ struct DirLight
 {
     vec4 dir;
 };
+
 layout(std140) uniform DirLights
 {
     DirLight lights[MAX_DIRLIGHTS];

@@ -37,25 +37,7 @@ public:
     void operator=(PyConsole const&)    =    delete;
 
     void setScene(Scene *s) {scene = s;}
-    PyObject* import(PyObject* self, PyObject *args)
-    {
-        PyObject *path = nullptr;
-        if (!PyArg_UnpackTuple(args, "import", 1, 1, &path))
-        {
-            std::cout<<"Wrong parameters\n";
-        }
-        else
-        {
-            auto func = [] (const std::string &fileName, Scene *s)
-            {
-                Importer importer;
-                importer.setScene(s);
-                importer.import(fileName );
-            };
-            QueueFunction(func,PyString_AsString(path), scene);
-        }
-        return Py_BuildValue("");
-    }
+
 
     void runConsole();
     void startConsoleThread();
@@ -77,6 +59,35 @@ public:
     {
         t->join();
         delete t;
+    }
+
+    /*--------Python APIs---------*/
+
+    /** Import file into scene*/
+    PyObject* import(PyObject* self, PyObject *args)
+    {
+        PyObject *path = nullptr;
+        if (!PyArg_UnpackTuple(args, "import", 1, 1, &path))
+        {
+            std::cout<<"Wrong parameters\n";
+        }
+        else
+        {
+            auto func = [] (const std::string &fileName, Scene *s)
+            {
+                Importer importer;
+                importer.setScene(s);
+                importer.import(fileName );
+            };
+            QueueFunction(func,PyString_AsString(path), scene);
+        }
+        return Py_BuildValue("");
+    }
+    /** Query renderer and object infos */
+    /* This function will return value right away!! */
+    PyObject* getRendererInfo(PyObject* self, PyObject *args)
+    {
+        return Py_BuildValue("s", scene->getRendererManager().queryRendererObjInfo().c_str());
     }
 };
 

@@ -8,6 +8,11 @@ PyObject* call_import(PyObject* self, PyObject *args)
     return PyConsole::getInstance().import(self, args);
 }
 
+PyObject* call_getRendererInfo(PyObject* self, PyObject *args)
+{
+    return PyConsole::getInstance().getRendererInfo(self, args);
+}
+
 void call_startConsoleThread()
 {
     PyConsole::getInstance().startConsoleThread();
@@ -19,6 +24,7 @@ void call_startConsoleThread()
 /*Construct Python methods*/
 PyMethodDef ConsoleMethods[] = {
     {"importScene", call_import, METH_VARARGS, "Import file into scene"},
+    {"getRendererInfo", call_getRendererInfo, METH_NOARGS, "Get renderer info from scene"},
     {NULL, NULL, 0, NULL}
 };
 
