@@ -30,7 +30,7 @@ public:
             it->second->render();
     }
 
-    /*assign an object to renderer*/
+    /** assign an object to renderer*/
     void assignObj2Renderer(Object* obj, const std::string &rendererName);
     std::string queryRendererObjInfo() const;
 };

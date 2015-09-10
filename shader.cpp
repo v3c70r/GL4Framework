@@ -172,6 +172,7 @@ bool Shader::createProgrammeFromFiles(const char* kernel_file_name)
     GLuint computeShader;
     assert( createShader(kernel_file_name, &computeShader, GL_COMPUTE_SHADER));
     assert(createProgramme(computeShader, &programme));
+    assert (getIndicesNLocations());
     return true;
 }
 

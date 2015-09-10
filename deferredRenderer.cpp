@@ -49,6 +49,7 @@ DeferredRenderer::DeferredRenderer(const int &width, const int &height)
 
         throw std::runtime_error("FB error");
     }
+    glBindTexture(GL_TEXTURE_2D, 0);
     // restore default FBO
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 }

@@ -16,29 +16,38 @@ void Scene::init(const GLint &wWidth, const GLint &wHeight)
     camera->init();
 
     Shader * shdr = nullptr;
+
+    //Raytracer
+    RayTracer* rayTracer = new RayTracer(wWidth, wHeight);
+    shdr = shaders.addShader("./shaders/kernels/rayTracing.glsl", "RAY_TRACING");
+    camera->bindToShader(shdr);
+    rayTracer->setCompShader(shdr);
+    renderers.addRenderer(rayTracer, "RayTracer");
+
     //default renderer for static meshes
-    ForwardRenderer *fwRendererMesh = new ForwardRenderer;
-    shdr = shaders.addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
-    camera->bindToShader(shdr);
-    lights.bindToShader(shdr);
-    fwRendererMesh->setShader(shdr);
-    renderers.addRenderer(fwRendererMesh, "FW_STATIC_MESH_R");
+    //ForwardRenderer *fwRendererMesh = new ForwardRenderer;
+    //shdr = shaders.addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
+    //camera->bindToShader(shdr);
+    //lights.bindToShader(shdr);
+    //fwRendererMesh->setShader(shdr);
+    //renderers.addRenderer(fwRendererMesh, "FW_STATIC_MESH_R");
 
 
-    //default renderer for LBS meshes
-    ForwardRenderer *fwRendererLBS = new ForwardRenderer;
-    shdr = shaders.addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
-    lights.bindToShader(shdr);
-    fwRendererLBS->setShader(shdr);
-    camera->bindToShader(shdr);
-    renderers.addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
+    ////default renderer for LBS meshes
+    //ForwardRenderer *fwRendererLBS = new ForwardRenderer;
+    //shdr = shaders.addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
+    //lights.bindToShader(shdr);
+    //fwRendererLBS->setShader(shdr);
+    //camera->bindToShader(shdr);
+    //renderers.addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
 
     //Deferred Renderer
-    DeferredRenderer* dfRendererMesh = new DeferredRenderer(wWidth, wHeight);
-    shdr = shaders.addShader("./shaders/deferredGeo_vs.glsl", "./shaders/deferredGeo_fs.glsl", "deffered");
-    dfRendererMesh->setGeometryShader(shdr);
-    lights.bindToShader(shdr);
-    renderers.addRenderer(dfRendererMesh, "DF_MESH_R");
+    //DeferredRenderer* dfRendererMesh = new DeferredRenderer(wWidth, wHeight);
+    //shdr = shaders.addShader("./shaders/deferredGeo_vs.glsl", "./shaders/deferredGeo_fs.glsl", "deffered");
+    //dfRendererMesh->setGeometryShader(shdr);
+    //lights.bindToShader(shdr);
+    //renderers.addRenderer(dfRendererMesh, "DF_MESH_R");
+
 
 
 }
