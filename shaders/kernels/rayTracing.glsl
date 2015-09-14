@@ -16,20 +16,22 @@ struct box {
   vec3 max;
 };
 
-vec3 uvToEye(vec2 texCoord, float z)    //screen to camera coordinate
+vec4 uvToEye(vec2 texCoord, float z)    //screen to camera coordinate
 {
-    vec2 xyPos=(texCoord*2. - 1.);
-    vec4 clipPos = vec4(xyPos, z, 1.0);
-    vec4 viewPos = (inverse(camMats.projMat) * clipPos);
-    return (viewPos.xyz/viewPos.w);
+    const vec4 viewport = vec4(0, 0, 1, 1);
+    vec3 ndcPos;
+    //ndcPos.xy = ((2.0 * texCoord.xy)-(2.0*viewport.xy))/(viewport.zw)-1;
+    ndcPos.xy = 2 *  (texCoord.xy) - vec2(1.0, 1.0);
+    ndcPos.z = (2.0 * z - 1.0);
+    vec4 clipPos;
+    //clipPos.w = camMats.projMat[3][2]/ (ndcPos.z - (camMats.projMat[2][2]/camMats.projMat[2][3]));
+    clipPos.w =  camMats.projMat[3][2] / ( ndcPos.z + camMats.projMat[2][2]);
+    clipPos.xyz = ndcPos*clipPos.w;
+    
+    return inverse(camMats.projMat) * clipPos;
+
 }
 
-vec4 uvToWorld(vec3 texCoord)
-{
-    vec2 xyPos=(texCoord.xy*2. - 1.);
-    vec4 clipPos = vec4(xyPos, texCoord.z, 1.0);
-    return camMats.invViewMat * (inverse(camMats.projMat) * clipPos);
-}
 #define NUM_BOXES 2
 const box boxes[] = {
   /* The ground */
@@ -80,9 +82,6 @@ vec4 trace(vec3 origin, vec3 dir) {
 
 void main(void) {
     //Rays 
-    mat4 invViewProjMat = camMats.invViewMat * inverse(camMats.projMat);
-    vec4 cameraPos = -(camMats.viewMat * vec4(0.0, 0.0, 0.0, 1.0));
-    cameraPos /= cameraPos.w;
 
     ivec2 pix = ivec2(gl_GlobalInvocationID.xy);
     ivec2 size = imageSize(framebuffer);
@@ -90,9 +89,12 @@ void main(void) {
         return;
     }
 
+    vec4 cameraPos = (camMats.invViewMat * vec4(0.0, 0.0, 0.0, 1.0));
+    cameraPos /= cameraPos.w;
+
     vec2 screenRay = vec2( vec2(pix)/vec2(size));
-    //vec3 pCam = uvToEye(screenRay, 0.0);
-    vec4 worldRay = uvToWorld(vec3(screenRay, 0.0));
+    vec4 pCam = uvToEye(screenRay, 0.0);
+    vec4 worldRay = camMats.invViewMat * pCam;
     worldRay /= worldRay.w;
     worldRay = (worldRay - cameraPos);
 
