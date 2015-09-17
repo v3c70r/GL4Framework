@@ -2,9 +2,8 @@
 void RendererManager::addRenderer( Renderer* r, const std::string &name)
 {
     //dupliation check
-    for (std::map<std::string, Renderer*>::iterator it=rendererMap.begin();
-            it!=rendererMap.end();it++)
-        if (it->first == name || it->second == r)
+    for ( auto const& it: rendererMap)
+        if (it.first == name || it.second == r)
             throw std::runtime_error("Duplicated renderer");
     rendererMap[name] = r;
 }
@@ -22,9 +21,10 @@ std::string RendererManager::queryRendererObjInfo() const
     //return a python dictionary of renderer and pointers
     std::stringstream ss;
     ss<<"{";
-    for (std::map<std::string, Renderer*>::const_iterator it=rendererMap.begin(); it!=rendererMap.end(); it++)
+    //for (std::map<std::string, Renderer*>::const_iterator it=rendererMap.begin(); it!=rendererMap.end(); it++)
+    for (auto const &it : rendererMap)
     {
-        ss<<"'"<<it->first<<"': "<<it->second->queryObjs()<<", ";
+        ss<<"'"<<it.first<<"': "<<it.second->queryObjs()<<", ";
     }
     ss<<"}";
     return ss.str();

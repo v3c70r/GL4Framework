@@ -29,7 +29,6 @@ vec4 uvToEye(vec2 texCoord, float z)    //screen to camera coordinate
     clipPos.xyz = ndcPos*clipPos.w;
     
     return inverse(camMats.projMat) * clipPos;
-
 }
 
 #define NUM_BOXES 2
