@@ -1,4 +1,6 @@
 #include "rayTracer.h"
+#include <GLFW/glfw3.h>     //For time retrival
+#include <iostream>
 
 
 RayTracer::RayTracer( const int &width, const int &height)
@@ -40,10 +42,21 @@ RayTracer::RayTracer( const int &width, const int &height)
     texID = glGetUniformLocation(quadShdr.getProgramme(), "colorTexture");
     glUniform1i(texID, 0);
     glUseProgram(0);
+
+    glGenBuffers(1, &timeBuffer);
+    glBindBuffer(GL_UNIFORM_BUFFER, timeBuffer);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(GLfloat), 0, GL_STREAM_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    compShdr->bindTime(timeBuffer);
 }
 
 void RayTracer::render() const
 {
+    float time = glfwGetTime();
+
+    glBindBuffer(GL_UNIFORM_BUFFER, timeBuffer);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(GLfloat), &time, GL_STREAM_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
     glUseProgram(compShdr->getProgramme());
     glBindImageTexture( 0, 
             texture,

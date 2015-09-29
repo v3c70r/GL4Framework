@@ -264,3 +264,8 @@ bool Shader::bindModelMats(const GLuint &buffer)
     glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::MODEL_MATS], buffer);
     return true;
 }
+bool Shader::bindTime(const GLuint &buffer)
+{
+    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::TIME], buffer);
+    return true;
+}

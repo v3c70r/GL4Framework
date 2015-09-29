@@ -40,6 +40,7 @@ namespace UNIFORM_BLOCKS{   //or SSBO
         BONES_TRANS,
         CAMERA_MATS,
         MODEL_MATS,
+        TIME,
         count
     };
     const std::string names[] =
@@ -48,8 +49,8 @@ namespace UNIFORM_BLOCKS{   //or SSBO
         "DirLights",
         "BoneTrans",
         "CameraMats",
-        "ModelMats"
-
+        "ModelMats",
+        "Time"
     };
     const GLint binding[]=
     {
@@ -57,7 +58,8 @@ namespace UNIFORM_BLOCKS{   //or SSBO
         1,
         2,
         3,
-        4
+        4,
+        5
     };
 }
 class Shader
@@ -99,4 +101,5 @@ public:
     bool bindBoneTrans(const GLuint &buffer);
     bool bindCameraMats(const GLuint &buffer);
     bool bindModelMats(const GLuint &buffer);
+    bool bindTime(const GLuint &buffer);
 };
