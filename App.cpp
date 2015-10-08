@@ -25,12 +25,12 @@ bool App::startGL()
         return false;
     }
     // uncomment these lines if on Apple OS X
-#ifdef _APPLE_
+//#ifdef _APPLE_
     glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#endif
+//#endif
 
     const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     windowWidth=mode->width;
@@ -75,9 +75,9 @@ void App::init()
 
     /*--------------------Scene stuffs--------------------*/
 
-    //Importer importer(&scene);
+    Importer importer(&scene);
     //importer.import("./meshes/StartFile.dae");
-    //importer.import("./meshes/Su-35_SuperFlanker/su-35.dae");
+    importer.import("./meshes/Su-35_SuperFlanker/su-35.dae");
     //importer.import("./meshes/StartFile.dae");
     //importer.import("./meshes/mine.dae");
     //scene.addFluidSys("fluid_1");

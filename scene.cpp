@@ -18,11 +18,11 @@ void Scene::init(const GLint &wWidth, const GLint &wHeight)
     Shader * shdr = nullptr;
 
     //Raytracer
-    RayTracer* rayTracer = new RayTracer(wWidth, wHeight);
-    shdr = shaders.addShader("./shaders/kernels/rayTracing.glsl", "RAY_TRACING");
-    camera->bindToShader(shdr);
-    rayTracer->setCompShader(shdr);
-    renderers.addRenderer(rayTracer, "RayTracer");
+    //RayTracer* rayTracer = new RayTracer(wWidth, wHeight);
+    //shdr = shaders.addShader("./shaders/kernels/rayTracing.glsl", "RAY_TRACING");
+    //camera->bindToShader(shdr);
+    //rayTracer->setCompShader(shdr);
+    //renderers.addRenderer(rayTracer, "RayTracer");
 
     //default renderer for static meshes
     //ForwardRenderer *fwRendererMesh = new ForwardRenderer;
@@ -42,13 +42,11 @@ void Scene::init(const GLint &wWidth, const GLint &wHeight)
     //renderers.addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
 
     //Deferred Renderer
-    //DeferredRenderer* dfRendererMesh = new DeferredRenderer(wWidth, wHeight);
-    //shdr = shaders.addShader("./shaders/deferredGeo_vs.glsl", "./shaders/deferredGeo_fs.glsl", "deffered");
-    //dfRendererMesh->setGeometryShader(shdr);
-    //lights.bindToShader(shdr);
-    //renderers.addRenderer(dfRendererMesh, "DF_MESH_R");
-
-
+    DeferredRenderer* dfRendererMesh = new DeferredRenderer(wWidth, wHeight);
+    shdr = shaders.addShader("./shaders/deferredGeo_vs.glsl", "./shaders/deferredGeo_fs.glsl", "deffered");
+    dfRendererMesh->setGeometryShader(shdr);
+    lights.bindToShader(shdr);
+    renderers.addRenderer(dfRendererMesh, "DF_MESH_R");
 
 }
 
