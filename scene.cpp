@@ -25,21 +25,21 @@ void Scene::init(const GLint &wWidth, const GLint &wHeight)
     //renderers.addRenderer(rayTracer, "RayTracer");
 
     //default renderer for static meshes
-    //ForwardRenderer *fwRendererMesh = new ForwardRenderer;
-    //shdr = shaders.addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
-    //camera->bindToShader(shdr);
-    //lights.bindToShader(shdr);
-    //fwRendererMesh->setShader(shdr);
-    //renderers.addRenderer(fwRendererMesh, "FW_STATIC_MESH_R");
+    ForwardRenderer *fwRendererMesh = new ForwardRenderer;
+    shdr = shaders.addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
+    camera->bindToShader(shdr);
+    lights.bindToShader(shdr);
+    fwRendererMesh->setShader(shdr);
+    renderers.addRenderer(fwRendererMesh, "FW_STATIC_MESH_R");
 
 
     ////default renderer for LBS meshes
-    //ForwardRenderer *fwRendererLBS = new ForwardRenderer;
-    //shdr = shaders.addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
-    //lights.bindToShader(shdr);
-    //fwRendererLBS->setShader(shdr);
-    //camera->bindToShader(shdr);
-    //renderers.addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
+    ForwardRenderer *fwRendererLBS = new ForwardRenderer;
+    shdr = shaders.addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
+    lights.bindToShader(shdr);
+    fwRendererLBS->setShader(shdr);
+    camera->bindToShader(shdr);
+    renderers.addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
 
     //Deferred Renderer
     DeferredRenderer* dfRendererMesh = new DeferredRenderer(wWidth, wHeight);

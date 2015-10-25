@@ -35,13 +35,19 @@ bool App::startGL()
     const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     windowWidth=mode->width;
     windowHeight=mode->height;
+    windowWidth=500;
+    windowHeight = 500;
 
     //glfwWindowHint(GLFW_RED_BITS, mode->redBits);
     //glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
     //glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
     //glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+    //glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
+        
 
-    pWindow = glfwCreateWindow( windowWidth,  windowHeight, "MySPH", glfwGetPrimaryMonitor(), nullptr);
+    //pWindow = glfwCreateWindow( windowWidth,  windowHeight, "MySPH", glfwGetPrimaryMonitor(), nullptr);
+    pWindow = glfwCreateWindow( windowWidth,  windowHeight, "MySPH", nullptr, nullptr);
+    //pWindow = glfwCreateWindow(640, 480, "", NULL, NULL);
     //glfwSetWindowSize(pWindow, 2560, 1600);
     //pWindow = glfwCreateWindow( windowWidth,  windowHeight, "MySPH", nullptr, nullptr);
     if (!pWindow) {
@@ -62,6 +68,7 @@ bool App::startGL()
     writeLog ("renderer: %s\nversion: %s\n", renderer, version);
     return true;
 }
+
 void App::init()
 {
     std::cout<<"Init APP\n";
