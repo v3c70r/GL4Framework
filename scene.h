@@ -11,7 +11,7 @@
 #include <assimp/scene.h>
 #include "arcball.h"
 #include "shaderManager.h"
-#include <glm/gtx/transform.hpp>
+#include <glm/glm.hpp>
 #include "forwardRenderer.hpp"
 #include "rendererManager.h"
 #include "deferredRenderer.hpp"
