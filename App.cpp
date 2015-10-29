@@ -82,9 +82,9 @@ void App::init()
 
     /*--------------------Scene stuffs--------------------*/
 
-    Importer importer(&scene);
+    //Importer importer(&scene);
     //importer.import("./meshes/StartFile.dae");
-    importer.import("./meshes/Su-35_SuperFlanker/su-35.dae");
+    //importer.import("./meshes/Su-35_SuperFlanker/su-35.dae");
     //importer.import("./meshes/StartFile.dae");
     //importer.import("./meshes/mine.dae");
     //scene.addFluidSys("fluid_1");
