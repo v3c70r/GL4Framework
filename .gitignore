@@ -1,0 +1,6 @@
+*.swp
+Makefile
+*.log
+*.ini
+test
+build/

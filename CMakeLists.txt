@@ -8,6 +8,10 @@ pkg_search_module(GLEW REQUIRED glew)
 find_package(OpenGL)
 find_package(assimp)
 find_package(pythonLibs)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+find_package(OpenMesh)
+
+#Adding brew dirs
 include_directories(/usr/local/include/)
 link_directories(/usr/local/lib)
 
@@ -28,6 +32,8 @@ target_link_libraries(main ${GLEW_LIBRARIES})
 target_link_libraries(main ${ASSIMP_LIBRARIES})
 target_link_libraries(main ${ASSIMP_LIBRARIES})
 target_link_libraries(main ${PYTHON_LIBRARIES})
+
+#Copy files to current directory
 add_custom_command(TARGET main POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/shaders
