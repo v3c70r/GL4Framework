@@ -8,6 +8,8 @@ GL4Framework is a modern OpenGL 4.x framwork with Python interfaces. In order to
 * Forward Renderering
 * Screen Space Renderering for Particle System
 * GPU based skeleton animation
+
+![img](https://raw.githubusercontent.com/v3c70r/GL4Framework/master/screenshots/anim.gif)
 * Python APIs 
 * Raytracer works with boxes from [this tutorial](https://github.com/LWJGL/lwjgl3-wiki/wiki/2.6.1.-Ray-tracing-with-OpenGL-Compute-Shaders-%28Part-I%29). 
 
