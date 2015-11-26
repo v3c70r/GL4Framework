@@ -41,6 +41,7 @@ public:
     {}
     virtual ~Object(){};
     virtual void draw()=0;
+
     void setTransMat(const glm::mat4x4 &m){transMat = m;}
 
     /*
