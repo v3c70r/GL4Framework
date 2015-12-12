@@ -92,6 +92,7 @@ void App::init()
     //fluidSys->insertParsFromOBJ("./meshes/bunny.obj", 90.0, 1);
     //fluidSys->insertParsFromOBJ("./meshes/bunny.obj", 10.0, 0);
     //fluidSys->insertCUBE();
+    scene.addFluidSys("fluid_1");
     
     std::cout<<scene.getTreeView();
     glfwGetFramebufferSize(pWindow, &windowWidth, &windowHeight);
@@ -142,10 +143,13 @@ void App::mouseMotion(GLFWwindow *window, double x, double y)
 }
 void App::keyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+    Points * p = (Points*)scene.getObject("fluid_1");
     if (action == GLFW_PRESS)
     {
         switch(key)
         {
+            case GLFW_KEY_T:
+                p->insertCUBE(glm::vec3(7,0,0), glm::vec3(0,0,0));break;
             case GLFW_KEY_ESCAPE:   //exit
                 glfwSetWindowShouldClose(window, GL_TRUE);
                 break;

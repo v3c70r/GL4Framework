@@ -16,6 +16,8 @@
 #include "rendererManager.h"
 #include "deferredRenderer.hpp"
 #include "rayTracer.h"
+#include "points.cuh"
+#include "pointRenderTem.hpp"
 
 /*
  * A scene is a place where all objects are put in
@@ -62,6 +64,7 @@ public:
     }
 
     void updateProjMat(int W, int H);
+    void addFluidSys(const std::string &name);
 
     /*Deprecating*/
     std::string getTreeView() const;

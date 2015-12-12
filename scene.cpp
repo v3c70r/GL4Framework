@@ -65,6 +65,27 @@ void Scene::drawScene() const
     renderers.renderAll();
 }
 
+
+/**
+ * @brief Add fluid system
+ *
+ * @param name name of fluid system
+ */
+void Scene::addFluidSys(const std::string &name)
+{
+    PointRendererTem *fluidTemp = new PointRendererTem(1920, 1200);
+    Shader *shader = shaders.addShader("./shaders/pointTemp_vs.glsl", "./shaders/pointTemp_gs.glsl", "./shaders/pointTemp_fs.glsl", "TEMP_SHADER");
+    camera->bindToShader(shader);
+    fluidTemp->setShader(shader);
+    renderers.addRenderer(fluidTemp, "TEMP_RENDERER");
+    Points *pSPH = new Points();
+    pSPH->init();
+    pSPH->setName(name);
+    pSPH->setParent(nullptr);
+    objectPointers.push_back(pSPH);
+    renderers.assignObj2Renderer(pSPH,"TEMP_RENDERER");
+}
+
 //Deprecating
 void Scene::addMeshes(std::string fileName, Object* parent)
 {
