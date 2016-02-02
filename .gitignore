@@ -4,3 +4,4 @@ Makefile
 *.ini
 test
 build/
+.DS_Store

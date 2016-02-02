@@ -13,7 +13,9 @@ find_package(PkgConfig REQUIRED)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 message(STATUS "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}")
 pkg_search_module(GLEW REQUIRED glew)
-find_package (CUDA)
+
+find_package(CUDA)
+
 find_package (Threads)
 find_package(GLFW)
 find_package(OpenGL)
@@ -37,9 +39,14 @@ file(GLOB ALL_FILES
     "*.cpp"
     )
 
-cuda_compile(POINTS_O points.cu OPTIONS --std=c++11)
+IF (${CUDA_FOUND})
+    cuda_compile(POINTS_O points.cu OPTIONS --std=c++11)
+    cuda_add_executable(main ${ALL_FILES} ${POINTS_O})
+ELSE (${CUDA_FOUND})
+    add_executable(main ${ALL_FILES})
+ENDIF (${CUDA_FOUND})
 
-cuda_add_executable(main ${ALL_FILES} ${POINTS_O})
+
 target_link_libraries(main ${GLFW_LIBRARIES})
 message(STATUS "OPENMESH_LIBRARIES = ${OPENMESH_LIBRARIES}")
 target_link_libraries(main ${OPENMESH_LIBRARIES})
