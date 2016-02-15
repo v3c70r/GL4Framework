@@ -27,7 +27,7 @@ bool App::startGL()
     // uncomment these lines if on Apple OS X
 //#ifdef _APPLE_
     glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 1);
+    glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 5);
     glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 //#endif
@@ -143,13 +143,13 @@ void App::mouseMotion(GLFWwindow *window, double x, double y)
 }
 void App::keyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    Points * p = (Points*)scene.getObject("fluid_1");
+    //Points * p = (Points*)scene.getObject("fluid_1");
     if (action == GLFW_PRESS)
     {
         switch(key)
         {
-            case GLFW_KEY_T:
-                p->insertCUBE(glm::vec3(7,0,0), glm::vec3(0,0,0));break;
+            //case GLFW_KEY_T:
+            //    p->insertCUBE(glm::vec3(7,0,0), glm::vec3(0,0,0));break;
             case GLFW_KEY_ESCAPE:   //exit
                 glfwSetWindowShouldClose(window, GL_TRUE);
                 break;

@@ -1,6 +1,6 @@
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "imgui/examples/shared/stb_image.h"
+#include <stb/stb_image.h>
 #include "ImguiConfig.hpp"
 #define OFFSETOF(TYPE, ELEMENT) ((size_t)&(((TYPE *)0)->ELEMENT))
 

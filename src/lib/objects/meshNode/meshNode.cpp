@@ -1,7 +1,7 @@
-#include "meshNode.hpp"
-#include "log.hpp"
+#include <objects/meshNode/meshNode.hpp>
+#include <core/log.hpp>
 //#define STB_IMAGE_IMPLEMENTATION 1
-#include "imgui/examples/shared/stb_image.h"
+#include <stb/stb_image.h>
 
 void MeshNode::init(GLuint nFaces, GLuint nVertices){
     BUFFER = new GLuint[MESH_ATTR::COUNT];

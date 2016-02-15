@@ -705,7 +705,7 @@ struct ImGuiDrawContext
 struct ImGuiTextEditState;
 #define STB_TEXTEDIT_STRING ImGuiTextEditState
 #define STB_TEXTEDIT_CHARTYPE ImWchar
-#include "stb_textedit.h"
+#include <stb/stb_textedit.h>
 
 // Internal state of the currently focused/edited text input box
 struct ImGuiTextEditState
@@ -4343,7 +4343,7 @@ enum
 };
 
 #define STB_TEXTEDIT_IMPLEMENTATION
-#include "stb_textedit.h"
+#include <stb/stb_textedit.h>
 
 void ImGuiTextEditState::OnKeyPressed(int key)
 { 

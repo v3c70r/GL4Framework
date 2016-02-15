@@ -1,18 +1,18 @@
 #pragma once
 
-#include "shader.hpp"
-#include "log.hpp"
-#include "arcball.h"
-#include "ImguiConfig.hpp"
+#include <core/shader.hpp>
+#include <core/log.hpp>
+#include <camera/arcball/arcball.h>
+#include <core/ImguiConfig.hpp>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "light.hpp"
-#include "meshNode.hpp"
-#include "scene.h"
-#include "shadowMap.h"
-#include "importer.hpp"
-#include "pyConsole.h"
+#include <core/light.hpp>
+#include <objects/meshNode/meshNode.hpp>
+#include <core/scene.h>
+//#include "shadowMap.h"
+#include <core/importer.hpp>
+#include <core/pyConsole.h>
 
 
 extern const unsigned int CAMERA_ARCBALL;

@@ -1,5 +1,5 @@
 #pragma once
-#include "meshNode.hpp"
+#include <objects/meshNode/meshNode.hpp>
 
 //Each frame is an array of global(to this mesh) transformation for each bones
 typedef std::vector<glm::mat4> Frame;

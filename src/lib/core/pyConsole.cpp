@@ -39,6 +39,6 @@ void PyConsole::startConsoleThread()
     Py_Initialize();
     Py_InitModule("console", ConsoleMethods);
     //PyRun_InteractiveLoop(stdin, "<stdin>");
-    PyRun_SimpleString("execfile('do.py')");
+    PyRun_SimpleString("execfile('scripts/do.py')");
     Py_Finalize();
 };

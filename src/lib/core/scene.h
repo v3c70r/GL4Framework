@@ -3,21 +3,22 @@
 #include <string>
 #include <sstream>
 #include "object.h"
-#include "meshNode.hpp"
+
+#include <objects/meshNode/meshNode.hpp>
 #include "shader.hpp"
 #include "light.hpp"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
-#include "arcball.h"
+#include <camera/arcball/arcball.h>
 #include "shaderManager.h"
 #include <glm/glm.hpp>
-#include "forwardRenderer.hpp"
+#include <renderers/forwardRenderer/forwardRenderer.hpp>
 #include "rendererManager.h"
-#include "deferredRenderer.hpp"
-#include "rayTracer.h"
-#include "points.cuh"
-#include "pointRenderTem.hpp"
+#include <renderers/deferredRenderer/deferredRenderer.hpp>
+#include <renderers/rayTracer/rayTracer.h>
+//#include <objects/point/points.cuh>
+#include <renderers/pointRenderer/pointRenderTem.hpp>
 
 /*
  * A scene is a place where all objects are put in
@@ -52,14 +53,14 @@ public:
 
     void addDirLight(const glm::vec4 &dir);
 
-    Object* getObject(std::string name);
-    Object* getObject(int index);
+    Object* getObject(std::string name) const;
+    Object* getObject(int index) const;
     //set camera
     void setCamera(unsigned int type=CAMERA_ARCBALL, glm::vec3 transVec = glm::vec3(1.0), glm::mat4 rotMat = glm::mat4(1.0) );
     Camera* getCamera() const {return camera;}
     ~Scene() {
-        for (auto i=0; i<objectPointers.size(); i++)
-            delete objectPointers[i];
+        for (const auto& elem: objectPointers)
+            delete elem;
         delete camera;
     }
 
@@ -83,7 +84,7 @@ inline void parseDownNodes(const aiNode* pNode, const int &level )
     std::cout<<std::string(level, '-')<<pNode->mName.C_Str()<<std::endl;
     if (pNode->mNumChildren == 0)
         return;
-    for (auto i=0; i<pNode->mNumChildren; i++)
+    for (size_t i=0; i<pNode->mNumChildren; i++)
         parseDownNodes(pNode->mChildren[i], level+1);
 }
 

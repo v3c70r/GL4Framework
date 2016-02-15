@@ -1,7 +1,5 @@
 *.swp
-Makefile
 *.log
 *.ini
-test
 build/
 .DS_Store

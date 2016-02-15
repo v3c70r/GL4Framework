@@ -73,17 +73,17 @@ void Scene::drawScene() const
  */
 void Scene::addFluidSys(const std::string &name)
 {
-    PointRendererTem *fluidTemp = new PointRendererTem(1920, 1200);
-    Shader *shader = shaders.addShader("./shaders/pointTemp_vs.glsl", "./shaders/pointTemp_gs.glsl", "./shaders/pointTemp_fs.glsl", "TEMP_SHADER");
-    camera->bindToShader(shader);
-    fluidTemp->setShader(shader);
-    renderers.addRenderer(fluidTemp, "TEMP_RENDERER");
-    Points *pSPH = new Points();
-    pSPH->init();
-    pSPH->setName(name);
-    pSPH->setParent(nullptr);
-    objectPointers.push_back(pSPH);
-    renderers.assignObj2Renderer(pSPH,"TEMP_RENDERER");
+    //PointRendererTem *fluidTemp = new PointRendererTem(1920, 1200);
+    //Shader *shader = shaders.addShader("./shaders/pointTemp_vs.glsl", "./shaders/pointTemp_gs.glsl", "./shaders/pointTemp_fs.glsl", "TEMP_SHADER");
+    //camera->bindToShader(shader);
+    //fluidTemp->setShader(shader);
+    //renderers.addRenderer(fluidTemp, "TEMP_RENDERER");
+    //Points *pSPH = new Points();
+    //pSPH->init();
+    //pSPH->setName(name);
+    //pSPH->setParent(nullptr);
+    //objectPointers.push_back(pSPH);
+    //renderers.assignObj2Renderer(pSPH,"TEMP_RENDERER");
 }
 
 //Deprecating
@@ -126,19 +126,19 @@ void Scene::addDirLight(const glm::vec4 &dir)
 std::string Scene::getTreeView() const
 {
     std::stringstream ss;
-    for (int i=0; i<objectPointers.size(); i++)
-        ss<<objectPointers[i]->getName()<<std::endl;
+    for (const auto& elem: objectPointers)
+        ss<<elem->getName()<<std::endl;
     return ss.str();
 }
 
-Object* Scene::getObject(std::string name)
+Object* Scene::getObject(std::string name) const
 {
-    for (auto i=0; i<objectPointers.size(); i++)
-        if ( objectPointers[i]->getName() == name)
-            return objectPointers[i];
+    for (const auto& elem: objectPointers)
+        if (elem->getName() == name)
+            return elem;
     return nullptr;
 }
-Object* Scene::getObject(int index)
+Object* Scene::getObject(int index) const
 {
     return objectPointers[index];
 }

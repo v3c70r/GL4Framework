@@ -7,12 +7,12 @@
 #include <glm/gtx/string_cast.hpp>
 #include <string>
 #include <fstream>
-#include "splitstring.h"
+#include <core/splitstring.h>
 #include <vector>
 #include <iostream>
 #include <IL/il.h>
 #include <IL/ilu.h>
-#include "object.h"
+#include <core/object.h>
 #include <assimp/scene.h>
 #include <assimp/material.h>
 
