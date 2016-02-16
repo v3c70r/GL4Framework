@@ -13,7 +13,7 @@ protected:
     glm::mat4 transMat;   //transformation matrix
     GLuint VAO;
     GLuint *BUFFER;
-    Object* parent;
+    Object *parent;
     std::string name;
     /*
      * Get global transformation matrix by bottom up parsing the tree
@@ -35,7 +35,7 @@ public:
     Object():
         transMat(glm::mat4x4(1.0)),
         VAO(0),
-        BUFFER(nullptr) ,
+        BUFFER(nullptr),
         parent(nullptr), 
         name("Sans nom")
     {}

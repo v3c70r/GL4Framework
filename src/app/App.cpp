@@ -92,12 +92,41 @@ void App::init()
     //fluidSys->insertParsFromOBJ("./meshes/bunny.obj", 90.0, 1);
     //fluidSys->insertParsFromOBJ("./meshes/bunny.obj", 10.0, 0);
     //fluidSys->insertCUBE();
-    scene.addFluidSys("fluid_1");
+    //scene.addFluidSys("fluid_1");
+    
     
     std::cout<<scene.getTreeView();
     glfwGetFramebufferSize(pWindow, &windowWidth, &windowHeight);
     scene.updateProjMat(windowWidth, windowHeight);
-    /*-----------------------------register callbacks-------------------------------*/
+    /*--------Init lights-----------*/
+    scene.getLightManager().addLight(glm::vec4(0.0, 0.0, 1.0, 0.0));
+    scene.getLightManager().addLight(glm::vec4(0.0, 0.0, -1.0, 0.0));
+    /*----------Init renderers-------*/
+    /*---------Forward Renderer-------*/
+    ForwardRenderer *fwRendererMesh = new ForwardRenderer;
+    Shader* shdr = scene.getShaderManager().addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
+    scene.getCamera()->bindToShader(shdr);
+    scene.getLightManager().bindToShader(shdr);
+    fwRendererMesh->setShader(shdr);
+    scene.getRendererManager().addRenderer(fwRendererMesh, "FW_STATIC_MESH_R");
+    /*-------Forward Renderer with LBS------*/
+    ForwardRenderer *fwRendererLBS = new ForwardRenderer;
+    shdr = scene.getShaderManager().addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
+    scene.getLightManager().bindToShader(shdr);
+    fwRendererLBS->setShader(shdr);
+    scene.getCamera()->bindToShader(shdr);
+    scene.getRendererManager().addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
+
+    /*-------Deferred Renderer-----------*/
+    DeferredRenderer* dfRendererMesh = new DeferredRenderer(windowWidth, windowHeight);
+    shdr = scene.getShaderManager().addShader("./shaders/deferredGeo_vs.glsl", "./shaders/deferredGeo_fs.glsl", "deffered");
+    dfRendererMesh->setGeometryShader(shdr);
+    scene.getCamera()->bindToShader(shdr);
+    scene.getLightManager().bindToShader(shdr);
+    scene.getRendererManager().addRenderer(dfRendererMesh, "DF_MESH_R");
+
+
+    /*-----------------------------register callbacks-----------------*/
     glfwSetWindowSizeCallback (pWindow, _glfw_window_size_callback);
     glfwSetMouseButtonCallback(pWindow, mouseButton);
     glfwSetCursorPosCallback(pWindow,mouseMotion);

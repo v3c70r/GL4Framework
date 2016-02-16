@@ -50,30 +50,37 @@ public:
     void init(const GLint &, const GLint &);
     void drawScene() const ;
     void addObject(Object *) ;
-
-    void addDirLight(const glm::vec4 &dir);
-
-    Object* getObject(std::string name) const;
-    Object* getObject(int index) const;
     //set camera
     void setCamera(unsigned int type=CAMERA_ARCBALL, glm::vec3 transVec = glm::vec3(1.0), glm::mat4 rotMat = glm::mat4(1.0) );
-    Camera* getCamera() const {return camera;}
     ~Scene() {
         for (const auto& elem: objectPointers)
             delete elem;
         delete camera;
     }
-
     void updateProjMat(int W, int H);
-    void addFluidSys(const std::string &name);
+    //=========Getters==========
+    
+    /**
+     * @brief Get renderer manager
+     *
+     * @return reference to the renderer manager
+     */
+    RendererManager& getRendererManager() { return renderers; }
+
+    /**
+     * @brief Get reference to shader manager
+     *
+     * @return reference to shader manager
+     */
+    ShaderManager& getShaderManager() { return shaders;}
+    Camera* getCamera() {return camera;}
+    LightManager& getLightManager() { return lights;}
+    std::string getTreeView() const;
+    Object* getObject(std::string name) const;
+    Object* getObject(int index) const;
 
     /*Deprecating*/
-    std::string getTreeView() const;
     void addMeshes(std::string fileName, Object* parent=nullptr);
-    const RendererManager& getRendererManager() const
-    {
-        return renderers;
-    }
 };
 
 

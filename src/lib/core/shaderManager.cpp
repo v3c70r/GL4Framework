@@ -1,4 +1,5 @@
 #include "shaderManager.h"
+#include <core/log.hpp>
 
 /**
  * Note:
@@ -18,7 +19,11 @@ void ShaderManager::addShader(Shader* shdr, const std::string &name)
     //Check for if this shader is duplicated
     for (auto const &it: shaderMap)
         if (it.first == name || it.second->getProgramme() == shdr->getProgramme())
+        {
+            LOG::writeLogErr("Duplicated shaders in shader manager with name %s, programme %d",
+                    (it.first).c_str(), it.second->getProgramme());
             throw std::runtime_error("Duplicated shader in ShaderManager");
+        }
     shaderMap[name] = shdr;
 }
 /* Compute shader*/
