@@ -12,7 +12,7 @@
 #include <core/scene.h>
 //#include "shadowMap.h"
 #include <core/importer.hpp>
-#include <core/pyConsole.h>
+#include "pyConsole.h"
 
 
 extern const unsigned int CAMERA_ARCBALL;

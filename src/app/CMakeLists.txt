@@ -1,9 +1,21 @@
 aux_source_directory(SOURCES  .)
 
-add_executable(gl4framework App.cpp main.cpp)
+add_executable(gl4framework App.cpp main.cpp pyConsole.cpp)
 
+FOREACH(item ${OPENGL_LIBRARIES})
+    MESSAGE(STATUS ${item})
+ENDFOREACH(item)
 
-target_link_libraries(gl4framework third core objs  renderer camera pthread python2.7)
+target_link_libraries(gl4framework 
+    third 
+    core 
+    objs  
+    renderer 
+    camera 
+    pthread 
+    python2.7
+    ${OPENGL_LIBRARIES}
+    )
 
 set_target_properties ( gl4framework
     PROPERTIES

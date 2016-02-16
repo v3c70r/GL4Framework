@@ -1,7 +1,7 @@
 #pragma once
 #include <python2.7/Python.h>
-#include "scene.h"
-#include "importer.hpp"
+#include <core/scene.h>
+#include <core/importer.hpp>
 #include <thread>
 #include <functional>
 #include <queue>

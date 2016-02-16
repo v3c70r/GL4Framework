@@ -3,6 +3,9 @@
 #see /usr/local/share/cmake-2.6/Modules/Find*.cmake for more examples
 
 project(gl4framework)
+
+set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 if(UNIX)
   if(CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(CMAKE_LIBRARY_ARCHITECTURE "x86_64-linux-gnu")
