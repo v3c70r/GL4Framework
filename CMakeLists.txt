@@ -34,6 +34,11 @@ find_package(PythonLibs REQUIRED)
 include_directories(/usr/local/include/)
 include_directories(./src/third_party)
 include_directories(./src/lib)
+IF (${CUDA_FOUND})
+    include_directories(${CUDA_INCLUDE_DIRS})
+ENDIF (${CUDA_FOUND})
+
+
 
 set(CMAKE_CXX_FLAGS "--std=c++11 -g -Wall")
 

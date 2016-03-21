@@ -17,6 +17,11 @@ target_link_libraries(gl4framework
     ${OPENGL_LIBRARIES}
     )
 
+
+IF (${CUDA_FOUND})
+    target_link_libraries(gl4framework cuda_obj)
+ENDIF (${CUDA_FOUND})
+
 set_target_properties ( gl4framework
     PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"

@@ -94,6 +94,24 @@ void App::init()
     //fluidSys->insertParsFromOBJ("./meshes/bunny.obj", 10.0, 0);
     //fluidSys->insertCUBE();
     //scene.addFluidSys("fluid_1");
+    //
+    Object* fluid = new Points();
+    dynamic_cast<Points*>(fluid)->init();
+    fluid->setName("fluid_1");
+    fluid->setParent(nullptr);
+
+    //Init shader
+    PointRendererTem *fluidTemp = new PointRendererTem(1920, 1200);
+    Shader *shader = scene.getShaderManager().addShader("./shaders/pointTemp_vs.glsl", "./shaders/pointTemp_gs.glsl", "./shaders/pointTemp_fs.glsl", "TEMP_SHADER");
+    scene.getRendererManager().addRenderer(fluidTemp, "TEMP_RENDERER");
+    scene.getCamera()->bindToShader(shader);
+    fluidTemp->setShader(shader);
+    //Init renderer
+    
+    scene.addObject(fluid);
+    scene.getRendererManager().assignObj2Renderer(fluid, "TEMP_RENDERER");
+//dynamic_cast<Points*>(fluid)->insertParsFromOBJ("./meshes/bunny.obj", 90.0, 1);
+    dynamic_cast<Points*>(fluid)->insertCUBEE();
     
     
     std::cout<<scene.getTreeView();

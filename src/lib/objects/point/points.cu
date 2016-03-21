@@ -1,6 +1,6 @@
-#include "points.cuh"
-#include "kernels.cu"
-#include "./ImguiConfig.hpp"
+#include <objects/point/points.cuh>
+#include <objects/point/kernels.cu>
+#include <core/ImguiConfig.hpp>
 
 void Points::init()
 {
@@ -195,7 +195,7 @@ void Points::loadTempText()     //load texture with il
     ILenum error;				// Create a flag to keep track of the IL error state
     ilGenImages(1, &imageID); 		// Generate the image ID
     ilBindImage(imageID); 			// Bind the image
-    success = ilLoadImage("temperature.png"); 	// Load the image file
+    success = ilLoadImage("./assets/temperature.png"); 	// Load the image file
     // If we managed to load the image, then we can start to do things with it...
     if (success)
     {
@@ -678,7 +678,7 @@ void Points::insertCUBEE()
     for (uint i=0; i<X*Y*Z; i++)
     {
         vals[i] = 10.0;
-        states[i] = 1;
+        states[i] = 0;
         velos[3*i+0] = 0.0;
         velos[3*i+1] = 0.0;
         velos[3*i+2] = 0.0;

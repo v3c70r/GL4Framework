@@ -9,8 +9,8 @@
 #include <IL/ilut.h>
 #include <cuda_runtime.h>
 #include <cuda_gl_interop.h>
-#include "object.h"
-#include "splitstring.h"
+#include <core/object.h>
+#include <core/splitstring.h>
 #include <cstdlib>
 #include <fstream>
 

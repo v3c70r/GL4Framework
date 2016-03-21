@@ -49,7 +49,7 @@ public:
     }
     void init(const GLint &, const GLint &);
     void drawScene() const ;
-    void addObject(Object *) ;
+    void addObject(Object *pObj){objectPointers.push_back(pObj);}
     //set camera
     void setCamera(unsigned int type=CAMERA_ARCBALL, glm::vec3 transVec = glm::vec3(1.0), glm::mat4 rotMat = glm::mat4(1.0) );
     ~Scene() {

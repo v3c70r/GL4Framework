@@ -17,7 +17,7 @@ PointRendererTem::PointRendererTem(const int &texWidth, const int &texHeight): s
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    LoadTexture("./temperature.png");
+    LoadTexture("./assets/temperature.png");
 }
 
 void PointRendererTem::setShader(Shader* s)

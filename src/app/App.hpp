@@ -10,7 +10,7 @@
 #include <core/light.hpp>
 #include <objects/meshNode/meshNode.hpp>
 #include <core/scene.h>
-//#include "shadowMap.h"
+#include <objects/point/points.cuh>
 #include <core/importer.hpp>
 #include "pyConsole.h"
 
