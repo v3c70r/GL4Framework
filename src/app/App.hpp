@@ -10,7 +10,12 @@
 #include <core/light.hpp>
 #include <objects/meshNode/meshNode.hpp>
 #include <core/scene.h>
-#include <objects/point/points.cuh>
+
+// Object requires CUDA
+#ifdef CUDA
+    #include <objects/point/points.cuh>
+#endif
+
 #include <core/importer.hpp>
 #include "pyConsole.h"
 

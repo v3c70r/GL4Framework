@@ -28,7 +28,7 @@ bool App::startGL()
     // uncomment these lines if on Apple OS X
 //#ifdef _APPLE_
     glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 1);
+    glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 //#endif
@@ -94,7 +94,7 @@ void App::init()
     //fluidSys->insertParsFromOBJ("./meshes/bunny.obj", 10.0, 0);
     //fluidSys->insertCUBE();
     //scene.addFluidSys("fluid_1");
-    //
+#ifdef CUDA
     Object* fluid = new Points();
     dynamic_cast<Points*>(fluid)->init();
     fluid->setName("fluid_1");
@@ -112,6 +112,7 @@ void App::init()
     scene.getRendererManager().assignObj2Renderer(fluid, "TEMP_RENDERER");
 //dynamic_cast<Points*>(fluid)->insertParsFromOBJ("./meshes/bunny.obj", 90.0, 1);
     dynamic_cast<Points*>(fluid)->insertCUBEE();
+#endif
     
     
     std::cout<<scene.getTreeView();

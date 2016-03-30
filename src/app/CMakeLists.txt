@@ -19,6 +19,7 @@ target_link_libraries(gl4framework
 
 
 IF (${CUDA_FOUND})
+    add_definitions(-CUDA)
     target_link_libraries(gl4framework cuda_obj)
 ENDIF (${CUDA_FOUND})
 
