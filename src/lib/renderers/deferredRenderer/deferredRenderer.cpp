@@ -82,25 +82,25 @@ void DeferredRenderer::renderLightPass() const
     GLsizei halfWidth = width/2;
     GLsizei halfHeight = height/2;
 
-    //Position pass
-    glReadBuffer(GL_COLOR_ATTACHMENT0);
-    glBlitFramebuffer(0, 0, width, height,
-            0, 0, halfWidth, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-
-    //Diffuse pass
-    glReadBuffer(GL_COLOR_ATTACHMENT1);
-    glBlitFramebuffer(0, 0, width, height,
-            0, halfHeight, halfWidth, height, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-
-    //Normal Pass
-    glReadBuffer(GL_COLOR_ATTACHMENT2);
-    glBlitFramebuffer(0, 0, width, height,
-            halfWidth, halfHeight, width, height, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-
-    //TEX coord pass
+//    //Position pass
+//    glReadBuffer(GL_COLOR_ATTACHMENT0);
+//    glBlitFramebuffer(0, 0, width, height,
+//            0, 0, halfWidth, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+//
+//    //Diffuse pass
+//    glReadBuffer(GL_COLOR_ATTACHMENT1);
+//    glBlitFramebuffer(0, 0, width, height,
+//            0, halfHeight, halfWidth, height, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+//
+//    //Normal Pass
+//    glReadBuffer(GL_COLOR_ATTACHMENT2);
+//    glBlitFramebuffer(0, 0, width, height,
+//            halfWidth, halfHeight, width, height, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+//
+    //Final pass
     glReadBuffer(GL_COLOR_ATTACHMENT3);
     glBlitFramebuffer(0, 0, width, height,
-            halfWidth, 0, width, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR); 
+            0, 0, width, height, GL_COLOR_BUFFER_BIT, GL_LINEAR); 
 
 }
 

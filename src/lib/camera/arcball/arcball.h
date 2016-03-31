@@ -18,6 +18,7 @@ public:
     void dragEnd();
     void dragUpdate(const int &x, const int &y);
     void rotate(const int &x, const int &y );
+    void rotateJoystick( const float &x, const float &y);
     bool isDragged();
     void zoomIn();
     void zoomOut();

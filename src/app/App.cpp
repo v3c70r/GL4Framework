@@ -105,6 +105,7 @@ void App::init()
     Shader *shader = scene.getShaderManager().addShader("./shaders/pointTemp_vs.glsl", "./shaders/pointTemp_gs.glsl", "./shaders/pointTemp_fs.glsl", "TEMP_SHADER");
     scene.getRendererManager().addRenderer(fluidTemp, "TEMP_RENDERER");
     scene.getCamera()->bindToShader(shader);
+
     fluidTemp->setShader(shader);
     //Init renderer
     
@@ -145,6 +146,7 @@ void App::init()
     scene.getLightManager().bindToShader(shdr);
     scene.getRendererManager().addRenderer(dfRendererMesh, "DF_MESH_R");
 
+    /*----------Init joystick-----------*/
 
     /*-----------------------------register callbacks-----------------*/
     glfwSetWindowSizeCallback (pWindow, _glfw_window_size_callback);
@@ -217,8 +219,13 @@ void App::run()
     int width, height;
     while (!glfwWindowShouldClose (pWindow))
     {
-        PyConsole::getInstance().callFunctions();
         UpdateImGui(pWindow);
+
+        int hasJoystick = glfwJoystickPresent(GLFW_JOYSTICK_1);
+        if (hasJoystick)
+            handleJoystick(GLFW_JOYSTICK_1);
+
+        PyConsole::getInstance().callFunctions();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glfwGetFramebufferSize(pWindow, &width, &height);
         glViewport(0, 0, width, height);
@@ -245,6 +252,19 @@ void App::run()
         glfwSwapBuffers(pWindow);
         glfwPollEvents();
     }
+}
+void App::handleJoystick(int joystick)
+{
+    int axesCount;
+    const float* axes = glfwGetJoystickAxes(joystick, &axesCount);
+    int btnCount;
+    const unsigned char* btns = glfwGetJoystickButtons(joystick, &btnCount);
+    ((Arcball*)(scene.getCamera()))->rotateJoystick(axes[2], axes[3]);
+    if (btns[6])
+        ((Arcball*)(scene.getCamera()))->zoomOut();
+    if (btns[7])
+        ((Arcball*)(scene.getCamera()))->zoomIn();
+    
 }
 void App::deactivate()
 {

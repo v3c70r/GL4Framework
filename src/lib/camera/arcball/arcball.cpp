@@ -1,4 +1,5 @@
 #include "arcball.h"
+#include <core/ImguiConfig.hpp>
 
 void Arcball::get3dPos(glm::vec3 &output, const glm::ivec2 &pos )
 {
@@ -36,6 +37,25 @@ void Arcball::rotate(const int &x, const int &y )
         get3dPos(prePos, startPos);
         glm::vec3 rotAxis = glm::cross(prePos, currPos);
         float angle = acos(fmin(1.0, glm::dot(glm::normalize(prePos), glm::normalize(currPos))));
+        rotationMat = glm::rotate(rotationMat, angle, glm::normalize(rotAxis));
+    }
+}
+
+/**
+ * @brief Rotate arcball with joystick
+ *
+ * @param x joystick x axis within [-1.0, 1.0]
+ * @param y joystick y axis within [-1.0, 1.0]
+ */
+void Arcball::rotateJoystick( const float &x, const float &y)
+{
+    glm::vec3 prePos(0.0, 0.0, -1.0);
+    glm::vec3 currPos(std::trunc(x*10)/10.0, std::trunc(y*10)/10.0, -1.0);
+    if (currPos != prePos)
+    {
+        glm::vec3 rotAxis = glm::cross(prePos, currPos);
+        ImGui::Text("Rotaxis %f, %f, %f\n", rotAxis.x, rotAxis.y, rotAxis.z);
+        float angle = 0.1 * (x*x+y*y);
         rotationMat = glm::rotate(rotationMat, angle, glm::normalize(rotAxis));
     }
 }

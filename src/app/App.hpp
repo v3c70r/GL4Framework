@@ -52,4 +52,6 @@ private:
     static void keyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods);
     static void scrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 
+    static void handleJoystick(int joystick);
+
 };
