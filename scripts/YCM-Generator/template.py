@@ -32,6 +32,7 @@ import os
 import ycm_core
 
 flags = [
+        '-std=c++11',
     # INSERT FLAGS HERE
 ]
 

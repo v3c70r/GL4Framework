@@ -221,6 +221,7 @@ void App::run()
     {
         UpdateImGui(pWindow);
 
+        //Handle Joystick
         int hasJoystick = glfwJoystickPresent(GLFW_JOYSTICK_1);
         if (hasJoystick)
             handleJoystick(GLFW_JOYSTICK_1);
