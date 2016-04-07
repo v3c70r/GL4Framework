@@ -42,7 +42,16 @@ flags = [
     '-I/home/tsing/project/GL4Framework/./src/third_party',
     '-I/usr/local/cuda/include',
     '-I/usr/local/include',
-    '-Wall',
+    '-Wall'
+    ,'-isystem/usr/include/c++/4.8'
+    ,'-isystem/usr/include/x86_64-linux-gnu/c++/4.8'
+    ,'-isystem/usr/include/c++/4.8/backward'
+    ,'-isystem/usr/lib/gcc/x86_64-linux-gnu/4.8/include'
+    ,'-isystem/usr/local/include'
+    ,'-isystem/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed'
+    ,'-isystem/usr/include/x86_64-linux-gnu'
+    ,'-isystem/usr/include',
+    
 ]
 
 
