@@ -56,7 +56,7 @@ public:
     void setRotationMat(const glm::mat4 &r);
     void updateProjectionMat(int w, int h);
     void updateViewMat();
-    void bindToShader(Shader *shdr);
+    void bindToShader(Shader *shdr) const;
     glm::mat4 getViewMat() const;
     glm::mat4 getProjectionMat() const;
 };

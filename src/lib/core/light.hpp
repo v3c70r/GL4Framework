@@ -31,7 +31,7 @@ class LightManager
         LightManager();
         bool addLight(const glm::vec4 &dir);
         bool removeLight(int idx);
-        void bindToShader(Shader *shdr);
+        void bindToShader(Shader *shdr) const;
 };
 
 

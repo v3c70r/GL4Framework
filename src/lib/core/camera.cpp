@@ -64,7 +64,7 @@ glm::mat4 Camera::getProjectionMat() const
     return projectionMat;
 }
 
-void Camera::bindToShader(Shader  * shdr)
+void Camera::bindToShader(Shader  * shdr) const
 {
     shdr->bindCameraMats(UBO);
 }

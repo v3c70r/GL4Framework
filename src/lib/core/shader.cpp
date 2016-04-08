@@ -172,7 +172,6 @@ bool Shader::createProgrammeFromFiles(const char* kernel_file_name)
     GLuint computeShader;
     assert( createShader(kernel_file_name, &computeShader, GL_COMPUTE_SHADER));
     assert(createProgramme(computeShader, &programme));
-    assert (getIndicesNLocations());
     return true;
 }
 
@@ -185,7 +184,6 @@ bool Shader::createProgrammeFromFiles ( const char* vert_file_name, const char* 
     assert (createShader (geometry_file_name, &geometryShader, GL_GEOMETRY_SHADER));
     assert (createShader (frag_file_name, &fragShader, GL_FRAGMENT_SHADER));
     assert (createProgramme (vertShader, geometryShader ,fragShader, &programme));
-    assert (getIndicesNLocations());
     return true;
 }
 bool Shader::createProgrammeFromFiles ( const char* vert_file_name, const char* frag_file_name)
@@ -195,7 +193,6 @@ bool Shader::createProgrammeFromFiles ( const char* vert_file_name, const char* 
     assert (createShader (vert_file_name, &vertShader, GL_VERTEX_SHADER));
     assert (createShader (frag_file_name, &fragShader, GL_FRAGMENT_SHADER));
     assert (createProgramme (vertShader, fragShader, &programme));
-    assert (getIndicesNLocations());
     return true;
 }
 
@@ -210,62 +207,75 @@ GLuint Shader::getProgramme() const
     return programme;
 }
 
-bool Shader::getIndicesNLocations()
+bool Shader::setConfig(const ShaderConfig &cfg)
 {
     //Uniform Locations
-    for (int i=0; i<UNIFORM::count;i++)
-        Ulocations.push_back(glGetUniformLocation(programme, UNIFORM::names[i].c_str()));
-    //bindings are hard coded in shaders
-    for (int i=0; i<UNIFORM_BLOCKS::count; i++)
+    //for (int i=0; i<UNIFORM::count;i++)
+    //    Ulocations.push_back(glGetUniformLocation(programme, UNIFORM::names[i].c_str()));
+    
+    config = cfg;
+    for (auto& uniform: config.uniforms)
+        uniform.second = glGetUniformLocation(programme, uniform.first.c_str()) ;
+
+    writeLog("Binding Uniform block\n");
+    for (const auto& uniformBlock: config.uniformBlocks)
     {
-        //GLint index =glGetProgramResourceIndex(programme, GL_UNIFORM_BLOCK,UNIFORM_BLOCKS::names[i].c_str()) ;
-        ////UBIndices.push_back(index);
-        ////set binding point
-        GLint index = glGetUniformBlockIndex(programme, UNIFORM_BLOCKS::names[i].c_str());
-        writeLog("[Binding UNIFOR] Index: %d \t Binding %d \t %s\n", index, UNIFORM_BLOCKS::binding[i], UNIFORM_BLOCKS::names[i].c_str());
-        glUniformBlockBinding(programme ,index, UNIFORM_BLOCKS::binding[i]);
+        GLint index = glGetUniformBlockIndex(programme, uniformBlock.first.c_str());
+        glUniformBlockBinding(programme, index, uniformBlock.second);
     }
     return true;
+
+    //bindings are hard coded in shaders
+    //for (int i=0; i<UNIFORM_BLOCKS::count; i++)
+    //{
+    //    //GLint index =glGetProgramResourceIndex(programme, GL_UNIFORM_BLOCK,UNIFORM_BLOCKS::names[i].c_str()) ;
+    //    ////UBIndices.push_back(index);
+    //    ////set binding point
+    //    GLint index = glGetUniformBlockIndex(programme, UNIFORM_BLOCKS::names[i].c_str());
+    //    writeLog("[Binding UNIFOR] Index: %d \t Binding %d \t %s\n", index, UNIFORM_BLOCKS::binding[i], UNIFORM_BLOCKS::names[i].c_str());
+    //    glUniformBlockBinding(programme ,index, UNIFORM_BLOCKS::binding[i]);
+    //}
+    //return true;
 }
 
 
-bool Shader::setTexture(const GLint &tex)
-{
-    glUseProgram(programme);
-    glUniform1i(Ulocations[UNIFORM::TEX], tex);
-    glUseProgram(0);
-    return true;
-}
-
-bool Shader::bindMaterial(const GLuint &buffer)
-{
-    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::MATERIAL], buffer);
-    return true;
-}
+//bool Shader::setTexture(const GLint &tex)
+//{
+//    glUseProgram(programme);
+//    glUniform1i(Ulocations[UNIFORM::TEX], tex);
+//    glUseProgram(0);
+//    return true;
+//}
+//
+//bool Shader::bindMaterial(const GLuint &buffer)
+//{
+//    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::MATERIAL], buffer);
+//    return true;
+//}
 bool Shader::bindDirLights(const GLuint &buffer)
 {
-    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::DIR_LIGHTS], buffer);
+    glBindBufferBase(GL_UNIFORM_BUFFER, config.uniformBlocks["CameraMats"], buffer);
     return true;
 }
-bool Shader::bindBoneTrans(const GLuint &buffer)
-{
-    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::BONES_TRANS], buffer);
-    return true;
-}
-
+//bool Shader::bindBoneTrans(const GLuint &buffer)
+//{
+//    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::BONES_TRANS], buffer);
+//    return true;
+//}
+//
 bool Shader::bindCameraMats(const GLuint &buffer)
 {
-    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::CAMERA_MATS], buffer);
+    glBindBufferBase(GL_UNIFORM_BUFFER, config.uniformBlocks["CameraMats"], buffer);
     return true;
 }
-
-bool Shader::bindModelMats(const GLuint &buffer)
-{
-    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::MODEL_MATS], buffer);
-    return true;
-}
-bool Shader::bindTime(const GLuint &buffer)
-{
-    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::TIME], buffer);
-    return true;
-}
+//
+//bool Shader::bindModelMats(const GLuint &buffer)
+//{
+//    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::MODEL_MATS], buffer);
+//    return true;
+//}
+//bool Shader::bindTime(const GLuint &buffer)
+//{
+//    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::TIME], buffer);
+//    return true;
+//}

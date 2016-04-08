@@ -45,6 +45,11 @@ private:
     Camera *camera; 
 
 public:
+    static Scene& getInstance()
+    {
+        static Scene instance;
+        return instance;
+    }
     Scene():camera(nullptr){
     }
     void init(const GLint &, const GLint &);

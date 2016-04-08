@@ -27,11 +27,12 @@ public:
         for (std::map<std::string, Shader*>::iterator it=shaderMap.begin(); it!=shaderMap.end(); ++it)
             delete it->second;
     }
+
     Shader* getShader(const std::string &name) const
     {
         if (shaderMap.find(name) == shaderMap.end())
             return nullptr;
-        else
-            return shaderMap.at(name);
+        return shaderMap.at(name);
     }
+    const std::map<std::string, Shader*>& getShaderMap() const { return shaderMap;}
 };

@@ -34,7 +34,7 @@ bool LightManager::removeLight(int idx)
     return true;
 }
 
-void LightManager::bindToShader(Shader *shdr)
+void LightManager::bindToShader(Shader *shdr) const
 {
     shdr->bindDirLights(UBO);
 }
