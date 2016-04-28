@@ -209,33 +209,24 @@ GLuint Shader::getProgramme() const
 
 bool Shader::setConfig(const ShaderConfig &cfg)
 {
-    //Uniform Locations
-    //for (int i=0; i<UNIFORM::count;i++)
-    //    Ulocations.push_back(glGetUniformLocation(programme, UNIFORM::names[i].c_str()));
-    
     config = cfg;
     for (auto& uniform: config.uniforms)
+    {
         uniform.second = glGetUniformLocation(programme, uniform.first.c_str()) ;
+        writeLog("Binding Uniform %s to %d in prog %d", 
+                uniform.first.c_str(), uniform.second, programme);
+    }
 
     writeLog("Binding Uniform block\n");
     for (const auto& uniformBlock: config.uniformBlocks)
     {
         GLint index = glGetUniformBlockIndex(programme, uniformBlock.first.c_str());
         glUniformBlockBinding(programme, index, uniformBlock.second);
+        writeLog("Binding Uniform block %s to binding %d in prog %d", 
+                uniformBlock.first.c_str(), uniformBlock.second, programme);
     }
     return true;
 
-    //bindings are hard coded in shaders
-    //for (int i=0; i<UNIFORM_BLOCKS::count; i++)
-    //{
-    //    //GLint index =glGetProgramResourceIndex(programme, GL_UNIFORM_BLOCK,UNIFORM_BLOCKS::names[i].c_str()) ;
-    //    ////UBIndices.push_back(index);
-    //    ////set binding point
-    //    GLint index = glGetUniformBlockIndex(programme, UNIFORM_BLOCKS::names[i].c_str());
-    //    writeLog("[Binding UNIFOR] Index: %d \t Binding %d \t %s\n", index, UNIFORM_BLOCKS::binding[i], UNIFORM_BLOCKS::names[i].c_str());
-    //    glUniformBlockBinding(programme ,index, UNIFORM_BLOCKS::binding[i]);
-    //}
-    //return true;
 }
 
 

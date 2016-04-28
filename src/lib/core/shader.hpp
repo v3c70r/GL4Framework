@@ -25,11 +25,23 @@ struct ShaderConfig
     std::map<std::string, GLuint> uniformBlocks;
     ShaderConfig()
     {
+        // Default 3 uniform blocks
         uniformBlocks["DirLights"]=0;
         uniformBlocks["CameraMats"]=1;
         uniformBlocks["ModelMats"]=2;
     }
-    bool empty()
+    void addUniform(std::string uniform)
+    {
+        // TODO: Duplication check
+        uniforms[uniform] = -1;
+    }
+    void addUniformBlock(std::string uniformBlock, GLuint binding=0)
+    {
+        // TODO: Duplication check
+        uniformBlocks[uniformBlock] = binding<uniformBlocks.size()?
+            uniformBlocks.size():binding;
+    }
+    bool empty() const 
     {
         if ( uniformBlocks.size() == 0 && uniforms.size() == 0 ) 
             return true;

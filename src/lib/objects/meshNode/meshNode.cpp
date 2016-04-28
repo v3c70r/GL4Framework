@@ -113,8 +113,8 @@ void MeshNode::loadSimpleOBJ(std::string objFile)
             if (splited[0] == "v")
             {
                 nV++;
-                for (int i=1; i<splited.size(); i++)
-                    vertices.push_back(std::stof(splited[i]));
+                for (const auto& str: splited)
+                    vertices.push_back(std::stof(str));
             }
             //else if (splited[0] == "vn")
             //{
@@ -126,10 +126,8 @@ void MeshNode::loadSimpleOBJ(std::string objFile)
                 if (splited.size() == 4) //triangle
                 {
                     nF++;
-                    for (int i=1; i<splited.size(); i++)
-                    {
-                        indices.push_back((GLuint)std::stoi(splited[i])-1);
-                    }
+                    for (const auto& num: splited)
+                        indices.push_back((GLuint)std::stoi(num)-1);
                 }
                 else if (splited.size() == 5) //quad faces
                 {
@@ -383,12 +381,6 @@ void MeshNode::setMaterial(const aiMaterial *mat)
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(float)*MAT_BUF_SIZE, &matBuf[0]);
 }
 
-void MeshNode::bindShader(Shader *s)
-{
-    s->setTexture(0);
-    s->bindMaterial(BUFFER[MESH_ATTR::MATERIAL]);
-    s->bindModelMats(BUFFER[MESH_ATTR::OBJ_MATS]);
-}
 
 
 

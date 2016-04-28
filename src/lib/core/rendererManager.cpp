@@ -1,17 +1,22 @@
 #include "rendererManager.h"
+#include <core/log.hpp>
 void RendererManager::addRenderer( Renderer* r, const std::string &name)
 {
     //dupliation check
     for ( auto const& it: rendererMap)
         if (it.first == name || it.second == r)
-            throw std::runtime_error("Duplicated renderer");
+        {
+            LOG::writeLogErr("Duplicated renderer %s\n, not adding\n", 
+                    name.c_str());
+            return;
+        }
     rendererMap[name] = r;
 }
 
 void RendererManager::assignObj2Renderer(Object* obj, const std::string &rendererName)
 {
     if (rendererMap.find(rendererName) == rendererMap.end())
-        throw std::runtime_error("No such renderer");
+        LOG::writeLogErr("No renderer %s found, object %s is note going to be assigned\n", rendererName.c_str(), obj->getName().c_str());
     else 
         rendererMap[rendererName]->addObject(obj);
 }

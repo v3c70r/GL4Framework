@@ -59,7 +59,7 @@ public:
     void loadSimpleOBJ(std::string objFile);
     void loadTexture(const std::string &fileName);
     void setMaterial(const aiMaterial *mat);
-    virtual void bindShader(Shader *s) override;
+    void bindShader(Shader *s) override{};
     void bind()
     {
         glBindVertexArray(VAO);
@@ -68,8 +68,10 @@ public:
     {
         glBindVertexArray(0);
     }
-    virtual void update() override;
-    virtual void draw() override;
+    void update() override;
+    void draw() override;
+    GLuint getMaterialBuffer() const { return BUFFER[MESH_ATTR::MATERIAL];}
+    GLuint getModelMatsBuffer() const { return BUFFER[MESH_ATTR::OBJ_MATS];}
 };
 
 

@@ -6,9 +6,9 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <core/shaderManager.h>
 #include "light.hpp"
 #include "camera.h"
-#include "rendererManager.h"
 
 class Renderer
 {
@@ -18,7 +18,7 @@ protected:
     ShaderManager shaders;
 public:
     Renderer(){}
-    void addObject(Object *obj) {objects.push_back(obj);}
+    virtual void addObject(Object *obj) {objects.push_back(obj);}
 
     /**
      * @brief Remove an object from this renderer

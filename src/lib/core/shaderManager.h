@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <core/log.hpp>
 
 /*
  * Shader manager
@@ -24,8 +25,8 @@ public:
     Shader* addShader(const std::string &vsFile, const std::string &gsFile, const std::string &fsFile, const std::string &name);
     ~ShaderManager()
     {
-        for (std::map<std::string, Shader*>::iterator it=shaderMap.begin(); it!=shaderMap.end(); ++it)
-            delete it->second;
+        for (const auto& shdr: shaderMap)
+            delete shdr.second;
     }
 
     Shader* getShader(const std::string &name) const
@@ -33,6 +34,15 @@ public:
         if (shaderMap.find(name) == shaderMap.end())
             return nullptr;
         return shaderMap.at(name);
+    }
+    void setConfig(const std::string &name, const ShaderConfig &config)
+    {
+        if ( shaderMap.find(name) == shaderMap.end())
+        {
+            LOG::writeLogErr("No shader found, not setting shader config\n");
+            return;
+        }
+        shaderMap.at(name)->setConfig(config);
     }
     const std::map<std::string, Shader*>& getShaderMap() const { return shaderMap;}
 };

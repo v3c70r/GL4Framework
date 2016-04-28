@@ -1,7 +1,7 @@
 #aux_source_directory(compMesh SOURCES)
-aux_source_directory(defMeshNode SOURCES)
+#aux_source_directory(defMeshNode SOURCES)
 aux_source_directory(meshNode SOURCES)
-aux_source_directory(GLSPH SOURCES)
+#aux_source_directory(GLSPH SOURCES)
 
 
 IF (${CUDA_FOUND})

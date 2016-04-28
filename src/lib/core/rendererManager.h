@@ -2,7 +2,7 @@
  * Renderer manager which manage renders
  */
 #pragma once
-#include "renderer.hpp"
+#include <core/renderer.hpp>
 #include <map>
 #include <string>
 class RendererManager
@@ -12,9 +12,8 @@ public:
     void addRenderer(Renderer* r, const std::string &name);
     ~RendererManager()
     {
-        for (std::map<std::string, Renderer*>::iterator it=rendererMap.begin();
-                it!=rendererMap.end(); it++)
-            delete it->second;
+        for (auto &renderer: rendererMap)
+            delete renderer.second;
     }
     Renderer* getRenderer(const std::string &name) const
     {
