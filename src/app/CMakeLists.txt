@@ -18,10 +18,10 @@ target_link_libraries(gl4framework
     )
 
 
-IF (${CUDA_FOUND})
-    add_definitions(-DCUDA)
-    target_link_libraries(gl4framework cuda_obj)
-ENDIF (${CUDA_FOUND})
+#IF (${CUDA_FOUND})
+#    add_definitions(-DCUDA)
+#    target_link_libraries(gl4framework cuda_obj)
+#ENDIF (${CUDA_FOUND})
 
 set_target_properties ( gl4framework
     PROPERTIES

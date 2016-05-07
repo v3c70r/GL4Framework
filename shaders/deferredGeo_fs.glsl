@@ -30,6 +30,7 @@ layout(std140) uniform DirLights
     vec3 padding;
 }dirLights;
 
+//Output textures
 layout (location = 0) out vec4 PosOut;
 layout (location = 1) out vec4 DiffuseOut;
 layout (location = 2) out vec4 NormalOut;

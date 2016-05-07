@@ -1,6 +1,6 @@
 aux_source_directory(deferredRenderer SOURCES)
 aux_source_directory(forwardRenderer SOURCES)
-aux_source_directory(pointRenderer SOURCES)
-aux_source_directory(rayTracer SOURCES)
+#aux_source_directory(pointRenderer SOURCES)
+#aux_source_directory(rayTracer SOURCES)
 add_library (renderer ${SOURCES})
 target_link_libraries(renderer core)

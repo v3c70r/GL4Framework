@@ -213,16 +213,15 @@ bool Shader::setConfig(const ShaderConfig &cfg)
     for (auto& uniform: config.uniforms)
     {
         uniform.second = glGetUniformLocation(programme, uniform.first.c_str()) ;
-        writeLog("Binding Uniform %s to %d in prog %d", 
+        writeLog("Binding Uniform %s to %d in prog %d\n", 
                 uniform.first.c_str(), uniform.second, programme);
     }
 
-    writeLog("Binding Uniform block\n");
     for (const auto& uniformBlock: config.uniformBlocks)
     {
         GLint index = glGetUniformBlockIndex(programme, uniformBlock.first.c_str());
         glUniformBlockBinding(programme, index, uniformBlock.second);
-        writeLog("Binding Uniform block %s to binding %d in prog %d", 
+        writeLog("Binding Uniform block %s to binding %d in prog %d\n", 
                 uniformBlock.first.c_str(), uniformBlock.second, programme);
     }
     return true;
@@ -245,7 +244,7 @@ bool Shader::setConfig(const ShaderConfig &cfg)
 //}
 bool Shader::bindDirLights(const GLuint &buffer)
 {
-    glBindBufferBase(GL_UNIFORM_BUFFER, config.uniformBlocks["CameraMats"], buffer);
+    glBindBufferBase(GL_UNIFORM_BUFFER, config.uniformBlocks["bindDirLights"], buffer);
     return true;
 }
 //bool Shader::bindBoneTrans(const GLuint &buffer)

@@ -95,57 +95,68 @@ void App::init()
     //fluidSys->insertCUBE();
     //scene.addFluidSys("fluid_1");
 #ifdef CUDA
-    Object* fluid = new Points();
-    dynamic_cast<Points*>(fluid)->init();
-    fluid->setName("fluid_1");
-    fluid->setParent(nullptr);
+    //Object* fluid = new Points();
+    //dynamic_cast<Points*>(fluid)->init();
+    //fluid->setName("fluid_1");
+    //fluid->setParent(nullptr);
 
     //Init shader
-    PointRendererTem *fluidTemp = new PointRendererTem(1920, 1200);
-    Shader *shader = scene.getShaderManager().addShader("./shaders/pointTemp_vs.glsl", "./shaders/pointTemp_gs.glsl", "./shaders/pointTemp_fs.glsl", "TEMP_SHADER");
-    scene.getRendererManager().addRenderer(fluidTemp, "TEMP_RENDERER");
-    scene.getCamera()->bindToShader(shader);
+    //PointRendererTem *fluidTemp = new PointRendererTem(1920, 1200);
+    //Shader *shader = scene.getShaderManager().addShader("./shaders/pointTemp_vs.glsl", "./shaders/pointTemp_gs.glsl", "./shaders/pointTemp_fs.glsl", "TEMP_SHADER");
+    //scene.getRendererManager().addRenderer(fluidTemp, "TEMP_RENDERER");
+    //scene.getCamera()->bindToShader(shader);
 
-    fluidTemp->setShader(shader);
+    //fluidTemp->setShader(shader);
     //Init renderer
     
-    scene.addObject(fluid);
-    scene.getRendererManager().assignObj2Renderer(fluid, "TEMP_RENDERER");
+    //scene.addObject(fluid);
+    //scene.getRendererManager().assignObj2Renderer(fluid, "TEMP_RENDERER");
 //dynamic_cast<Points*>(fluid)->insertParsFromOBJ("./meshes/bunny.obj", 90.0, 1);
-    dynamic_cast<Points*>(fluid)->insertCUBEE();
+    //dynamic_cast<Points*>(fluid)->insertCUBEE();
 #endif
     
     
     std::cout<<scene.getTreeView();
+
     glfwGetFramebufferSize(pWindow, &windowWidth, &windowHeight);
     scene.updateProjMat(windowWidth, windowHeight);
     /*--------Init lights-----------*/
     scene.getLightManager().addLight(glm::vec4(0.0, 0.0, 1.0, 0.0));
     scene.getLightManager().addLight(glm::vec4(0.0, 0.0, -1.0, 0.0));
+
+    ForwardRenderer *renderer = new ForwardRenderer("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl");
+    renderer->setupCamera(scene.getCamera());
+    renderer->setupLight(scene.getLightManager());
+    scene.getRendererManager().addRenderer(renderer, "FWD_MESH_R");
+
+    DeferredRenderer *defRenderer = new DeferredRenderer("./shaders/deferredGeo_vs.glsl","./shaders/deferredGeo_fs.glsl", windowWidth, windowHeight);
+    defRenderer->setupCamera(scene.getCamera());
+    defRenderer->setupLight(scene.getLightManager());
+    scene.getRendererManager().addRenderer(defRenderer, "DEF_MESH_R");
     /*----------Init renderers-------*/
     /*---------Forward Renderer-------*/
-    ForwardRenderer *fwRendererMesh = new ForwardRenderer;
-    Shader* shdr = scene.getShaderManager().addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
-    scene.getCamera()->bindToShader(shdr);
-    scene.getLightManager().bindToShader(shdr);
-    fwRendererMesh->setShader(shdr);
-    scene.getRendererManager().addRenderer(fwRendererMesh, "FW_STATIC_MESH_R");
-    /*-------Forward Renderer with LBS------*/
-    ForwardRenderer *fwRendererLBS = new ForwardRenderer;
-    shdr = scene.getShaderManager().addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
-    scene.getLightManager().bindToShader(shdr);
-    fwRendererLBS->setShader(shdr);
-    scene.getCamera()->bindToShader(shdr);
-    scene.getRendererManager().addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
+    //ForwardRenderer *fwRendererMesh = new ForwardRenderer;
+    //Shader* shdr = scene.getShaderManager().addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
+    //scene.getCamera()->bindToShader(shdr);
+    //scene.getLightManager().bindToShader(shdr);
+    //fwRendererMesh->setShader(shdr);
+    //scene.getRendererManager().addRenderer(fwRendererMesh, "FW_STATIC_MESH_R");
+    ///*-------Forward Renderer with LBS------*/
+    //ForwardRenderer *fwRendererLBS = new ForwardRenderer;
+    //shdr = scene.getShaderManager().addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
+    //scene.getLightManager().bindToShader(shdr);
+    //fwRendererLBS->setShader(shdr);
+    //scene.getCamera()->bindToShader(shdr);
+    //scene.getRendererManager().addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
 
     /*-------Deferred Renderer-----------*/
-    DeferredRenderer* dfRendererMesh = new DeferredRenderer(windowWidth, windowHeight);
-    shdr = scene.getShaderManager().addShader("./shaders/deferredGeo_vs.glsl", "./shaders/deferredGeo_fs.glsl", "deffered");
-    dfRendererMesh->setGeometryShader(shdr);
-    scene.getCamera()->bindToShader(shdr);
-    scene.getLightManager().bindToShader(shdr);
-    scene.getRendererManager().addRenderer(dfRendererMesh, "DF_MESH_R");
-
+//    DeferredRenderer* dfRendererMesh = new DeferredRenderer(windowWidth, windowHeight);
+//    shdr = scene.getShaderManager().addShader("./shaders/deferredGeo_vs.glsl", "./shaders/deferredGeo_fs.glsl", "deffered");
+//    dfRendererMesh->setGeometryShader(shdr);
+//    scene.getCamera()->bindToShader(shdr);
+//    scene.getLightManager().bindToShader(shdr);
+//    scene.getRendererManager().addRenderer(dfRendererMesh, "DF_MESH_R");
+//
     /*----------Init joystick-----------*/
 
     /*-----------------------------register callbacks-----------------*/

@@ -3,22 +3,20 @@
  * This renderer contains simple one pass shader
  */
 #include <core/renderer.hpp>
-#include <stdexcept>
 
 class ForwardRenderer: public Renderer
 {
-    const std::string SHDR_NAME;
-    ShaderConfig cfg;
+    const std::string SHDR_NAME_;
+    ShaderConfig cfg_;
 public:
-    ForwardRenderer():SHDR_NAME{"SHDR_FORWARD"}
+    ForwardRenderer():SHDR_NAME_{"SHDR_FORWARD"}
     {
         // TODO: Add uniforms
-        cfg.addUniform("Tex");
-        cfg.addUniformBlock("Material");
+        cfg_.addUniform("tex");
+        cfg_.addUniformBlock("Material");
     }
     ForwardRenderer(Shader *s):ForwardRenderer()
     {
-        s->setConfig(cfg);
         setShader(s); 
     }
     ForwardRenderer(std::string v, std::string f):ForwardRenderer()
@@ -30,5 +28,5 @@ public:
     void render() const override;
     void setShader(Shader *);
     void setShader(std::string vs, std::string fs);
-    ~ForwardRenderer(){}
+    ~ForwardRenderer() override{}
 };

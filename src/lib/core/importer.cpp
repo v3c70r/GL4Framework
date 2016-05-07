@@ -33,68 +33,70 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
     {
         MeshNode *meshNode=nullptr;
         aiMesh *curMesh =as->mMeshes[pNode->mMeshes[i]];
+        //=======================================Disabled for now==
         //load bones
-        if (curMesh->HasBones())
-        {
-            std::cout<<"1=====In if==\n";
-            meshNode = new DefMeshNode; //will it downcast the pointer?
-            meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices);
+        //if (curMesh->HasBones())
+        //{
+        //    std::cout<<"1=====In if==\n";
+        //    meshNode = new DefMeshNode; //will it downcast the pointer?
+        //    meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices);
 
-            std::cout<<"Num Bones: "<<curMesh->mNumBones<<std::endl;
-            std::vector<VertexBoneData> vetBoneDatas;
-            vetBoneDatas.resize(curMesh->mNumVertices);
+        //    std::cout<<"Num Bones: "<<curMesh->mNumBones<<std::endl;
+        //    std::vector<VertexBoneData> vetBoneDatas;
+        //    vetBoneDatas.resize(curMesh->mNumVertices);
 
-            for (auto boneId = 0; boneId < curMesh->mNumBones; boneId++)
-            {
-                uint BoneIndx = 0;
-                aiBone * curBone = curMesh->mBones[boneId];
-                std::string BoneName(curBone->mName.C_Str());
-                if (boneMapping.find(BoneName) == boneMapping.end()) {  //bone is not found
-                    BoneIndx = numBones;
-                    numBones++;
-                    BoneInfo bi;
-                    bi.BoneOffset = curBone->mOffsetMatrix;
-                    boneInfos.push_back(bi);
-                }
-                else{
-                    BoneIndx = boneMapping[BoneName];
-                }
-                boneMapping[BoneName] = BoneIndx;
-                //build bone vertex data
-                for (auto weightID = 0; weightID < curBone->mNumWeights; weightID++)
-                {
-                    aiVertexWeight curWeight = curBone->mWeights[weightID];
-                    if (abs(curWeight.mWeight - 0.0) < 0.0000001)
-                        continue;
-                    vetBoneDatas[curWeight.mVertexId].addBone(BoneIndx, curWeight.mWeight);
-                }
-            }
-            //validation number of bones for each vertex;
+        //    for (auto boneId = 0; boneId < curMesh->mNumBones; boneId++)
+        //    {
+        //        uint BoneIndx = 0;
+        //        aiBone * curBone = curMesh->mBones[boneId];
+        //        std::string BoneName(curBone->mName.C_Str());
+        //        if (boneMapping.find(BoneName) == boneMapping.end()) {  //bone is not found
+        //            BoneIndx = numBones;
+        //            numBones++;
+        //            BoneInfo bi;
+        //            bi.BoneOffset = curBone->mOffsetMatrix;
+        //            boneInfos.push_back(bi);
+        //        }
+        //        else{
+        //            BoneIndx = boneMapping[BoneName];
+        //        }
+        //        boneMapping[BoneName] = BoneIndx;
+        //        //build bone vertex data
+        //        for (auto weightID = 0; weightID < curBone->mNumWeights; weightID++)
+        //        {
+        //            aiVertexWeight curWeight = curBone->mWeights[weightID];
+        //            if (abs(curWeight.mWeight - 0.0) < 0.0000001)
+        //                continue;
+        //            vetBoneDatas[curWeight.mVertexId].addBone(BoneIndx, curWeight.mWeight);
+        //        }
+        //    }
+        //    //validation number of bones for each vertex;
 
-            //form array
-            vector<GLfloat> dWeights;
-            dWeights.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices, 0.0);
-            vector<GLuint> dIDs;
-            dIDs.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices, NO_BONE);
-            for (auto vertI=0; vertI<curMesh->mNumVertices; vertI++)
-            {
-                memcpy(&dWeights[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].weights[0], sizeof(GLfloat)*NUM_BONES_PER_VERT);
-                memcpy(&dIDs[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].IDs[0], sizeof(GLuint)*NUM_BONES_PER_VERT);
-            }
-            ((DefMeshNode*)meshNode)->setWeights(&dIDs[0], &dWeights[0]);
+        //    //form array
+        //    vector<GLfloat> dWeights;
+        //    dWeights.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices, 0.0);
+        //    vector<GLuint> dIDs;
+        //    dIDs.resize(NUM_BONES_PER_VERT * curMesh->mNumVertices, NO_BONE);
+        //    for (auto vertI=0; vertI<curMesh->mNumVertices; vertI++)
+        //    {
+        //        memcpy(&dWeights[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].weights[0], sizeof(GLfloat)*NUM_BONES_PER_VERT);
+        //        memcpy(&dIDs[vertI*NUM_BONES_PER_VERT], &vetBoneDatas[vertI].IDs[0], sizeof(GLuint)*NUM_BONES_PER_VERT);
+        //    }
+        //    ((DefMeshNode*)meshNode)->setWeights(&dIDs[0], &dWeights[0]);
 
-            //===load animations
-            for (auto animIdx = 0; animIdx < as->mNumAnimations; animIdx++)
-            {
-                ((DefMeshNode*)meshNode)->addAnimation(loadAnimation(as, as->mAnimations[animIdx]));
-            }
-            scene->renderers.assignObj2Renderer( meshNode, "FW_LBS_MESH_R");
-        }
-        else
+        //    //===load animations
+        //    for (auto animIdx = 0; animIdx < as->mNumAnimations; animIdx++)
+        //    {
+        //        ((DefMeshNode*)meshNode)->addAnimation(loadAnimation(as, as->mAnimations[animIdx]));
+        //    }
+        //    scene->renderers.assignObj2Renderer( meshNode, "FW_LBS_MESH_R");
+        //}
+        //else
+        //============End of stuff=====
         {
             meshNode = new MeshNode();
             meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices);
-            scene->renderers.assignObj2Renderer( meshNode, "FWD_MESH_R");
+            scene->renderers.assignObj2Renderer( meshNode, "DEF_MESH_R");
         }
         meshNode->setVertices((GLfloat*)(curMesh->mVertices));
         vector<float> tempUV;

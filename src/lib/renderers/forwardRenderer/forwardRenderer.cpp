@@ -4,16 +4,16 @@
 void ForwardRenderer::addObject(Object *obj) 
 {
     
-    glBindBufferBase(GL_UNIFORM_BUFFER, UNIFORM_BLOCKS::binding[UNIFORM_BLOCKS::MATERIAL], buffer);
-    objects.push_back(obj);
+    obj->bindShader(shaders_.getShader(SHDR_NAME_));
+    objects_.push_back(obj);
 }
 void ForwardRenderer::render() const
 {
-    for (auto &obj: objects)
+    for (auto &obj: objects_)
     {
-        Shader *shdr = shaders.getShader(SHDR_NAME);
-        obj->update();
+        Shader *shdr = shaders_.getShader(SHDR_NAME_);
         glUseProgram(shdr->getProgramme());
+        obj->update();
         obj->draw();
         glUseProgram(0);
     }
@@ -22,13 +22,23 @@ void ForwardRenderer::render() const
 void ForwardRenderer::setShader(Shader *s)
 {
     if (s)
-        shaders.addShader(s, SHDR_NAME);
+    {
+        shaders_.addShader(s, SHDR_NAME_);
+        s->setConfig(cfg_);
+        glUniform1i(s->getConfig().uniforms.at("tex"), 0);
+    }
     else
-        throw std::runtime_error("nullptr shader dettected");
+        LOG::writeLogErr("Nullptr shader will not be set\n");
 }
 void ForwardRenderer::setShader(std::string vs, std::string fs)
 {
-    if (shaders.addShader(vs, fs, SHDR_NAME)==nullptr)
-        throw std::runtime_error("nullptr shader dettected");
+    Shader* shdr = shaders_.addShader(vs, fs, SHDR_NAME_);
+    if (shdr != nullptr)
+    {
+        shdr->setConfig(cfg_);
+        glUniform1i(shdr->getConfig().uniforms.at("tex"), 0);
+    }
+    else
+        LOG::writeLogErr("Falied to add shader from file\n");
 }
 

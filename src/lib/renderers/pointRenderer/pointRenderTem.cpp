@@ -27,28 +27,6 @@ void PointRendererTem::setShader(Shader* s)
 
 void PointRendererTem::LoadTexture(const char* filename)
 {
-    /*int w;
-    int h;
-    int comp;
-    int force_channels = 4;
-    unsigned char* image = stbi_load(filename, &w, &h, &comp, force_channels);
-
-    if(image == nullptr)
-        throw(std::string("Failed to load texture"));
-
-    // non-power-of-2 dimensions check
-    if ((w & (w-1)) != 0 || (h & (h-1)) != 0)
-    {
-        fprintf(stderr, "Waring: image %s is not power-of-2 dimensions\n", filename);
-    }
-
-    if(comp == 3)
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    else if(comp == 4)
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-
-    stbi_image_free(image);
-    printf("load temp successful!\n");*/
     ILuint imageID;
     ilInit();
     ILboolean success;

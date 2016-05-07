@@ -34,15 +34,13 @@ import os
 import ycm_core
 
 flags = [
+    '-Wall',
     '-std=c++11',
-    '-x',
-    'c++',
     '-isystem/home/tsing/project/GL4Framework/./src/lib',
     '-isystem/home/tsing/project/GL4Framework/./src/third_party',
     '-isystem/usr/local/cuda/include',
     '-isystem/usr/local/include',
-    '-Wall'
-    ,'-isystem/usr/include/c++/4.8'
+    '-isystem/usr/include/c++/4.8'
     ,'-isystem/usr/include/x86_64-linux-gnu/c++/4.8'
     ,'-isystem/usr/include/c++/4.8/backward'
     ,'-isystem/usr/lib/gcc/x86_64-linux-gnu/4.8/include'

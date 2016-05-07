@@ -2,36 +2,37 @@
 #include <stdexcept>
 #include <GL/glew.h>
 #include <iostream>
-DeferredRenderer::DeferredRenderer(const int &width, const int &height)
+DeferredRenderer::DeferredRenderer(const int &width, const int &height):GEO_SHDR_NAME_("SHDR_GEO")
 {
-    this->width = width;
-    this->height = height;
+    width_ = width;
+    height_ = height;
+    cfg_.addUniform("tex");
+    cfg_.addUniformBlock("Material");
 
-    //GLuint rbo;
-    //glGenRenderbuffers(1, &rbo);
-    //glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-    //glRenderbufferStorage(GL_RENDERBUFFER,  GL_DEPTH_COMPONENT, width, height);
-    //glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
-    glGenFramebuffers(1, &FBO);
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO);
+    // Gen fbo
+    glGenFramebuffers(1, &FBO_);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO_);
 
-    glGenTextures(TEXTURES::COUNT, textures);
+    // Gen textures
+    glGenTextures(TEXTURES::COUNT, textures_);
+
     //Init color textures
-    for (auto i=0; i<TEXTURES::DEPTH; i++)
+    for (int i=0; i<TEXTURES::DEPTH; i++)
     {
-        glBindTexture(GL_TEXTURE_2D, textures[i]);
+        glBindTexture(GL_TEXTURE_2D, textures_[i]);
         //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
         //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
         //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP );
         //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP );
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGBA, GL_FLOAT, nullptr);
-        glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, textures[i], 0);
+        glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, textures_[i], 0);
     }
     //Depth
-    glBindTexture(GL_TEXTURE_2D, textures[TEXTURES::DEPTH]);
+    glBindTexture(GL_TEXTURE_2D, textures_[TEXTURES::DEPTH]);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
-    glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, textures[TEXTURES::DEPTH], 0);
+    glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, textures_[TEXTURES::DEPTH], 0);
+
     //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rbo);
 
     GLenum drawBuffers[] = { 
@@ -46,29 +47,33 @@ DeferredRenderer::DeferredRenderer(const int &width, const int &height)
     GLenum Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
     if (Status != GL_FRAMEBUFFER_COMPLETE) {
-
-        throw std::runtime_error("FB error");
+        LOG::writeLogErr("Faild to init framebuffer\n");
     }
     glBindTexture(GL_TEXTURE_2D, 0);
     // restore default FBO
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 }
+DeferredRenderer::DeferredRenderer(std::string geoVS, std::string geoFS, const int& w, const int& h): DeferredRenderer(w, h)
+{
+    Shader* shdr = shaders_.addShader(geoVS, geoFS, GEO_SHDR_NAME_);
+    shdr->setConfig(cfg_);
+}
 
 void DeferredRenderer::setGeometryShader(Shader *s)
 {
-    shdrs[SHADERS::GEOMETRY] = s;
+    s->setConfig(cfg_);
+    shaders_.addShader(s, GEO_SHDR_NAME_);
 }
 
 void DeferredRenderer::renderGeometryPass() const
 {
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO_);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    for (auto i=0; i<objects.size(); i++)
+    for (auto &obj: objects_)
     {
-        Object *obj = objects[i];
         obj->update();
-        obj->bindShader(shdrs[SHADERS::GEOMETRY]);
-        glUseProgram(shdrs[SHADERS::GEOMETRY]->getProgramme());
+        Shader* shdr = shaders_.getShader(GEO_SHDR_NAME_);
+        glUseProgram(shdr->getProgramme());
         obj->draw();
         glUseProgram(0);
     }
@@ -77,10 +82,10 @@ void DeferredRenderer::renderGeometryPass() const
 void DeferredRenderer::renderLightPass() const
 {
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, FBO);
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, FBO_);
 
-    GLsizei halfWidth = width/2;
-    GLsizei halfHeight = height/2;
+    //GLsizei halfWidth = width_/2;
+    //GLsizei halfHeight = height_/2;
 
 //    //Position pass
 //    glReadBuffer(GL_COLOR_ATTACHMENT0);
@@ -99,15 +104,26 @@ void DeferredRenderer::renderLightPass() const
 //
     //Final pass
     glReadBuffer(GL_COLOR_ATTACHMENT3);
-    glBlitFramebuffer(0, 0, width, height,
-            0, 0, width, height, GL_COLOR_BUFFER_BIT, GL_LINEAR); 
+    glBlitFramebuffer(0, 0, width_, height_,
+            0, 0, width_, height_, GL_COLOR_BUFFER_BIT, GL_LINEAR); 
 
 }
 
 void DeferredRenderer::render() const
 {
-    if (objects.size() == 0) return;
+    if (objects_.size() == 0) return;
     renderGeometryPass();
     renderLightPass();
+}
+void DeferredRenderer::addObject(Object *obj)
+{
+    objects_.push_back(obj);
+    obj->bindShader(shaders_.getShader(GEO_SHDR_NAME_));
+}
+DeferredRenderer::~DeferredRenderer()
+{
+    glDeleteTextures(TEXTURES::COUNT, textures_);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glDeleteFramebuffers(1, &FBO_);
 }
 

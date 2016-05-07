@@ -8,8 +8,7 @@
 class DeferredRenderer: public Renderer
 {
 private:
-    struct TEXTURES
-    {
+    struct TEXTURES {
         enum ENUM
         {
             POSITION=0,
@@ -18,22 +17,14 @@ private:
             TEXCOORD,
             DEPTH,
             COUNT
-        };
-    };
-    struct SHADERS
-    {
-        enum ENUM
-        {
-            GEOMETRY=0,
-            COUNT
-        };
-    };
-    GLuint textures[TEXTURES::COUNT];
-    GLuint FBO;
-    Shader *shdrs[SHADERS::COUNT];
+        }; };
+    GLuint textures_[TEXTURES::COUNT];
+    const std::string GEO_SHDR_NAME_;
+    ShaderConfig cfg_;
+    GLuint FBO_;
     void renderGeometryPass() const;
     void renderLightPass() const;
-    GLint width, height;
+    GLint width_, height_;
 public:
     /**
      * Constructor, need OpenGL context created
@@ -41,8 +32,11 @@ public:
      */
     DeferredRenderer()  =   delete;
     DeferredRenderer(const int &, const int &);
+    DeferredRenderer(std::string geoVS, std::string geoFS, const int& w, const int& h);
+    ~DeferredRenderer() override;
 
     /** Set geometry shader*/
     void setGeometryShader(Shader *);
     void render() const override;
+    void addObject(Object *obj) override;
 };

@@ -14,11 +14,11 @@ class Renderer
 {
 protected:
     /* No need to clean it up, scene class will do all the garbage collection work*/
-    std::vector<Object*> objects;
-    ShaderManager shaders;
+    std::vector<Object*> objects_;
+    ShaderManager shaders_;
 public:
     Renderer(){}
-    virtual void addObject(Object *obj) {objects.push_back(obj);}
+    virtual void addObject(Object *obj) {objects_.push_back(obj);}
 
     /**
      * @brief Remove an object from this renderer
@@ -26,28 +26,28 @@ public:
      * @param name Name of the object
      */
     void removeObject(const std::string &name){ 
-        for (std::vector<Object*>::iterator it = objects.begin(); it!=objects.end();)
+        for (std::vector<Object*>::iterator it = objects_.begin(); it!=objects_.end();)
         {
             if ((*it)->getName() == name )
-                it = objects.erase(it);
+                it = objects_.erase(it);
             else 
                 it++;
         }
     }
     /**
-     * @brief Return a python list of objects in a renderer 
+     * @brief Return a python list of objects_ in a renderer 
      *
      * @return Objects bond to this renderer in string
      */
     std::string queryObjs() const
     {
         
-        if (objects.size() == 0)
+        if (objects_.size() == 0)
             return std::string("[ ]");
 
         std::stringstream ss;
         ss<<"[";
-        for (const auto& object: objects)
+        for (const auto& object: objects_)
             ss<<"'"<<object->getName()<<"', ";
         ss<<"]";
         return ss.str();
@@ -56,7 +56,6 @@ public:
     // Interfaces
     virtual ~Renderer(){};
     virtual void render() const=0;
-    virtual void setupShaders()=0;
 
     /**
      * @brief Setup light to this renderer
@@ -65,7 +64,7 @@ public:
      */
     virtual void setupLight(const LightManager &lights)
     { 
-        for (const auto& shader: shaders.getShaderMap())
+        for (const auto& shader: shaders_.getShaderMap())
             lights.bindToShader(shader.second);
     }
 
@@ -76,7 +75,7 @@ public:
      */
     virtual void setupCamera(const Camera* camera)
     {
-        for (const auto& shader: shaders.getShaderMap())
+        for (const auto& shader: shaders_.getShaderMap())
             camera->bindToShader(shader.second);
     }
 };

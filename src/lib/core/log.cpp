@@ -17,8 +17,34 @@ namespace LOG
                     );
             return false;
         }
+
+        std::string verboseMessage=
+            std::string{"[V] "}+std::string{message};
+
         va_start (argptr, message);
-        vfprintf (file, message, argptr);
+        vfprintf (file, verboseMessage.c_str(), argptr);
+        va_end (argptr);
+        fclose (file);
+        return true;
+    }
+    bool writeLog (const std::string message, ...)
+    {
+        va_list argptr;
+        FILE* file = fopen (GL_LOG_FILE, "a");
+        if (!file) {
+            fprintf (
+                    stderr,
+                    "ERROR: could not open GL_LOG_FILE %s file for appending\n",
+                    GL_LOG_FILE
+                    );
+            return false;
+        }
+
+        std::string verboseMessage=
+            std::string{"[V] "}+std::string{message};
+
+        va_start (argptr, message);
+        vfprintf (file, verboseMessage.c_str(), argptr);
         va_end (argptr);
         fclose (file);
         return true;
@@ -35,11 +61,42 @@ namespace LOG
                     );
             return false;
         }
+        std::string errorMsg=
+            std::string{"[E] "}+std::string{message};
+        std::string errorMsgPrint =
+            std::string{"\033[1;31m"}+errorMsg;
         va_start (argptr, message);
-        vfprintf (file, message, argptr);
+        vfprintf (file, errorMsg.c_str(), argptr);
         va_end (argptr);
         va_start (argptr, message);
-        vfprintf (stderr, message, argptr);
+        vfprintf (stderr, errorMsgPrint.c_str(), argptr);
+        fprintf (stderr, "\033[0m"); // Reset color
+        va_end (argptr);
+        fclose (file);
+        return true;
+    }
+    bool writeLogErr (const std::string message, ...)
+    {
+        va_list argptr;
+        FILE* file = fopen (GL_LOG_FILE, "a");
+        if (!file) {
+            fprintf (
+                    stderr,
+                    "ERROR: could not open GL_LOG_FILE %s file for appending\n",
+                    GL_LOG_FILE
+                    );
+            return false;
+        }
+        std::string errorMsg=
+            std::string{"[E] "}+std::string{message};
+        std::string errorMsgPrint =
+            std::string{"\033[1;31m"}+errorMsg;
+        va_start (argptr, message);
+        vfprintf (file, errorMsg.c_str(), argptr);
+        va_end (argptr);
+        va_start (argptr, message);
+        vfprintf (stderr, errorMsgPrint.c_str(), argptr);
+        fprintf (stderr, "\033[0m"); // Reset color
         va_end (argptr);
         fclose (file);
         return true;

@@ -24,14 +24,6 @@
  * A scene is a place where all objects are put in
  */
 
-namespace BUILD_IN_SHADERS
-{
-    enum INDICES{
-        MESH = 0,
-        PARTICLES,
-        COUNT
-    };
-}
 
 class Scene
 {

@@ -20,9 +20,9 @@ void ShaderManager::addShader(Shader* shdr, const std::string &name)
     for (auto const &it: shaderMap)
         if (it.first == name || it.second->getProgramme() == shdr->getProgramme())
         {
-            LOG::writeLogErr("Duplicated shaders in shader manager with name %s, programme %d",
+            LOG::writeLogErr("Duplicated shaders in shader manager with name %s, programme %d\n",
                     (it.first).c_str(), it.second->getProgramme());
-            throw std::runtime_error("Duplicated shader in ShaderManager");
+            return;
         }
     shaderMap[name] = shdr;
 }

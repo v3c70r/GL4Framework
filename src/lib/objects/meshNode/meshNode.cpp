@@ -380,6 +380,20 @@ void MeshNode::setMaterial(const aiMaterial *mat)
     glBindBuffer(GL_UNIFORM_BUFFER, BUFFER[MESH_ATTR::MATERIAL]);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(float)*MAT_BUF_SIZE, &matBuf[0]);
 }
+void MeshNode::bindShader(Shader *s)
+{
+    auto uniforms = s->getConfig().uniformBlocks;
+    //Bind Material
+    if (uniforms.find("Material") != uniforms.end())
+        glBindBufferBase(GL_UNIFORM_BUFFER, s->getConfig().uniformBlocks.at("Material"), BUFFER[MESH_ATTR::MATERIAL]);
+    else
+        LOG::writeLogErr("No %s found in uniforms, not binding\n", "Material");
+    //Bind Material
+    if (uniforms.find("ModelMats") != uniforms.end())
+        glBindBufferBase(GL_UNIFORM_BUFFER, s->getConfig().uniformBlocks.at("ModelMats"), BUFFER[MESH_ATTR::OBJ_MATS]);
+    else
+        LOG::writeLogErr("No %s found in uniforms, not binding\n", "ModelMats");
+}
 
 
 

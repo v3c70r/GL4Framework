@@ -24,9 +24,8 @@ public:
     }
     void renderAll() const
     {
-        for (std::map<std::string, Renderer*>::const_iterator it=rendererMap.begin();
-                it!=rendererMap.end(); it++)
-            it->second->render();
+        for (const auto &renderer: rendererMap)
+            renderer.second->render();
     }
 
     /** assign an object to renderer*/

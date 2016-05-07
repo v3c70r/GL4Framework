@@ -59,7 +59,7 @@ public:
     void loadSimpleOBJ(std::string objFile);
     void loadTexture(const std::string &fileName);
     void setMaterial(const aiMaterial *mat);
-    void bindShader(Shader *s) override{};
+    void bindShader(Shader *s) override;
     void bind()
     {
         glBindVertexArray(VAO);

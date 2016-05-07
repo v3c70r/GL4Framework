@@ -13,15 +13,6 @@ void Scene::init(const GLint &wWidth, const GLint &wHeight)
     setCamera(CAMERA_ARCBALL, glm::vec3(0.0f, 0.0f, -15.0f), glm::mat4x4(1.0));
     camera->init();
 
-
-    //Raytracer
-    //RayTracer* rayTracer = new RayTracer(wWidth, wHeight);
-    //shdr = shaders.addShader("./shaders/kernels/rayTracing.glsl", "RAY_TRACING");
-    //camera->bindToShader(shdr);
-    //rayTracer->setCompShader(shdr);
-    //renderers.addRenderer(rayTracer, "RayTracer");
-
-
 }
 
 void Scene::drawScene() const
