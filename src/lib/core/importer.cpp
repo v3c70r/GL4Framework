@@ -96,7 +96,7 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
         {
             meshNode = new MeshNode();
             meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices);
-            scene->renderers.assignObj2Renderer( meshNode, "DEF_MESH_R");
+            scene->renderers.assignObj2Renderer( meshNode, "FWD_MESH_R");
         }
         meshNode->setVertices((GLfloat*)(curMesh->mVertices));
         vector<float> tempUV;

@@ -24,14 +24,14 @@ private:
     GLuint FBO_;
     void renderGeometryPass() const;
     void renderLightPass() const;
-    GLint width_, height_;
+    GLuint width_, height_;
 public:
     /**
      * Constructor, need OpenGL context created
      * created
      */
     DeferredRenderer()  =   delete;
-    DeferredRenderer(const int &, const int &);
+    DeferredRenderer(const GLuint &, const GLuint &);
     DeferredRenderer(std::string geoVS, std::string geoFS, const int& w, const int& h);
     ~DeferredRenderer() override;
 
@@ -39,4 +39,5 @@ public:
     void setGeometryShader(Shader *);
     void render() const override;
     void addObject(Object *obj) override;
+    void resize(GLuint w, GLuint h);
 };

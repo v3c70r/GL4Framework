@@ -176,6 +176,8 @@ void App::_glfw_window_size_callback (GLFWwindow* window, int width, int height)
     windowHeight  = height;
     glfwGetFramebufferSize(pWindow, &windowWidth, &windowHeight);
     scene.updateProjMat(windowWidth, windowHeight);
+    // Update deferred renderering size
+    ((DeferredRenderer*)scene.getRendererManager().getRenderer("DEF_MESH_R"))->resize(width, height);
 }
 void App::mouseButton(GLFWwindow* window, int button, int action, int mods)
 {
@@ -233,9 +235,9 @@ void App::run()
         UpdateImGui(pWindow);
 
         //Handle Joystick
-        int hasJoystick = glfwJoystickPresent(GLFW_JOYSTICK_1);
-        if (hasJoystick)
-            handleJoystick(GLFW_JOYSTICK_1);
+        //int hasJoystick = glfwJoystickPresent(GLFW_JOYSTICK_1);
+        //if (hasJoystick)
+        //    handleJoystick(GLFW_JOYSTICK_1);
 
         PyConsole::getInstance().callFunctions();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

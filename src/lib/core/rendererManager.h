@@ -7,24 +7,26 @@
 #include <string>
 class RendererManager
 {
-    std::map<std::string, Renderer*> rendererMap;
+    std::map<std::string, Renderer*> rendererMap_;
 public:
+    std::map<std::string, Renderer*> &
+        getRendereMap() {return rendererMap_;}
     void addRenderer(Renderer* r, const std::string &name);
     ~RendererManager()
     {
-        for (auto &renderer: rendererMap)
+        for (auto &renderer: rendererMap_)
             delete renderer.second;
     }
     Renderer* getRenderer(const std::string &name) const
     {
-        if (rendererMap.find(name) == rendererMap.end())
+        if (rendererMap_.find(name) == rendererMap_.end())
             return nullptr;
         else
-            return rendererMap.at(name);
+            return rendererMap_.at(name);
     }
     void renderAll() const
     {
-        for (const auto &renderer: rendererMap)
+        for (const auto &renderer: rendererMap_)
             renderer.second->render();
     }
 

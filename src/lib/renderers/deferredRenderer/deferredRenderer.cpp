@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <GL/glew.h>
 #include <iostream>
-DeferredRenderer::DeferredRenderer(const int &width, const int &height):GEO_SHDR_NAME_("SHDR_GEO")
+DeferredRenderer::DeferredRenderer(const GLuint &width, const GLuint &height):GEO_SHDR_NAME_("SHDR_GEO")
 {
     width_ = width;
     height_ = height;
@@ -21,10 +21,6 @@ DeferredRenderer::DeferredRenderer(const int &width, const int &height):GEO_SHDR
     for (int i=0; i<TEXTURES::DEPTH; i++)
     {
         glBindTexture(GL_TEXTURE_2D, textures_[i]);
-        //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR );
-        //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-        //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP );
-        //glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP );
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGBA, GL_FLOAT, nullptr);
         glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0+i, GL_TEXTURE_2D, textures_[i], 0);
     }
@@ -79,6 +75,7 @@ void DeferredRenderer::renderGeometryPass() const
     }
 }
 
+
 void DeferredRenderer::renderLightPass() const
 {
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
@@ -125,5 +122,16 @@ DeferredRenderer::~DeferredRenderer()
     glDeleteTextures(TEXTURES::COUNT, textures_);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glDeleteFramebuffers(1, &FBO_);
+}
+void DeferredRenderer::resize(GLuint w, GLuint h)
+{
+    width_ = w; height_ = h;
+    for (int i=0; i<TEXTURES::DEPTH; i++)
+    {
+        glBindTexture(GL_TEXTURE_2D, textures_[i]);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width_, height_, 0, GL_RGBA, GL_FLOAT, nullptr);
+    }
+    glBindTexture(GL_TEXTURE_2D, textures_[TEXTURES::DEPTH]);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width_, height_, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
 }
 
