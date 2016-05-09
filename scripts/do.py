@@ -4,7 +4,8 @@ from time import sleep
 #console.importScene("./meshes/StartFile.dae");
 #console.importScene("./meshes/crytek.dae");
 #console.importScene("./assets/meshes/Su-35_SuperFlanker/su-35.dae");
-console.importScene("./assets/meshes/head/head.dae");
+#console.importScene("./assets/meshes/head/head.dae");
+console.importScene("./assets/meshes/teapotArray/teapotArray.dae");
 
 sleep(1.0)
 print eval(console.getRendererInfo())

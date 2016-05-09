@@ -177,7 +177,7 @@ void App::_glfw_window_size_callback (GLFWwindow* window, int width, int height)
     glfwGetFramebufferSize(pWindow, &windowWidth, &windowHeight);
     scene.updateProjMat(windowWidth, windowHeight);
     // Update deferred renderering size
-    ((DeferredRenderer*)scene.getRendererManager().getRenderer("DEF_MESH_R"))->resize(width, height);
+    ((DeferredRenderer*)scene.getRendererManager().getRenderer("DEF_MESH_R"))->resize(windowWidth, windowHeight);
 }
 void App::mouseButton(GLFWwindow* window, int button, int action, int mods)
 {

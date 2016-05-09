@@ -29,7 +29,7 @@ void Importer::import(std::string fileName, Object *parent)
 void Importer::importScene(aiNode *pNode, const aiScene* as)
 {
     //load meshes
-    for (auto i=0; i<pNode->mNumMeshes; i++)
+    for (int i=0; i<pNode->mNumMeshes; i++)
     {
         MeshNode *meshNode=nullptr;
         aiMesh *curMesh =as->mMeshes[pNode->mMeshes[i]];
@@ -96,7 +96,7 @@ void Importer::importScene(aiNode *pNode, const aiScene* as)
         {
             meshNode = new MeshNode();
             meshNode->init(curMesh->mNumFaces, curMesh->mNumVertices);
-            scene->renderers.assignObj2Renderer( meshNode, "FWD_MESH_R");
+            scene->renderers.assignObj2Renderer( meshNode, "DEF_MESH_R");
         }
         meshNode->setVertices((GLfloat*)(curMesh->mVertices));
         vector<float> tempUV;
