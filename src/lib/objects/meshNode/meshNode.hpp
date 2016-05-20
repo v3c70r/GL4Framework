@@ -40,6 +40,8 @@ protected:
     GLuint numOfFaces;
     GLuint numOfVertices;
     GLuint texture;
+    GLuint diffuseTexture;
+    GLuint specularTexture;
 public:
     MeshNode() {}
 

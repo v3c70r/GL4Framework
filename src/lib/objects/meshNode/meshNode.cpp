@@ -189,16 +189,9 @@ void MeshNode::loadSimpleOBJ(std::string objFile)
     delete []emptyCoord;
 }
 
-void MeshNode::loadTexture(const std::string &fileName)
+void MeshNode::loadTexture(const std::string &fileName )
 {
     //Life is a lil bit easier with stb_image
-    ////    unsigned char *data = stbi_load(filename, &x, &y, &n, 0);
-    ////    // ... process data if not NULL ...
-    ////    // ... x = width, y = height, n = # 8-bit components per pixel ...
-    ////    // ... replace '0' with '1'..'4' to force that many components per pixel
-    ////    // ... but 'n' will always be the number that it would have been if you said 0
-    ////    stbi_image_free(data)
-
     int x, y, n;
     unsigned char * img = nullptr;
     img = stbi_load(fileName.c_str(), &x, &y, &n, 4 /*RGBA*/) ;
@@ -229,59 +222,8 @@ void MeshNode::loadTexture(const std::string &fileName)
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     else
-        exit(-1);
+        LOG::writeLogErr("Failed to load texture from %s", fileName.c_str());
         //throw std::runtime_error("Falied to load image");
-    //=====Loading image with devil
-    //ILuint imageID;
-    //ilInit();
-    //ILboolean success;
-    //ILenum error;
-    //ilGenImages(1, &imageID);
-    //ilBindImage(imageID);
-    //std::cout<<"Loading texture: "<<fileName<<std::endl;
-    //success = ilLoadImage(fileName.c_str());
-    //if (success)
-    //{
-    //    ILinfo ImageInfo;
-    //    iluGetImageInfo(&ImageInfo);
-    //    // Convert the image into a suitable format to work with
-    //    // NOTE: If your image contains alpha channel you can replace IL_RGB with IL_RGBA
-    //    success = ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE);
-
-    //    // Quit out if we failed the conversion
-    //    if (!success)
-    //    {
-    //        error = ilGetError();
-    //        std::cout << "Image conversion failed - IL reports error: " << error << " - " << iluErrorString(error) << std::endl;
-    //        exit(-1);
-    //    }
-    //    glGenTextures(1, &texture);
-    //    glBindTexture(GL_TEXTURE_2D, texture);
-    //    // Set texture clamping method
-    //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-    //    // Set texture interpolation method to use linear interpolation (no MIPMAPS)
-    //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    //    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-    //    glTexImage2D(GL_TEXTURE_2D,
-    //            0,
-    //            ilGetInteger(IL_IMAGE_FORMAT),
-    //            ilGetInteger(IL_IMAGE_WIDTH),
-    //            ilGetInteger(IL_IMAGE_HEIGHT),
-    //            0,
-    //            ilGetInteger(IL_IMAGE_FORMAT),
-    //            GL_UNSIGNED_BYTE,
-    //            ilGetData());
-    //}
-    //else
-    //{
-    //    error=ilGetError();
-    //    std::cout<<"Unable to load image: IL error: "<<error<<std::endl;
-    //    exit(-1);
-    //}
-    //ilDeleteImages(1, &imageID);
 }
 
 void MeshNode::update()
@@ -323,9 +265,6 @@ void MeshNode::setMaterial(const aiMaterial *mat)
         matBuf.push_back(0.0);
         matBuf.push_back(0.0);
     }
-
-
-
     if (AI_SUCCESS == aiGetMaterialFloat(mat, AI_MATKEY_COLOR_AMBIENT, v3))
     {
         matBuf.push_back(v3[0]);
