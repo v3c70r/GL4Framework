@@ -17,7 +17,7 @@ DeferredRenderer::DeferredRenderer(const GLuint &width, const GLuint &height):GE
     // Gen textures
     glGenTextures(TEXTURES::COUNT, textures_);
 
-    //Init color textures
+    // Init color textures
     for (int i=0; i<TEXTURES::DEPTH; i++)
     {
         glBindTexture(GL_TEXTURE_2D, textures_[i]);
@@ -38,7 +38,7 @@ DeferredRenderer::DeferredRenderer(const GLuint &width, const GLuint &height):GE
         GL_COLOR_ATTACHMENT3 
     }; 
 
-    glDrawBuffers(TEXTURES::DEPTH, drawBuffers);    //TEXTURES::DEPTH = number of color texrtures
+    glDrawBuffers(TEXTURES::DEPTH, drawBuffers); //TEXTURES::DEPTH = number of color texrtures
 
     GLenum Status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
@@ -100,7 +100,8 @@ void DeferredRenderer::renderLightPass() const
 //            halfWidth, halfHeight, width, height, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 //
     //Final pass
-    glReadBuffer(GL_COLOR_ATTACHMENT3);
+    //glReadBuffer(GL_DEPTH_COMPONENT);
+    glReadBuffer(GL_COLOR_ATTACHMENT2);
     glBlitFramebuffer(0, 0, width_, height_,
             0, 0, width_, height_, GL_COLOR_BUFFER_BIT, GL_LINEAR); 
 
