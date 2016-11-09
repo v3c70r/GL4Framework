@@ -1,6 +1,6 @@
 #pragma once
 #include <GL/glew.h>
-#include <core/object.h>
+#include <objects/object.h>
 
 class GLFluid: public Object
 {

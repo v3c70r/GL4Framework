@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <iostream>
-#include "object.h"
+#include <objects/object.h>
 #include <vector>
 
 /*

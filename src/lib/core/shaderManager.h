@@ -1,5 +1,5 @@
 #pragma once
-#include "shader.hpp"
+#include <core/shader.hpp>
 #include <map>
 #include <string>
 #include <iostream>

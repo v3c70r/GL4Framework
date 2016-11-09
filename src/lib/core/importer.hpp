@@ -4,8 +4,8 @@
  * (Also a testing field for exceptions, and RAII)
  */
 #include <core/scene.h>
-#include <objects/meshNode/meshNode.hpp>
-#include <objects/defMeshNode/defMeshNode.hpp>
+#include <objects/meshNode.hpp>
+#include <objects/defMeshNode.hpp>
 #include <string>
 #include <exception>
 #include <iostream>

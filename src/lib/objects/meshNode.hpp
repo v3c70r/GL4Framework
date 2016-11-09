@@ -12,7 +12,7 @@
 #include <iostream>
 #include <IL/il.h>
 #include <IL/ilu.h>
-#include <core/object.h>
+#include <objects/object.h>
 #include <assimp/scene.h>
 #include <assimp/material.h>
 
@@ -40,6 +40,8 @@ protected:
     GLuint numOfFaces;
     GLuint numOfVertices;
     GLuint texture;
+    GLuint VAO;
+    GLuint *BUFFER;
 public:
     MeshNode() {}
 

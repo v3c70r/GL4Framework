@@ -1,4 +1,4 @@
-#include "defMeshNode.hpp"
+#include <objects/defMeshNode.hpp>
 /*
  * Overwriting init function to add init GPU location for bones
  */

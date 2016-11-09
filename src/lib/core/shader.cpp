@@ -1,5 +1,5 @@
-#include "log.hpp"
-#include "shader.hpp"
+#include <core/log.hpp>
+#include <core/shader.hpp>
 #include <iostream>
 using namespace LOG;
 bool Shader::parseFileToStr(

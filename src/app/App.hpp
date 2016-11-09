@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <core/light.hpp>
-#include <objects/meshNode/meshNode.hpp>
+#include <objects/meshNode.hpp>
 #include <core/scene.h>
 
 // Object requires CUDA

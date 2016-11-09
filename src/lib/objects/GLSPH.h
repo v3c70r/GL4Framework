@@ -1,4 +1,4 @@
-#include <core/object.h>
+#include <objects/object.h>
 
 class GLSPH: public Object
 {

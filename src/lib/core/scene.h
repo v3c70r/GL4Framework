@@ -2,11 +2,11 @@
 #include <vector>
 #include <string>
 #include <sstream>
-#include "object.h"
+#include <objects/object.h>
 
-#include <objects/meshNode/meshNode.hpp>
-#include "shader.hpp"
-#include "light.hpp"
+#include <objects/meshNode.hpp>
+#include <core/shader.hpp>
+#include <core/light.hpp>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>

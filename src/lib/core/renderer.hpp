@@ -2,7 +2,7 @@
  * Base class for renderer
  */
 #pragma once
-#include "object.h"
+#include <objects/object.h>
 #include <vector>
 #include <string>
 #include <sstream>

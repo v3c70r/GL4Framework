@@ -4,7 +4,7 @@
 #pragma once
 #include <OpenMesh/Core/IO/MeshIO.hh>
 #include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
-#include "object.h"
+#include <objects/object.h>
 
 //typedef OpenMesh::TriMesh_ArrayKernelT<> TriMesh;
 //

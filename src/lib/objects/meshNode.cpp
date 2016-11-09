@@ -1,4 +1,4 @@
-#include <objects/meshNode/meshNode.hpp>
+#include <objects/meshNode.hpp>
 #include <core/log.hpp>
 //#define STB_IMAGE_IMPLEMENTATION 1
 #include <stb/stb_image.h>
@@ -288,8 +288,8 @@ void MeshNode::update()
 {
     //set model matrix
     glBindBuffer(GL_UNIFORM_BUFFER, BUFFER[MESH_ATTR::OBJ_MATS]);
-    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(GLfloat)*16, &transMat[0][0]);
-    glBufferSubData(GL_UNIFORM_BUFFER, sizeof(GLfloat)*16, sizeof(GLfloat)*16, &(glm::inverse(transMat))[0][0]);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(GLfloat)*16, &transMat_[0][0]);
+    glBufferSubData(GL_UNIFORM_BUFFER, sizeof(GLfloat)*16, sizeof(GLfloat)*16, &(glm::inverse(transMat_))[0][0]);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 void MeshNode::draw()

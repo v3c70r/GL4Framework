@@ -1,6 +1,10 @@
 #aux_source_directory(compMesh SOURCES)
 #aux_source_directory(defMeshNode SOURCES)
-aux_source_directory(meshNode SOURCES)
+#aux_source_directory(meshNode SOURCES)
+set (SOURCES
+    meshNode.cpp
+    #defMeshNode.cpp
+    )
 #aux_source_directory(GLSPH SOURCES)
 
 

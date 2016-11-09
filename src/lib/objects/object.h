@@ -1,7 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <GL/glew.h>
-#include "shader.hpp"
+#include <core/shader.hpp>
 
 /*
  * This is the super class of all object in scene
@@ -10,39 +10,35 @@
 class Object
 {
 protected:
-    glm::mat4 transMat;   //transformation matrix
-    GLuint VAO;
-    GLuint *BUFFER;
-    Object *parent;
-    std::string name;
+    glm::mat4 transMat_;   //transformation matrix
+    Object *parent_;
+    std::string name_;
     /*
      * Get global transformation matrix by bottom up parsing the tree
      */
     glm::mat4x4 getGlobalTransMat()
     {
-        glm::mat4x4 res = transMat;
-        Object *p = this->parent;
+        glm::mat4x4 res = transMat_;
+        Object *p = this->parent_;
         while(p != nullptr)
         {
-            res = p->transMat * res;
-            p = p->parent;
+            res = p->transMat_ * res;
+            p = p->parent_;
         }
         return res;
     }
 public:
-    void setName(std::string n){name = n;}
-    std::string getName() const { return name;}
+    void setName(std::string n){name_ = n;}
+    std::string getName() const { return name_;}
     Object():
-        transMat(glm::mat4x4(1.0)),
-        VAO(0),
-        BUFFER(nullptr),
-        parent(nullptr), 
-        name("Sans nom")
+        transMat_(glm::mat4x4(1.0)),
+        parent_(nullptr), 
+        name_("Sans nom")
     {}
     virtual ~Object(){};
     virtual void draw()=0;
 
-    void setTransMat(const glm::mat4x4 &m){transMat = m;}
+    void setTransMat(const glm::mat4x4 &m){transMat_ = m;}
 
     /*
      * Bind Object UBOs to shader
@@ -56,6 +52,6 @@ public:
      * Including positions( model matrix), and physics
      */
     virtual void update()=0;       
-    void setParent(Object *obj){parent = obj;}
-    const glm::mat4& getLocalTransMat() const{return transMat;}
+    void setParent(Object *obj){parent_ = obj;}
+    const glm::mat4& getLocalTransMat() const{return transMat_;}
 };
