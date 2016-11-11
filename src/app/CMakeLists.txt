@@ -2,10 +2,6 @@ aux_source_directory(SOURCES  .)
 
 add_executable(gl4framework App.cpp main.cpp pyConsole.cpp)
 
-FOREACH(item ${OPENGL_LIBRARIES})
-    MESSAGE(STATUS ${item})
-ENDFOREACH(item)
-
 target_link_libraries(gl4framework 
     third 
     core 
