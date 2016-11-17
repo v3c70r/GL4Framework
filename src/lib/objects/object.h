@@ -16,9 +16,9 @@ protected:
     /*
      * Get global transformation matrix by bottom up parsing the tree
      */
-    glm::mat4x4 getGlobalTransMat()
+    glm::mat4 getGlobalTransMat()
     {
-        glm::mat4x4 res = transMat_;
+        glm::mat4 res = transMat_;
         Object *p = this->parent_;
         while(p != nullptr)
         {
@@ -30,15 +30,17 @@ protected:
 public:
     void setName(std::string n){name_ = n;}
     std::string getName() const { return name_;}
-    Object():
-        transMat_(glm::mat4x4(1.0)),
-        parent_(nullptr), 
-        name_("Sans nom")
-    {}
-    virtual ~Object(){};
-    virtual void draw()=0;
 
-    void setTransMat(const glm::mat4x4 &m){transMat_ = m;}
+    Object(glm::mat4 transMat = glm::mat4(1.0), Object* parent=nullptr, 
+            std::string name="Sans nome"):
+        transMat_(transMat), parent_(parent), name_(name)
+    {}
+
+    virtual ~Object(){};
+    virtual void draw(){}
+
+    // Set local transformation matrix
+    void setTransMat(const glm::mat4 &m){transMat_ = m;}
 
     /*
      * Bind Object UBOs to shader
@@ -51,7 +53,7 @@ public:
      * Object need to be update at every frame.
      * Including positions( model matrix), and physics
      */
-    virtual void update()=0;       
+    virtual void update(){}       
     void setParent(Object *obj){parent_ = obj;}
     const glm::mat4& getLocalTransMat() const{return transMat_;}
 };
