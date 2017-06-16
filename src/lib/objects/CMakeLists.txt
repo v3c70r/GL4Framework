@@ -11,7 +11,7 @@ IF (${CUDA_FOUND})
         "point/points.*"
         )
     message(STATUS ${CUDA_SOURCES})
-    list(APPEND CUDA_NVCC_FLAGS "-arch=sm_20;-std=c++11;-O2;-DVERBOSE")
+    #list(APPEND CUDA_NVCC_FLAGS "-arch=sm_20;-std=c++11;-O2;-DVERBOSE")
     message(STATUS "NVCC FLAGS ${CUDA_NVCC_FLAGS}")
     cuda_compile(POINTS_O points.cu )
     cuda_add_library(cuda_obj ${CUDA_SOURCES})
