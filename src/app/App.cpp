@@ -39,26 +39,13 @@ bool App::startGL()
     windowWidth=500;
     windowHeight = 500;
 
-    //glfwWindowHint(GLFW_RED_BITS, mode->redBits);
-    //glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
-    //glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
-    //glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-    //glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
-        
-
-    //pWindow = glfwCreateWindow( windowWidth,  windowHeight, "MySPH", glfwGetPrimaryMonitor(), nullptr);
     pWindow = glfwCreateWindow( windowWidth,  windowHeight, "MySPH", nullptr, nullptr);
-    //pWindow = glfwCreateWindow(640, 480, "", NULL, NULL);
-    //glfwSetWindowSize(pWindow, 2560, 1600);
-    //pWindow = glfwCreateWindow( windowWidth,  windowHeight, "MySPH", nullptr, nullptr);
     if (!pWindow) {
         fprintf (stderr, "ERROR: could not open window with GLFW3\n");
         glfwTerminate();
         return false;
     }
     glfwMakeContextCurrent (pWindow);
-    //glfwWindowHint (GLFW_SAMPLES, 4);
-    // start GLEW extension handler
     glewExperimental = GL_TRUE;
     glewInit ();
     // get version info
@@ -81,20 +68,6 @@ void App::init()
     glfwGetFramebufferSize(pWindow, &windowWidth, &windowHeight);
     scene.init(windowWidth, windowHeight);
 
-    /*--------------------Scene stuffs--------------------*/
-
-    //Importer importer(&scene);
-    //importer.import("./meshes/StartFile.dae");
-    //importer.import("./meshes/Su-35_SuperFlanker/su-35.dae");
-    //importer.import("./meshes/StartFile.dae");
-    //importer.import("./meshes/mine.dae");
-    //scene.addFluidSys("fluid_1");
-    //Points* fluidSys = dynamic_cast<Points*>(scene.getObject("fluid_1"));
-    //fluidSys->insertParsFromOBJ("./meshes/bunny.obj", 90.0, 1);
-    //fluidSys->insertParsFromOBJ("./meshes/bunny.obj", 10.0, 0);
-    //fluidSys->insertCUBE();
-    //scene.addFluidSys("fluid_1");
-    //
     Object* fluid = new Points();
     dynamic_cast<Points*>(fluid)->init();
     fluid->setName("fluid_1");
@@ -111,40 +84,15 @@ void App::init()
     scene.addObject(fluid);
     scene.getRendererManager().assignObj2Renderer(fluid, "TEMP_RENDERER");
 //dynamic_cast<Points*>(fluid)->insertParsFromOBJ("./meshes/bunny.obj", 90.0, 1);
+
     dynamic_cast<Points*>(fluid)->insertCUBEE();
     
-    
-    std::cout<<scene.getTreeView();
     glfwGetFramebufferSize(pWindow, &windowWidth, &windowHeight);
     scene.updateProjMat(windowWidth, windowHeight);
     /*--------Init lights-----------*/
     scene.getLightManager().addLight(glm::vec4(0.0, 0.0, 1.0, 0.0));
     scene.getLightManager().addLight(glm::vec4(0.0, 0.0, -1.0, 0.0));
     /*----------Init renderers-------*/
-    /*---------Forward Renderer-------*/
-    ForwardRenderer *fwRendererMesh = new ForwardRenderer;
-    Shader* shdr = scene.getShaderManager().addShader("./shaders/mesh_vs.glsl", "./shaders/mesh_fs.glsl", "deformMeshShader");
-    scene.getCamera()->bindToShader(shdr);
-    scene.getLightManager().bindToShader(shdr);
-    fwRendererMesh->setShader(shdr);
-    scene.getRendererManager().addRenderer(fwRendererMesh, "FW_STATIC_MESH_R");
-    /*-------Forward Renderer with LBS------*/
-    ForwardRenderer *fwRendererLBS = new ForwardRenderer;
-    shdr = scene.getShaderManager().addShader("./shaders/defMesh_vs.glsl", "./shaders/mesh_fs.glsl", "meshShader");
-    scene.getLightManager().bindToShader(shdr);
-    fwRendererLBS->setShader(shdr);
-    scene.getCamera()->bindToShader(shdr);
-    scene.getRendererManager().addRenderer(fwRendererLBS, "FW_LBS_MESH_R");
-
-    /*-------Deferred Renderer-----------*/
-    DeferredRenderer* dfRendererMesh = new DeferredRenderer(windowWidth, windowHeight);
-    shdr = scene.getShaderManager().addShader("./shaders/deferredGeo_vs.glsl", "./shaders/deferredGeo_fs.glsl", "deffered");
-    dfRendererMesh->setGeometryShader(shdr);
-    scene.getCamera()->bindToShader(shdr);
-    scene.getLightManager().bindToShader(shdr);
-    scene.getRendererManager().addRenderer(dfRendererMesh, "DF_MESH_R");
-
-
     /*-----------------------------register callbacks-----------------*/
     glfwSetWindowSizeCallback (pWindow, _glfw_window_size_callback);
     glfwSetMouseButtonCallback(pWindow, mouseButton);
@@ -191,13 +139,15 @@ void App::mouseMotion(GLFWwindow *window, double x, double y)
 }
 void App::keyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    //Points * p = (Points*)scene.getObject("fluid_1");
+    Points * p = (Points*)scene.getObject("fluid_1");
     if (action == GLFW_PRESS)
     {
         switch(key)
         {
-            //case GLFW_KEY_T:
-            //    p->insertCUBE(glm::vec3(7,0,0), glm::vec3(0,0,0));break;
+            case GLFW_KEY_F:
+                p->insertParsFromOBJ("assets/meshes/Su-35_SuperFlanker/Su-35_SuperFlanker.obj", 20, 1);break;
+            case GLFW_KEY_T:
+                p->insertCUBE(glm::vec3(7,0,0), glm::vec3(0,0,0));break;
             case GLFW_KEY_ESCAPE:   //exit
                 glfwSetWindowShouldClose(window, GL_TRUE);
                 break;

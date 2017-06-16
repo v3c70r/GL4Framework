@@ -16,7 +16,7 @@ void Points::init()
         glBindBuffer (GL_ARRAY_BUFFER, BUFFER[i]);
         glBufferData (GL_ARRAY_BUFFER, MAX_NUM_POINTS * sizeof(uint), tempUint, GL_DYNAMIC_DRAW);
     }
-    delete tempUint;
+    delete []tempUint;
 
     float *tempFloat = new float[MAX_NUM_POINTS*3];
     for (uint i=BUFFER_POSITIONS_PING; i<=BUFFER_NORMALS; i++)
@@ -24,7 +24,7 @@ void Points::init()
         glBindBuffer( GL_ARRAY_BUFFER, BUFFER[i]);
         glBufferData (GL_ARRAY_BUFFER, MAX_NUM_POINTS * sizeof(float) * 3, tempFloat, GL_DYNAMIC_DRAW);
     }
-    delete tempFloat;
+    delete []tempFloat;
     for (uint i=BUFFER_DENSITIES_PING; i<=BUFFER_FREEZEPOINT; i++)
     {
         glBindBuffer( GL_ARRAY_BUFFER, BUFFER[i]);
@@ -188,6 +188,9 @@ void Points::draw()
 
 void Points::loadTempText()     //load texture with il
 {
+
+    //TODO: load image with other tools
+    //
     ILuint imageID;				// Create an image ID as a ULuint
     ilInit();
     GLuint textureID;			// Create a texture ID as a GLuint
@@ -494,26 +497,26 @@ void Points::runKernels()
         ImGui::Text("Densities\t %f",elapsedTime);
 
         //Color grad
-        //cudaEventRecord(start, 0);
-        //    computeColorGradsGlobal<<<max((numPoints-1)/1024+1, 1), 1024>>>(
-        //            (float3*)dPointers[BUFFER_POSITIONS_PONG],
-        //            (float*)dPointers[BUFFER_DENSITIES_PONG],
-        //            (float3*)dPointers[BUFFER_COLORGRAD_PONG],
-        //            (float*)dPointers[BUFFER_TEMP_PONG],
-        //            (float*)dDensSum,
-        //            (uint*)dDensCount,
-        //            (uint*)dPointers[BUFFER_STATES_PONG],
-        //            (uint*)dPointers[BUFFER_CELLID_PONG],
-        //            grid.firstIdx,
-        //            grid.count,
-        //            numPoints
-        //            );
-        //    gpuErrchk( cudaPeekAtLastError() );
-        //    gpuErrchk( cudaDeviceSynchronize() );
-        //cudaEventRecord(stop, 0);
-        //cudaEventSynchronize(stop);
-        //cudaEventElapsedTime(&elapsedTime, start, stop);
-        //ImGui::Text("Color Grad\t %f",elapsedTime);
+        cudaEventRecord(start, 0);
+            computeColorGradsGlobal<<<max((numPoints-1)/1024+1, 1), 1024>>>(
+                    (float3*)dPointers[BUFFER_POSITIONS_PONG],
+                    (float*)dPointers[BUFFER_DENSITIES_PONG],
+                    (float3*)dPointers[BUFFER_COLORGRAD_PONG],
+                    (float*)dPointers[BUFFER_TEMP_PONG],
+                    (float*)dDensSum,
+                    (uint*)dDensCount,
+                    (uint*)dPointers[BUFFER_STATES_PONG],
+                    (uint*)dPointers[BUFFER_CELLID_PONG],
+                    grid.firstIdx,
+                    grid.count,
+                    numPoints
+                    );
+            gpuErrchk( cudaPeekAtLastError() );
+            gpuErrchk( cudaDeviceSynchronize() );
+        cudaEventRecord(stop, 0);
+        cudaEventSynchronize(stop);
+        cudaEventElapsedTime(&elapsedTime, start, stop);
+        ImGui::Text("Color Grad\t %f",elapsedTime);
 
 
 
@@ -628,8 +631,8 @@ void Points::insertCUBE(const glm::vec3 &center, const glm::vec3 &dir)
 {
     //init a grid or pars
     const uint X=20;
-    const uint Y=40;
-    const uint Z=40;
+    const uint Y=20;
+    const uint Z=20;
     float step = 10.0/16.0;
     GLfloat pos[X*Y*Z*3];
     GLfloat vals[X*Y*Z];
@@ -658,9 +661,9 @@ void Points::insertCUBE(const glm::vec3 &center, const glm::vec3 &dir)
 void Points::insertCUBEE()
 {
     //init a grid or pars
-    const uint X=64;
+    const uint X=20;
     const uint Y=4;
-    const uint Z=64;
+    const uint Z=20;
     float step = 10.0/16.0;
     GLfloat pos[X*Y*Z*3];
     GLfloat vals[X*Y*Z];
