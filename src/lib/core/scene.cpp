@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "camera/fpsCamera.h"
 
 /*
  * Init scene, 
@@ -10,18 +11,8 @@ void Scene::init(const GLint &wWidth, const GLint &wHeight)
 {
     //initialzie default shaders
     lights.init();
-    setCamera(CAMERA_ARCBALL, glm::vec3(0.0f, 0.0f, -15.0f), glm::mat4x4(1.0));
+    setCamera(glm::vec3(0.0f, 0.0f, -15.0f), glm::mat4x4(1.0));
     camera->init();
-
-
-    //Raytracer
-    //RayTracer* rayTracer = new RayTracer(wWidth, wHeight);
-    //shdr = shaders.addShader("./shaders/kernels/rayTracing.glsl", "RAY_TRACING");
-    //camera->bindToShader(shdr);
-    //rayTracer->setCompShader(shdr);
-    //renderers.addRenderer(rayTracer, "RayTracer");
-
-
 }
 
 void Scene::drawScene() const
@@ -50,17 +41,9 @@ void Scene::addMeshes(std::string fileName, Object* parent)
 
 
 
-void Scene::setCamera(unsigned int type, glm::vec3 transVec, glm::mat4 rotMat)
+void Scene::setCamera(glm::vec3 transVec, glm::mat4 rotMat)
 {
-    switch (type)
-    {
-        case CAMERA_ARCBALL:
-            camera = new Arcball();
-            break;
-        default:
-            camera = new Arcball();
-            break;
-    }
+    camera = new FpsCamera();
     camera->addRotation(rotMat);
     camera->addTranslation(transVec);
 }

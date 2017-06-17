@@ -162,6 +162,7 @@ class Points: public Object
     //stupid functions
     void insertParsFromOBJ(std::string fileName, float temperature = 30.0, GLuint state=0);
     void insertCUBE(const glm::vec3&, const glm::vec3&);
+    void insertOne(const glm::vec3& origin, const glm::vec3 &velocity, float temperature = 80);
     void insertCUBEE();
     void insertBar();
     void insertBowl(const glm::vec3&, const glm::vec3&);

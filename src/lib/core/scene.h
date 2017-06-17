@@ -17,7 +17,6 @@
 #include "rendererManager.h"
 #include <renderers/deferredRenderer/deferredRenderer.hpp>
 #include <renderers/rayTracer/rayTracer.h>
-//#include <objects/point/points.cuh>
 #include <renderers/pointRenderer/pointRenderTem.hpp>
 
 /*
@@ -51,7 +50,7 @@ public:
     void drawScene() const ;
     void addObject(Object *pObj){objectPointers.push_back(pObj);}
     //set camera
-    void setCamera(unsigned int type=CAMERA_ARCBALL, glm::vec3 transVec = glm::vec3(1.0), glm::mat4 rotMat = glm::mat4(1.0) );
+    void setCamera(glm::vec3 transVec = glm::vec3(1.0), glm::mat4 rotMat = glm::mat4(1.0) );
     ~Scene() {
         for (const auto& elem: objectPointers)
             delete elem;

@@ -27,7 +27,7 @@ void Camera::addTranslation(const glm::vec3 &t)
 
 glm::mat4 Camera::getViewMat() const
 {
-    return translationMat * rotationMat ; 
+    return rotationMat * translationMat ; 
 }
 void Camera::setTranslationMat(const glm::mat4 &t)
 {
@@ -54,8 +54,8 @@ void Camera::updateProjectionMat(int w, int h)
 void Camera::updateViewMat()
 {
     glBindBuffer(GL_UNIFORM_BUFFER, UBO);
-    glBufferSubData(GL_UNIFORM_BUFFER, VIEW_MAT_OFFSET, MAT_SIZE, &(translationMat*rotationMat)[0][0]);
-    glBufferSubData(GL_UNIFORM_BUFFER, VIEW_MAT_INV_OFFSET, MAT_SIZE, &(glm::inverse(translationMat*rotationMat))[0][0]);
+    glBufferSubData(GL_UNIFORM_BUFFER, VIEW_MAT_OFFSET, MAT_SIZE, &(rotationMat*translationMat)[0][0]);
+    glBufferSubData(GL_UNIFORM_BUFFER, VIEW_MAT_INV_OFFSET, MAT_SIZE, &(glm::inverse(rotationMat*translationMat))[0][0]);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 

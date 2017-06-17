@@ -11,7 +11,6 @@ __device__ const float PI = 3.141592653;
 __device__ const float MU = 10.0;
 __device__ const float DT = 0.00096;
 //__device__ const float SIGMA = 0.0005;
-__device__ const float GAMMA = 50000.0;
 __device__ const float CONDUCTIVITY = 0.15;
 __device__ const float REST_DENSITY = 1.001225;
 __device__ const float GAS_CONST = 998888.0144621;
@@ -503,25 +502,6 @@ calculateForcesGlobal(  // calculate forces without shared memory
                 viscosity = viscosity +
                             MU * MASS * (nVelo - curVelo) / nDens *
                                 kernelViscosityLap(curPos, nPos, 1.8);
-
-                // surface tension model 1
-                {
-                    // Surface tension
-                    // float3 cohesionF = -GAMMA *MASS*MASS*
-                    // surfaceTensionCoef(curPos, nPos,
-                    // 1.8)*(curPos-nPos)/norm(curPos-nPos);
-
-                    // cohesionF = make_float3(0.0, 0.0, 0.0);
-                    // float3 curvatureF = -GAMMA/1000*MASS*(curCG-nCG);
-                    // curvatureF = make_float3(0.0, 0.0, 0.0);
-
-                    // surfaceTensionF = surfaceTensionF +
-                    // 2*REST_DENSITY/(curDens+nDens)*(cohesionF);
-                }
-
-                // surface tension model 2
-                {
-                }
             }
         }
 
@@ -533,26 +513,26 @@ calculateForcesGlobal(  // calculate forces without shared memory
 
         float cubeSize = 14.5;
         const float COEF = 0.7;
-        if (newPos.x > cubeSize) {
-            newVelo.x *= -COEF;
-            newPos.x = cubeSize;
-        }
-        if (newPos.x < -cubeSize) {
-            newVelo.x *= -COEF;
-            newPos.x = -cubeSize;
-        }
-        if (newPos.y > cubeSize) {
-            newVelo.y *= -COEF;
-            newPos.y = cubeSize;
-        }
-        if (newPos.z > cubeSize) {
-            newVelo.z *= -COEF;
-            newPos.z = cubeSize;
-        }
-        if (newPos.z < -cubeSize) {
-            newVelo.z *= -COEF;
-            newPos.z = -cubeSize;
-        }
+        //if (newPos.x > cubeSize) {
+        //    newVelo.x *= -COEF;
+        //    newPos.x = cubeSize;
+        //}
+        //if (newPos.x < -cubeSize) {
+        //    newVelo.x *= -COEF;
+        //    newPos.x = -cubeSize;
+        //}
+        //if (newPos.y > cubeSize) {
+        //    newVelo.y *= -COEF;
+        //    newPos.y = cubeSize;
+        //}
+        //if (newPos.z > cubeSize) {
+        //    newVelo.z *= -COEF;
+        //    newPos.z = cubeSize;
+        //}
+        //if (newPos.z < -cubeSize) {
+        //    newVelo.z *= -COEF;
+        //    newPos.z = -cubeSize;
+        //}
         if (newPos.y < -cubeSize) {
             newVelo.y *= -COEF;
             newPos.y = -cubeSize;

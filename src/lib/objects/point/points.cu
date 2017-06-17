@@ -664,7 +664,7 @@ void Points::insertCUBEE()
     const uint X=20;
     const uint Y=4;
     const uint Z=20;
-    float step = 10.0/16.0;
+    float step = 10.0/26.0;
     GLfloat pos[X*Y*Z*3];
     GLfloat vals[X*Y*Z];
     GLuint states[X*Y*Z];
@@ -687,6 +687,11 @@ void Points::insertCUBEE()
         velos[3*i+2] = 0.0;
     }
     addPars(pos, vals,velos, X*Y*Z, states);
+}
+
+void Points::insertOne(const glm::vec3& origin, const glm::vec3 &velocity, float temperature)
+{
+    addPars(&origin[0], &temperature, &velocity[0], 1, 0);
 }
 
 void Points::insertBar()
