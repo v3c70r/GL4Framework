@@ -39,8 +39,7 @@ IF (${CUDA_FOUND})
 ENDIF (${CUDA_FOUND})
 
 
-
-set(CMAKE_CXX_FLAGS "--std=c++11 -g -Wall")
+set(CMAKE_CXX_FLAGS "--std=c++14 -g -Wall")
 
 #Setting up include libraries
 
@@ -57,6 +56,7 @@ add_subdirectory(./src/third_party)
 add_subdirectory(./src/lib/camera)
 add_subdirectory(./src/lib/objects)
 add_subdirectory(./src/lib/renderers)
+add_subdirectory(./src/lib/console)
 
 
 add_subdirectory(./src/app)

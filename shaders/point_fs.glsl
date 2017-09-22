@@ -31,7 +31,5 @@ vec4 circle(vec4 color)
     return  color;
 }
 void main() {
-    
-    //clamp(VertexIn.val/10, 0.0, 1.0);
     color = circle((vec4(1.0, 0.0, 0.0, 1.0)));
 }

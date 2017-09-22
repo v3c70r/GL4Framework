@@ -85,12 +85,8 @@ void App::init()
 
     scene.addObject(fluid);
     scene.getRendererManager().assignObj2Renderer(fluid, "TEMP_RENDERER");
-    // dynamic_cast<Points*>(fluid)->insertParsFromOBJ("./meshes/bunny.obj",
-    // 90.0, 1);
-
-    dynamic_cast<Points*>(fluid)->insertCUBEE();
-    dynamic_cast<Points*>(fluid)->insertOne(glm::vec3(0.0), glm::vec3(0.0), 0);
-
+    dynamic_cast<Points*>(fluid)->insertParsFromOBJ("tyra.obj", 10.0,
+                                                    0);
 
     glfwGetFramebufferSize(pWindow, &windowWidth, &windowHeight);
     scene.updateProjMat(windowWidth, windowHeight);

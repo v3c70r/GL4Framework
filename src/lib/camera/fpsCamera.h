@@ -47,14 +47,17 @@ public:
         setRotationMat(rotate);
         setTranslationMat(translate);
     }
-    glm::vec3 getCameraPosition() const { return eyeVector_ - glm::vec3(0.0, 2.0, 0.0); }
+    glm::vec3 getCameraPosition() const
+    {
+        return eyeVector_ - glm::vec3(0.0, 2.0, 0.0);
+    }
     glm::vec3 getLookAtDir() const
     {
         glm::mat4 cameraMatrix = getViewMat();
         glm::vec3 forward(cameraMatrix[0][2], cameraMatrix[1][2],
                           cameraMatrix[2][2]);
-        //glm::vec3 strafe(cameraMatrix[0][0], cameraMatrix[1][0],
-                         //cameraMatrix[2][0]);
+        // glm::vec3 strafe(cameraMatrix[0][0], cameraMatrix[1][0],
+        // cameraMatrix[2][0]);
         return glm::normalize((forward));
     }
 };

@@ -69,6 +69,11 @@ struct Grid
 };
 
 
+// Define partical states
+const GLuint LIQUID=0;
+const GLuint SOLID=1;
+// Controlled actors can be assinged with different ids
+const GLuint CONTROLLED_0=2;
 
 class Points: public Object
 {

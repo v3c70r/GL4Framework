@@ -1,33 +1,30 @@
 /*
- * Renderer manager which manage renders
  */
 #pragma once
 #include "renderer.hpp"
-#include <map>
+#include <unordered_map>
 #include <string>
 class RendererManager
 {
-    std::map<std::string, Renderer*> rendererMap;
+    std::unordered_map<std::string, Renderer*> rendererMap_;
 public:
     void addRenderer(Renderer* r, const std::string &name);
     ~RendererManager()
     {
-        for (std::map<std::string, Renderer*>::iterator it=rendererMap.begin();
-                it!=rendererMap.end(); it++)
-            delete it->second;
+        for (const auto& renderer: rendererMap_)
+            delete renderer.second;
     }
     Renderer* getRenderer(const std::string &name) const
     {
-        if (rendererMap.find(name) == rendererMap.end())
+        if (rendererMap_.find(name) == rendererMap_.end())
             return nullptr;
         else
-            return rendererMap.at(name);
+            return rendererMap_.at(name);
     }
     void renderAll() const
     {
-        for (std::map<std::string, Renderer*>::const_iterator it=rendererMap.begin();
-                it!=rendererMap.end(); it++)
-            it->second->render();
+        for (const auto& renderer: rendererMap_)
+            renderer.second->render();
     }
 
     /** assign an object to renderer*/
