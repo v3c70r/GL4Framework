@@ -1,4 +1,5 @@
 #include "App.hpp"
+#include <core/imgui_impl_glfw_gl3.h>
 #include "camera/fpsCamera.h"
 
 using namespace LOG;
@@ -45,6 +46,7 @@ bool App::startGL()
         glfwTerminate();
         return false;
     }
+    ImGui_ImplGlfwGL3_Init(pWindow, true);
     glfwMakeContextCurrent(pWindow);
     glewExperimental = GL_TRUE;
     glewInit();
@@ -62,7 +64,6 @@ void App::init()
     std::cout << "Init APP\n";
     assert(restartLog());
     assert(startGL());
-    InitImGui(windowWidth, windowHeight);
 
     int windowWidth, windowHeight;
     glfwGetFramebufferSize(pWindow, &windowWidth, &windowHeight);
@@ -172,7 +173,7 @@ void App::run()
         std::string("Sony Computer Entertainment Wireless Controller"));
     while (!glfwWindowShouldClose(pWindow)) {
         PyConsole::getInstance().callFunctions();
-        UpdateImGui(pWindow);
+        ImGui_ImplGlfwGL3_NewFrame();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glfwGetFramebufferSize(pWindow, &width, &height);
         glViewport(0, 0, width, height);
@@ -249,4 +250,8 @@ void App::handleJoystick(int joystick)
     c->update();
 }
 
-void App::deactivate() { glfwTerminate(); }
+void App::deactivate()
+{
+    ImGui_ImplGlfwGL3_Shutdown();
+    glfwTerminate();
+}

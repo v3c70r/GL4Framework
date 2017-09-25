@@ -2,7 +2,8 @@
 
 #include <camera/arcball/arcball.h>
 #include <core/scene.h>
-#include <core/ImguiConfig.hpp>
+#include <imgui/imgui.h>
+#include <core/imgui_impl_glfw_gl3.h>
 #include <core/importer.hpp>
 #include <core/light.hpp>
 #include <core/log.hpp>

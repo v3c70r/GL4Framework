@@ -1,6 +1,6 @@
 #include <objects/point/points.cuh>
 #include <objects/point/kernels.cu>
-#include <core/ImguiConfig.hpp>
+#include <imgui/imgui.h>
 
 void Points::init()
 {
