@@ -7,7 +7,6 @@
 #include <imgui/imgui.h>
 namespace console {
 
-int LuaError(lua_State* L);
 int LuaPrint(lua_State* L);
 
 //! RAII wrapper of lua_state
@@ -58,7 +57,6 @@ private:
         clearLog_();
         inputBuffer_.fill(0);
         historyPos_ = -1;
-        state_.registerFunc(" ALERT", LuaError);
         state_.registerFunc("print", LuaPrint);
         addLog_("Started");
     }

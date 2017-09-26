@@ -2,17 +2,6 @@
 #include <iostream>
 #include <sstream>
 namespace console {
-int LuaError(lua_State* L)
-{
-    const char* str = lua_tostring(L, -1);
-    lua_pop(L, 1);
-    // send string wherever in my case the console
-    std::cout<<"alert\n";
-    std::cout<<str;
-    LuaConsole::getInstance().putStr(std::string(str));
-    return 0;
-}
-
 int LuaPrint(lua_State *L)
 {
     lua_pop(L, 1);
