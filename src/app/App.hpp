@@ -14,6 +14,7 @@
 #include <objects/meshNode/meshNode.hpp>
 #include <objects/point/points.cuh>
 #include "pyConsole.h"
+#include "console/LuaConsole.h"
 
 extern const unsigned int CAMERA_ARCBALL;
 
@@ -27,6 +28,7 @@ public:
 
 private:
     static Scene scene;
+    static console::LuaConsole& luaConsole;
 
     static bool startGL();
     static void setupLight();

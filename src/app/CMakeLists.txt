@@ -14,6 +14,7 @@ target_link_libraries(gl4framework
     camera 
     pthread 
     python2.7
+    console
     ${OPENGL_LIBRARIES}
     )
 

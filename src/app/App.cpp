@@ -1,5 +1,5 @@
 #include "App.hpp"
-#include <core/imgui_impl_glfw_gl3.h>
+#include "core/imgui_impl_glfw_gl3.h"
 #include "camera/fpsCamera.h"
 
 using namespace LOG;
@@ -9,6 +9,7 @@ int App::windowWidth = 1920;
 int App::windowHeight = 1080;
 Scene App::scene;
 int App::_joystick = -1;
+console::LuaConsole& App::luaConsole = console::LuaConsole::getInstance();
 
 App::App() {}
 void App::_glfwErrHandler(int error, const char* description)
@@ -98,8 +99,8 @@ void App::init()
     /*-----------------------------register callbacks-----------------*/
     glfwSetWindowSizeCallback(pWindow, _glfw_window_size_callback);
     glfwSetMouseButtonCallback(pWindow, mouseButton);
-    glfwSetCursorPosCallback(pWindow, mouseMotion);
-    glfwSetKeyCallback(pWindow, keyCallBack);
+    //glfwSetCursorPosCallback(pWindow, mouseMotion);
+    //glfwSetKeyCallback(pWindow, keyCallBack);
     glfwSetScrollCallback(pWindow, scrollCallback);
 
     PyConsole& console = PyConsole::getInstance();
@@ -179,9 +180,9 @@ void App::run()
         glViewport(0, 0, width, height);
 
         ImGui::Text("Frambuffer size %d, %d", width, height);
-        ImGui::Text("Connected joystick %d: %s", _joystick,
-                    glfwGetJoystickName(_joystick));
-        handleJoystick(_joystick);
+        //ImGui::Text("Connected joystick %d: %s", _joystick,
+        //            glfwGetJoystickName(_joystick));
+        //handleJoystick(_joystick);
 
         // Calculate and show frame rate
         static float ms_per_frame[120] = {0};
@@ -194,6 +195,8 @@ void App::run()
         const float ms_per_frame_avg = ms_per_frame_accum / 120;
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
                     ms_per_frame_avg, 1000.0f / ms_per_frame_avg);
+
+        luaConsole.draw();
 
         scene.drawScene();
         // Render GUI

@@ -28,6 +28,12 @@ public:
     {
         return luaL_dostring(state_, str.c_str());
     }
+    std::string getError()
+    {
+        const char* str = lua_tostring(state_, -1);
+        lua_pop(state_, 1);
+        return std::string(str);
+    }
 
 private:
     lua_State* state_;
@@ -44,6 +50,7 @@ public:
     void operator=(LuaConsole const&) = delete;
     void putStr(const std::string& str);
     void executeCmd(const std::string& cmd);
+    void draw();
 
 private:
     LuaConsole()
@@ -51,7 +58,7 @@ private:
         clearLog_();
         inputBuffer_.fill(0);
         historyPos_ = -1;
-        state_.registerFunc("ALERT", LuaError);
+        state_.registerFunc(" ALERT", LuaError);
         state_.registerFunc("print", LuaPrint);
         addLog_("Started");
     }
@@ -60,16 +67,15 @@ private:
         clearLog_();
     }
     LuaState state_;
-    // UI parameters, TODO: use C++
     std::array<char, 256> inputBuffer_;
     std::vector<std::string> items_;
     bool scrollToBottom_;
     std::vector<std::string> history_;   //!< -1: new line, 0..History.Size-1 browsing history.
     int historyPos_;
     ImVector<const char*> commands_;
+    int TextEditCallback(ImGuiTextEditCallbackData* data);
 
     void clearLog_();
     void addLog_(std::string);
-    void draw();
 };
 }  // namespace console

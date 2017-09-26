@@ -1,6 +1,6 @@
 #include <objects/meshNode/meshNode.hpp>
 #include <core/log.hpp>
-//#define STB_IMAGE_IMPLEMENTATION 1
+#define STB_IMAGE_IMPLEMENTATION 1
 #include <stb/stb_image.h>
 
 void MeshNode::init(GLuint nFaces, GLuint nVertices){
